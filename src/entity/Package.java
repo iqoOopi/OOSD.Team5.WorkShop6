@@ -6,7 +6,7 @@
  * Description: This class is part of the Workshop 6 Travel Experts GUI project.
  * The Package class is a data entity to store travel package information.
  ******************************************************************************************/
-package sample;
+package entity;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
