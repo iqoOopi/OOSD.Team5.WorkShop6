@@ -10,35 +10,38 @@ package entity;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
-public class Package {
+ public class Package {
 
     // properties declaration
     private SimpleIntegerProperty PackageId;
     private SimpleStringProperty PkgName;
-    private SimpleDateFormat PkgStartDate;
-    private SimpleDateFormat PkgEndDate;
+    private SimpleObjectProperty<LocalDate> PkgStartDate;
+    private SimpleObjectProperty<LocalDate> PkgEndDate;
     private SimpleStringProperty PkgDesc;
     private SimpleDoubleProperty PkgBaseprice;
     private SimpleIntegerProperty PkgAgencyCommission;
 
 
     // constructor
-    public Package(SimpleIntegerProperty packageId, SimpleStringProperty pkgName,
-                   SimpleDateFormat pkgStartDate, SimpleDateFormat pkgEndDate,
-                   SimpleStringProperty pkgDesc, SimpleDoubleProperty pkgBaseprice,
-                   SimpleIntegerProperty pkgAgencyCommission) {
+    public Package(int packageId, String pkgName,
+                   LocalDate pkgStartDate, LocalDate pkgEndDate,
+                   String pkgDesc, Double pkgBaseprice,
+                   int pkgAgencyCommission) {
 
-        PackageId = packageId;
-        PkgName = pkgName;
-        PkgStartDate = pkgStartDate;
-        PkgEndDate = pkgEndDate;
-        PkgDesc = pkgDesc;
-        PkgBaseprice = pkgBaseprice;
-        PkgAgencyCommission = pkgAgencyCommission;
+        PackageId = new SimpleIntegerProperty(packageId);
+        PkgName = new SimpleStringProperty(pkgName);
+        PkgStartDate = new SimpleObjectProperty<LocalDate>(pkgStartDate);
+        PkgEndDate = new SimpleObjectProperty<LocalDate>(pkgEndDate);
+        PkgDesc = new SimpleStringProperty(pkgDesc);
+        PkgBaseprice = new SimpleDoubleProperty(pkgBaseprice);
+        PkgAgencyCommission = new SimpleIntegerProperty(pkgAgencyCommission);
 
     }
 
@@ -67,19 +70,19 @@ public class Package {
         this.PkgName.set(pkgName);
     }
 
-    public SimpleDateFormat getPkgStartDate() {
+    public SimpleObjectProperty<LocalDate> getPkgStartDate() {
         return PkgStartDate;
     }
 
-    public void setPkgStartDate(SimpleDateFormat pkgStartDate) {
+    public void setPkgStartDate(SimpleObjectProperty<LocalDate> pkgStartDate) {
         PkgStartDate = pkgStartDate;
     }
 
-    public SimpleDateFormat getPkgEndDate() {
+    public SimpleObjectProperty<LocalDate> getPkgEndDate() {
         return PkgEndDate;
     }
 
-    public void setPkgEndDate(SimpleDateFormat pkgEndDate) {
+    public void setPkgEndDate(SimpleObjectProperty<LocalDate> pkgEndDate) {
         PkgEndDate = pkgEndDate;
     }
 
