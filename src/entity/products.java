@@ -1,3 +1,4 @@
+
 package entity;
 
 import javafx.beans.property.SimpleIntegerProperty;

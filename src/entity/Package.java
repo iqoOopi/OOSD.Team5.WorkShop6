@@ -13,9 +13,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
  public class Package {
 
@@ -25,23 +25,23 @@ import java.util.Date;
     private SimpleObjectProperty<LocalDate> PkgStartDate;
     private SimpleObjectProperty<LocalDate> PkgEndDate;
     private SimpleStringProperty PkgDesc;
-    private SimpleDoubleProperty PkgBaseprice;
-    private SimpleIntegerProperty PkgAgencyCommission;
+    private SimpleDoubleProperty PkgBasePrice;
+    private SimpleDoubleProperty PkgAgencyCommission;
 
 
     // constructor
     public Package(int packageId, String pkgName,
                    LocalDate pkgStartDate, LocalDate pkgEndDate,
-                   String pkgDesc, Double pkgBaseprice,
-                   int pkgAgencyCommission) {
+                   String pkgDesc, double pkgBasePrice,
+                   double pkgAgencyCommission) {
 
         PackageId = new SimpleIntegerProperty(packageId);
         PkgName = new SimpleStringProperty(pkgName);
         PkgStartDate = new SimpleObjectProperty<LocalDate>(pkgStartDate);
         PkgEndDate = new SimpleObjectProperty<LocalDate>(pkgEndDate);
         PkgDesc = new SimpleStringProperty(pkgDesc);
-        PkgBaseprice = new SimpleDoubleProperty(pkgBaseprice);
-        PkgAgencyCommission = new SimpleIntegerProperty(pkgAgencyCommission);
+        PkgBasePrice = new SimpleDoubleProperty(pkgBasePrice);
+        PkgAgencyCommission = new SimpleDoubleProperty(pkgAgencyCommission);
 
     }
 
@@ -70,7 +70,15 @@ import java.util.Date;
         this.PkgName.set(pkgName);
     }
 
-    public SimpleObjectProperty<LocalDate> getPkgStartDate() {
+     public LocalDate getPkgStartDate() {
+         return PkgStartDate.get();
+     }
+
+     public SimpleObjectProperty<LocalDate> pkgStartDateProperty() {
+         return PkgStartDate;
+     }
+
+     public SimpleObjectProperty<LocalDate> pkgStartDate() {
         return PkgStartDate;
     }
 
@@ -78,13 +86,18 @@ import java.util.Date;
         PkgStartDate = pkgStartDate;
     }
 
-    public SimpleObjectProperty<LocalDate> getPkgEndDate() {
+     public LocalDate getPkgEndDate() {
+         return PkgEndDate.get();
+     }
+
+     public SimpleObjectProperty<LocalDate> pkgEndDateProperty() {
         return PkgEndDate;
     }
 
     public void setPkgEndDate(SimpleObjectProperty<LocalDate> pkgEndDate) {
         PkgEndDate = pkgEndDate;
     }
+
 
     public String getPkgDesc() {
         return PkgDesc.get();
@@ -98,27 +111,27 @@ import java.util.Date;
         this.PkgDesc.set(pkgDesc);
     }
 
-    public double getPkgBaseprice() {
-        return PkgBaseprice.get();
+    public double getPkgBasePrice() {
+        return PkgBasePrice.get();
     }
 
-    public SimpleDoubleProperty pkgBasepriceProperty() {
-        return PkgBaseprice;
+    public SimpleDoubleProperty pkgBasePriceProperty() {
+        return PkgBasePrice;
     }
 
-    public void setPkgBaseprice(double pkgBaseprice) {
-        this.PkgBaseprice.set(pkgBaseprice);
+    public void setPkgBasePrice(double pkgBasePrice) {
+        this.PkgBasePrice.set(pkgBasePrice);
     }
 
-    public int getPkgAgencyCommission() {
+    public double getPkgAgencyCommission() {
         return PkgAgencyCommission.get();
     }
 
-    public SimpleIntegerProperty pkgAgencyCommissionProperty() {
+    public SimpleDoubleProperty pkgAgencyCommissionProperty() {
         return PkgAgencyCommission;
     }
 
-    public void setPkgAgencyCommission(int pkgAgencyCommission) {
+    public void setPkgAgencyCommission(double pkgAgencyCommission) {
         this.PkgAgencyCommission.set(pkgAgencyCommission);
     }
 
@@ -127,7 +140,7 @@ import java.util.Date;
     public String toString() {
         return "Package{" +
                 "PkgName=" + PkgName +
-                ", PkgBaseprice=" + PkgBaseprice +
+                ", PkgBaseprice=" + PkgBasePrice +
                 '}';
     }
 }
