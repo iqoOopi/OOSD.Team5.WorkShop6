@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackageController">
+   <center>
+      <TableView fx:id="tvPackages" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="colPackageId" prefWidth="66.0" text="Package Id" />
+          <TableColumn fx:id="colPkgName" prefWidth="94.0" text="Package Name" />
+            <TableColumn fx:id="colStartDate" minWidth="0.0" prefWidth="68.0" text="Start Date" />
+            <TableColumn fx:id="colEndDate" minWidth="0.0" prefWidth="65.0" text="End Date" />
+            <TableColumn fx:id="colDescription" minWidth="0.0" prefWidth="222.0" text="Description" />
+            <TableColumn fx:id="colBasePrice" minWidth="6.0" prefWidth="66.0" text="Base Price" />
+            <TableColumn fx:id="colCommission" prefWidth="119.0" text="Agency Commission" />
+        </columns>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </TableView>
+   </center>
+   <top>
+      <HBox prefHeight="18.0" prefWidth="600.0" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <MenuBar fx:id="mnuBar">
+              <menus>
+                <Menu fx:id="mnuFile" mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem id="mnuMain" fx:id="mnuMain" mnemonicParsing="false" text="Main" />
+                    <MenuItem id="mnuExit" fx:id="mnuExit" mnemonicParsing="false" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu fx:id="mnuEdit" mnemonicParsing="false" text="Edit">
+                  <items>
+                        <MenuItem id="mnuSave" fx:id="mnuSave" mnemonicParsing="false" text="Save" />
+                    <MenuItem id="mnuDelete" fx:id="mnuDelete" mnemonicParsing="false" text="Delete" />
+                        <MenuItem fx:id="mnuUpdate" mnemonicParsing="false" text="Update" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Label text="Scene Under Construction" textFill="#d70808">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children></HBox>
+   </top>
+   <bottom>
+      <HBox maxWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane minHeight="-Infinity" prefHeight="300.0" prefWidth="600.0">
+               <center>
+                  <GridPane fx:id="gpPackages" minWidth="-Infinity" prefHeight="290.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="173.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <BorderPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </BorderPane.margin>
+                     <children>
+                        <Label text="Package Id:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Package Name:" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Package Start Date:" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Package End Date:" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Description:" GridPane.rowIndex="4">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Base Price:" GridPane.rowIndex="5">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Agency Commission:" GridPane.rowIndex="6">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfPackageId" prefHeight="0.0" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="tfPackageName" maxHeight="-Infinity" prefWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="tfDescription" prefHeight="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="tfBasePrice" prefHeight="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <TextField fx:id="tfAgencyCommission" prefHeight="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin></TextField>
+                        <DatePicker fx:id="dpStartDate" prefHeight="25.0" prefWidth="375.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </DatePicker>
+                        <DatePicker fx:id="dpEndDate" prefHeight="25.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </DatePicker>
+                     </children>
+                  </GridPane>
+               </center>
+            </BorderPane>
+         </children></HBox>
+   </bottom>
+   <left>
+      <VBox alignment="CENTER" prefHeight="405.0" prefWidth="38.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <VBox minHeight="-Infinity" prefHeight="845.0" prefWidth="41.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
