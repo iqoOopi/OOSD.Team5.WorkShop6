@@ -1,11 +1,12 @@
-/******************************************************************************************
+/*
+ **********************************************************************************************
  * Course: CMPP 264 Java Programming for OOSD
  * Purpose: Day 6 Assignment
  * Date: May 16, 2019.
  * Author: Tim Leslie
  * Description: This Validation class contains a static method which establishes a connection
  * to the TravelExperts database.
- *******************************************************************************************/
+ **********************************************************************************************/
 package entity;
 
 public class Validation {
