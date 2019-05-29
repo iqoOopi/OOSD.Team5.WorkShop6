@@ -25,8 +25,8 @@ public class Main extends Application {
         Controller.passStage(primaryStage);
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setTitle("Travel Experts Database Management");
+        primaryStage.setScene(new Scene(root, 1200, 700));
         primaryStage.show();
         /*FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("../view/package.fxml"));
