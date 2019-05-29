@@ -1,4 +1,5 @@
- /******************************************************************************************
+ /*
+ *******************************************************************************************
  * Course: CMPP 264 Java Programming for OOSD
  * Purpose: Workshop 6 Team 4
  * Date: May 10, 2019.
@@ -37,8 +38,9 @@ import java.time.LocalDate;
 
         PackageId = new SimpleIntegerProperty(packageId);
         PkgName = new SimpleStringProperty(pkgName);
-        PkgStartDate = new SimpleObjectProperty<LocalDate>(pkgStartDate);
-        PkgEndDate = new SimpleObjectProperty<LocalDate>(pkgEndDate);
+        //PkgStartDate = new SimpleObjectProperty<LocalDate>(pkgStartDate);
+        PkgStartDate = new SimpleObjectProperty<>(pkgStartDate);
+        PkgEndDate = new SimpleObjectProperty<>(pkgEndDate);
         PkgDesc = new SimpleStringProperty(pkgDesc);
         PkgBasePrice = new SimpleDoubleProperty(pkgBasePrice);
         PkgAgencyCommission = new SimpleDoubleProperty(pkgAgencyCommission);

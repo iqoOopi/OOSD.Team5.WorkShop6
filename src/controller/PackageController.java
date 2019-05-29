@@ -1,4 +1,5 @@
-/******************************************************************************************
+/*
+ ********************************************************************************************
  * Course: CMPP 264 Java Programming for OOSD
  * Purpose: Day 6 Assignment
  * Date: May 16, 2019.
@@ -15,8 +16,8 @@ import java.time.LocalDate;
 import java.util.EventListener;
 import java.util.ResourceBundle;
 
-import entity.PackageProductSupplier;
-import entity.Validation;
+import entity.*;
+import entity.Package;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,8 +27,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import entity.Package;
-import entity.DBHelper;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -129,17 +128,17 @@ public class PackageController {
     private TextField tfAgencyCommission;
 
     @FXML
-    private TableView<PackageProductSupplier> tvProductSupplier;
+    private TableView<PackageProductSupplierList> tvProductSupplier;
 
 
     @FXML
-    private TableColumn<PackageProductSupplier, Integer> colId;
+    private TableColumn<PackageProductSupplierList, Integer> colId;
 
     @FXML
-    private TableColumn<PackageProductSupplier, Integer> colProduct;
+    private TableColumn<PackageProductSupplierList, String> colProduct;
 
     @FXML
-    private TableColumn<PackageProductSupplier, Integer> colSupplier;
+    private TableColumn<PackageProductSupplierList, String> colSupplier;
 
 
 /*    @FXML
@@ -176,9 +175,9 @@ public class PackageController {
         colCommission.setCellValueFactory(cellData -> cellData.getValue().pkgAgencyCommissionProperty().asObject());
 
         // set up table column cell factories for tvProductSupplier
-        colId.setCellValueFactory(cellData -> cellData.getValue().packagePSIdProperty().asObject());
-        colProduct.setCellValueFactory(cellData -> cellData.getValue().productSupplierIdProperty().asObject());
-        colSupplier.setCellValueFactory(cellData -> cellData.getValue().productSupplierIdProperty().asObject());
+        colId.setCellValueFactory(cellData -> cellData.getValue().packageIdProperty().asObject());
+        colProduct.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
+        colSupplier.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
 
 
 
@@ -211,7 +210,6 @@ public class PackageController {
         });
 
     }
-
 
     private void loadPackages() {
 
@@ -261,19 +259,32 @@ public class PackageController {
         System.out.println("Starting updatePackagePSTable");
         System.out.println(pkg);
 
-        ObservableList<PackageProductSupplier> packagePSList = FXCollections.observableArrayList();
+        ObservableList<PackageProductSupplierList> packagePSList = FXCollections.observableArrayList();
 
         Connection conn = DBHelper.getConnection();
         try {
             //Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM packages_products_suppliers WHERE PackageId=?";
+            /*String sql = "SELECT * FROM packages_products_suppliers WHERE PackageId=?";
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pkg.getPackageId());
+            ResultSet rs = ps.executeQuery();*/
+
+
+               /* PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, pkg.getPackageId());
+                ResultSet rs = ps.executeQuery();*/
+            String sql2 = "SELECT pps.ProductSupplierId, ProdName, SupName FROM packages_products_suppliers pps " +
+            "INNER JOIN products_suppliers ps ON pps.ProductSupplierId=ps.ProductSupplierId " +
+            "INNER JOIN products p ON ps.ProductId=p.ProductId " +
+            "INNER JOIN suppliers s ON ps.SupplierId=s.SupplierId " +
+            "WHERE PackageId=?";
+            PreparedStatement ps = conn.prepareStatement(sql2);
             ps.setInt(1, pkg.getPackageId());
             ResultSet rs = ps.executeQuery();
 
-
             while (rs.next()) {
-                packagePSList.add(new PackageProductSupplier(rs.getInt(1), rs.getInt(2)));
+                packagePSList.add(new PackageProductSupplierList(rs.getInt(1), rs.getString(2),
+                    rs.getString(3)));
                 System.out.println(rs.getInt(1));
             }
             conn.close();
