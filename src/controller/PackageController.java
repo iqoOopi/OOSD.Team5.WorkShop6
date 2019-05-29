@@ -10,14 +10,14 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.EventListener;
 import java.util.ResourceBundle;
 
+import entity.PackageProductSupplier;
+import entity.Validation;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -128,6 +128,18 @@ public class PackageController {
     @FXML
     private TextField tfAgencyCommission;
 
+    @FXML
+    private TableView<PackageProductSupplier> tvProductSupplier;
+
+
+    @FXML
+    private TableColumn<PackageProductSupplier, Integer> colId;
+
+    @FXML
+    private TableColumn<PackageProductSupplier, Integer> colProduct;
+
+    @FXML
+    private TableColumn<PackageProductSupplier, Integer> colSupplier;
 
 
 /*    @FXML
@@ -153,6 +165,8 @@ public class PackageController {
         assert colBasePrice != null : "fx:id=\"colBasePrice\" was not injected: check your FXML file 'package.fxml'.";
         assert colCommission != null : "fx:id=\"colCommission\" was not injected: check your FXML file 'package.fxml'.";
 
+
+        // set up table column cell factories for tvPackages
         colPackageId.setCellValueFactory(cellData -> cellData.getValue().packageIdProperty().asObject());
         colPkgName.setCellValueFactory(cellData -> cellData.getValue().pkgNameProperty());
         colStartDate.setCellValueFactory(cellData -> cellData.getValue().pkgStartDateProperty());
@@ -161,9 +175,16 @@ public class PackageController {
         colBasePrice.setCellValueFactory(cellData -> cellData.getValue().pkgBasePriceProperty().asObject());
         colCommission.setCellValueFactory(cellData -> cellData.getValue().pkgAgencyCommissionProperty().asObject());
 
+        // set up table column cell factories for tvProductSupplier
+        colId.setCellValueFactory(cellData -> cellData.getValue().packagePSIdProperty().asObject());
+        colProduct.setCellValueFactory(cellData -> cellData.getValue().productSupplierIdProperty().asObject());
+        colSupplier.setCellValueFactory(cellData -> cellData.getValue().productSupplierIdProperty().asObject());
+
+
+
         loadPackages();
 
-        // listen for changes in combobox and show package details when changed
+        // listen for changes in the tableview and show package details when changed
         tvPackages.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPackageDetails(newValue));
 
@@ -178,7 +199,7 @@ public class PackageController {
             try {
                 root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
                 stageTest.setTitle("Main Scene");
-                Scene packageScene = new Scene(root, 800, 600);
+                Scene packageScene = new Scene(root, 1200, 700);
 
                 stageTest.setScene(packageScene);
                 stageTest.show();
@@ -193,14 +214,15 @@ public class PackageController {
 
 
     private void loadPackages() {
-        ObservableList<Package> data = FXCollections.observableArrayList();
+
+        ObservableList<Package> packageList = FXCollections.observableArrayList();
         Connection conn = DBHelper.getConnection();
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM packages");
             while (rs.next())
             {
-                data.add(new Package(rs.getInt(1),
+                packageList.add(new Package(rs.getInt(1),
                         rs.getString(2),
                         rs.getDate(3).toLocalDate(),
                         rs.getDate(4).toLocalDate(),
@@ -210,7 +232,7 @@ public class PackageController {
                 ));
             }
             conn.close();
-            tvPackages.setItems(data);
+            tvPackages.setItems(packageList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -219,13 +241,52 @@ public class PackageController {
     // method to populate text fields with information corresponding
     // to the agent passed as an argument.
     private void showPackageDetails(Package pkg) {
+        System.out.println("Starting showPackageDetails");
 
         // reset buttons to Edit enabled and Save disabled
         // this is necessary in case the user changes the Agent selection before saving an
         // existing Agent change
         //btnSave.setDisable(true);
         //btnEdit.setDisable(false);
+        updatePackageText(pkg);
 
+        updatePackagePSTable(pkg);
+
+
+        // after the agent information has been displayed make sure the fields are not editable
+        // setAgentUnEditable();
+    }
+
+    private void updatePackagePSTable(Package pkg) {
+        System.out.println("Starting updatePackagePSTable");
+        System.out.println(pkg);
+
+        ObservableList<PackageProductSupplier> packagePSList = FXCollections.observableArrayList();
+
+        Connection conn = DBHelper.getConnection();
+        try {
+            //Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM packages_products_suppliers WHERE PackageId=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pkg.getPackageId());
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+                packagePSList.add(new PackageProductSupplier(rs.getInt(1), rs.getInt(2)));
+                System.out.println(rs.getInt(1));
+            }
+            conn.close();
+
+            tvProductSupplier.setItems(packagePSList);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updatePackageText(Package pkg) {
+        System.out.println("Starting updatePackageText");
 
         if (pkg != null) { // if the agent object reference is not null then use agent information
             tfPackageId.setText(Integer.toString(pkg.getPackageId()));
@@ -245,10 +306,68 @@ public class PackageController {
             tfBasePrice.setText("");
             tfAgencyCommission.setText("");
         }
-
-        // after the agent information has been displayed make sure the fields are not editable
-        // setAgentUnEditable();
     }
+
+    void savePackages(ActionEvent event) {
+
+        int cmbIndex = tvPackages.getSelectionModel().getSelectedIndex();
+
+        // validation code
+        Validation v = new Validation();
+        String errorMsg = "";
+
+        errorMsg += v.isProvided(tfPackageId.getText(), "Package Id");
+        errorMsg += v.isProvided(tfPackageName.getText(), "Package Name");
+        errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
+        errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
+        errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
+        errorMsg += v.isProvided(tfBasePrice.getText(), "Package Base Price");
+        errorMsg += v.isInteger(tfAgencyCommission.getText(), "Package Agency Commission");
+
+        if (!errorMsg.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Invalid information");
+            alert.setContentText(errorMsg);
+            alert.showAndWait();
+            return;
+        }
+
+
+        Connection conn = DBHelper.getConnection();
+        try {
+            PreparedStatement stmt = conn.prepareStatement("UPDATE `packages` SET `PackageId`=?," +
+                    "`PkgName`=?,`AgtLastName`=?,`AgtBusPhone`=?,`AgtEmail`=?,`AgtPosition`=?," +
+                    "`AgencyId`=?  WHERE AgentId=?");
+            stmt.setInt(1, Integer.parseInt(tfPackageId.getText()));
+            stmt.setString(2, tfPackageName.getText());
+            stmt.setDate(3, Date.valueOf(dpStartDate.getValue()));
+            stmt.setDate(4, Date.valueOf(dpEndDate.getValue()));
+            stmt.setString(5, tfDescription.getText());
+            stmt.setDouble(6, Double.parseDouble(tfBasePrice.getText()));
+            stmt.setDouble(7, Double.parseDouble(tfAgencyCommission.getText()));
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated == 0)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error updating the database", ButtonType.OK);
+                alert.showAndWait();
+            }
+            conn.close();
+            loadPackages();
+            tvPackages.getSelectionModel().select(cmbIndex);
+            showPackageDetails(tvPackages.getSelectionModel().getSelectedItem());
+
+            // set buttons
+            //btnSave.setDisable(true);
+            //btnEdit.setDisable(false);
+
+            // disable text fields
+            //setAgentUnEditable();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public static void passStage(Stage stage) {
