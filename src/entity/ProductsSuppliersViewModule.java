@@ -3,13 +3,28 @@ package entity;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-//Henry
-public class suppliers {
+public class ProductsSuppliersViewModule {
+    private SimpleIntegerProperty ProductId;
     private SimpleIntegerProperty SupplierId;
     private SimpleStringProperty SupName;
-    public suppliers (int supId, String supName){
-        SupplierId = new SimpleIntegerProperty(supId);
+
+    public ProductsSuppliersViewModule(int productId, int supplierId, String supName) {
+        ProductId = new SimpleIntegerProperty(productId);
+        SupplierId = new SimpleIntegerProperty(supplierId);
         SupName = new SimpleStringProperty(supName);
+    }
+
+
+    public int getProductId() {
+        return ProductId.get();
+    }
+
+    public SimpleIntegerProperty productIdProperty() {
+        return ProductId;
+    }
+
+    public void setProductId(int productId) {
+        this.ProductId.set(productId);
     }
 
     public int getSupplierId() {
