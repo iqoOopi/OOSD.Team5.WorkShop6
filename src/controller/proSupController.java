@@ -78,8 +78,7 @@ public class proSupController {
 
     private void LoadProducts() {
         ObservableList<Products> productsList = FXCollections.observableArrayList();
-        try (Connection conn = DBHelper.getConnection()) {
-            Statement stmt = conn.createStatement();
+        try (Connection conn = DBHelper.getConnection();Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery("SELECT ProductId, ProdName FROM products");
             while (rs.next())
             {
@@ -93,6 +92,10 @@ public class proSupController {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+    private void LoadRelatedSuppliers(int id){
+        ObservableList<ProductsSuppliersViewModule> ProductsSuppliersViewModuleList = FXCollections.observableArrayList();
+
     }
 
 
