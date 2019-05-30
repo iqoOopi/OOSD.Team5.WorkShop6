@@ -1,11 +1,16 @@
 package controller;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
-import entity.Products;
-import entity.ProductsSuppliersViewModule;
-import entity.Suppliers;
+import entity.*;
+import entity.Package;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -61,11 +66,34 @@ public class proSupController {
 
 
         tcProId.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
-        tcProName.setCellValueFactory(cellData->cellData.getValue().prodNameProperty());
+        tcProName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
 
-        tcRelSupId.setCellValueFactory(cellData->cellData.getValue().supplierIdProperty().asObject());
-        tcRelSupName.setCellValueFactory(cellData->cellData.getValue().supNameProperty());
+        tcRelSupId.setCellValueFactory(cellData -> cellData.getValue().supplierIdProperty().asObject());
+        tcRelSupName.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
+
+        LoadProducts();
 
 
     }
+
+    private void LoadProducts() {
+        ObservableList<Products> productsList = FXCollections.observableArrayList();
+        try (Connection conn = DBHelper.getConnection()) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT ProductId, ProdName FROM products");
+            while (rs.next())
+            {
+                productsList.add(
+                        new Products(
+                                rs.getInt(1),
+                                rs.getString(2))
+                );
+            }
+            tvProduct.setItems(productsList);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
