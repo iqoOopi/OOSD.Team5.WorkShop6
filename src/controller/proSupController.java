@@ -54,15 +54,15 @@ public class proSupController {
 
     @FXML
     void initialize() {
-        assert tvProduct != null : "fx:id=\"tvProduct\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert tcProId != null : "fx:id=\"tcProId\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert tcProName != null : "fx:id=\"tcProName\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert vBoxProEditPanel != null : "fx:id=\"vBoxProEditPanel\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert tvSuppliers != null : "fx:id=\"tvSuppliers\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert tcRelSupId != null : "fx:id=\"tcRelSupId\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert tcRelSupName != null : "fx:id=\"tcRelSupName\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert vBoxProEditPanel1 != null : "fx:id=\"vBoxProEditPanel1\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
-        assert vBoxSupInfoPanel != null : "fx:id=\"vBoxSupInfoPanel\" was not injected: check your FXML file 'products_supplier_view.fxml'.";
+        assert tvProduct != null : "fx:id=\"tvProduct\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert tcProId != null : "fx:id=\"tcProId\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert tcProName != null : "fx:id=\"tcProName\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert vBoxProEditPanel != null : "fx:id=\"vBoxProEditPanel\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert tvSuppliers != null : "fx:id=\"tvSuppliers\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert tcRelSupId != null : "fx:id=\"tcRelSupId\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert tcRelSupName != null : "fx:id=\"tcRelSupName\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert vBoxProEditPanel1 != null : "fx:id=\"vBoxProEditPanel1\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert vBoxSupInfoPanel != null : "fx:id=\"vBoxSupInfoPanel\" was not injected: check your FXML file 'prodSupView.fxml'.";
 
 
         tcProId.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
