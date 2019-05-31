@@ -3,12 +3,12 @@ package entity;
 import javafx.beans.property.SimpleIntegerProperty;
 
 //Henry
-public class products_suppliers {
+public class ProductsSuppliers {
     private SimpleIntegerProperty ProductSupplierId;
     private SimpleIntegerProperty ProductId;
     private SimpleIntegerProperty SupplierId;
 
-    public products_suppliers(int proSupId,int proId,int supId){
+    public ProductsSuppliers(int proSupId, int proId, int supId){
         ProductSupplierId=new SimpleIntegerProperty(proSupId);
         ProductId=new SimpleIntegerProperty(proId);
         SupplierId=new SimpleIntegerProperty(supId);
