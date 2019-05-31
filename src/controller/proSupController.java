@@ -1,10 +1,7 @@
 package controller;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 import entity.*;
@@ -72,8 +69,6 @@ public class proSupController {
         tcRelSupName.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
 
         LoadProducts();
-
-
     }
 
     private void LoadProducts() {
@@ -95,6 +90,27 @@ public class proSupController {
     }
     private void LoadRelatedSuppliers(int id){
         ObservableList<ProductsSuppliersViewModule> ProductsSuppliersViewModuleList = FXCollections.observableArrayList();
+        try (Connection conn = DBHelper.getConnection();Statement stmt = conn.createStatement()) {
+            String sql = "SELECT ps.SupplierId, s.SupName " +
+                    "FROM Products_Suppliers ps JOIN Suppliers s ON " +
+                    "ps.SupplierId = s.SupplierId" +
+                    "WHERE ProductId=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                productsList.add(
+                        new Products(
+                                rs.getInt(1),
+                                rs.getString(2))
+                );
+            }
+            tvProduct.setItems(productsList);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
     }
 
