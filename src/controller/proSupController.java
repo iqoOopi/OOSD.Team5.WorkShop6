@@ -8,10 +8,10 @@ import entity.*;
 import entity.Package;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 public class proSupController {
@@ -50,6 +50,28 @@ public class proSupController {
     private Label vBoxSupInfoPanel;
 
     @FXML
+    private TextField tfProdName;
+
+    @FXML
+    private Button btnProdEdit;
+
+    @FXML
+    private Button btnProdDelete;
+
+    @FXML
+    private Button btnProdAdd;
+
+
+    @FXML
+    private Button btnProdEditSave;
+
+    @FXML
+    private Button btnProdEditClear;
+
+    @FXML
+    private Button btnProdEditCancel;
+
+    @FXML
     void initialize() {
         assert tvProduct != null : "fx:id=\"tvProduct\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert tcProId != null : "fx:id=\"tcProId\" was not injected: check your FXML file 'prodSupView.fxml'.";
@@ -60,18 +82,56 @@ public class proSupController {
         assert tcRelSupName != null : "fx:id=\"tcRelSupName\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert vBoxProEditPanel1 != null : "fx:id=\"vBoxProEditPanel1\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert vBoxSupInfoPanel != null : "fx:id=\"vBoxSupInfoPanel\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert tfProdName != null : "fx:id=\"tfProdName\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnProdEdit != null : "fx:id=\"btnProdEdit\" was not injected: check your FXML file 'prodSupView.fxml'.";
 
-
+        //**********************************************************************
+        //product panel side
         tcProId.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
         tcProName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
+
+        //populate products table
+        LoadProducts();
+
+        //set initial status for all the products side controls
+        SetBtnPanelStatusOnItemSelected(false);
+
+        //set listener for ProdPanelBtns
+        setProdPanelBtnListener();
+
+        //**********************************************************************
+        //related supplier side
 
         tcRelSupId.setCellValueFactory(cellData -> cellData.getValue().supplierIdProperty().asObject());
         tcRelSupName.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
 
-        LoadProducts();
+        //load related supplier table when one product get selected
         tvProduct.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> LoadRelatedSuppliers(newValue.getProductId()));
     }
+
+    private void setProdPanelBtnListener() {
+        btnProdEdit.setOnAction(event -> {
+            tfProdName.setText(tvProduct.getSelectionModel().getSelectedItem().getProdName());
+            vBoxProEditPanel.setVisible(true);
+        });
+        btnProdEditCancel.setOnAction(event -> SetBtnPanelStatusOnItemSelected(false));
+        //missing save btn function
+    }
+
+    private void SetBtnPanelStatusOnItemSelected(boolean selected){
+        //set Product control buttons status
+        btnProdEdit.setDisable(!selected);
+        btnProdDelete.setDisable(!selected);
+        btnProdAdd.setDisable(false);
+
+        //set status for prod edit panel
+        vBoxProEditPanel.setVisible(false);
+        tfProdName.clear();
+    }
+
+
+
 
     private void LoadProducts() {
         ObservableList<Products> productsList = FXCollections.observableArrayList();
@@ -91,6 +151,8 @@ public class proSupController {
         }
     }
     private void LoadRelatedSuppliers(int id){
+        SetBtnPanelStatusOnItemSelected(true);
+
         ObservableList<ProductsSuppliersViewModule> ProductsSuppliersViewModuleList = FXCollections.observableArrayList();
         try (Connection conn = DBHelper.getConnection();Statement stmt = conn.createStatement()) {
             String sql = "SELECT ps.SupplierId, s.SupName " +
@@ -105,9 +167,9 @@ public class proSupController {
             {
                 ProductsSuppliersViewModuleList.add(
                         new ProductsSuppliersViewModule(
-                                id,
-                                rs.getInt(1),
-                                rs.getString(2))
+                                id,//product Id
+                                rs.getInt(1),//supplier id
+                                rs.getString(2))//supplier name
                 );
             }
             tvSuppliers.setItems(ProductsSuppliersViewModuleList);
