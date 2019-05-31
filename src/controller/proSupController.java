@@ -69,6 +69,8 @@ public class proSupController {
         tcRelSupName.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
 
         LoadProducts();
+        tvProduct.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> LoadRelatedSuppliers(newValue.getProductId()));
     }
 
     private void LoadProducts() {
@@ -94,20 +96,21 @@ public class proSupController {
             String sql = "SELECT ps.SupplierId, s.SupName " +
                     "FROM Products_Suppliers ps JOIN Suppliers s ON " +
                     "ps.SupplierId = s.SupplierId" +
-                    "WHERE ProductId=?";
+                    " WHERE ProductId=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
             {
-                productsList.add(
-                        new Products(
+                ProductsSuppliersViewModuleList.add(
+                        new ProductsSuppliersViewModule(
+                                id,
                                 rs.getInt(1),
                                 rs.getString(2))
                 );
             }
-            tvProduct.setItems(productsList);
+            tvSuppliers.setItems(ProductsSuppliersViewModuleList);
         }catch(SQLException e){
             e.printStackTrace();
         }
