@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import dao.DBHelper;
+import dao.PackagesDAO;
 import entity.*;
 import entity.Package;
 import javafx.collections.FXCollections;
@@ -151,7 +152,8 @@ public class PackageController {
         stageTest.show();
 
     }*/
-
+    // initialize PackagesDAO object in order to be able to call data access methods in the class
+    PackagesDAO packagesDAO = new PackagesDAO();
 
     @FXML
     void initialize() {
@@ -177,8 +179,6 @@ public class PackageController {
         colId.setCellValueFactory(cellData -> cellData.getValue().packageIdProperty().asObject());
         colProduct.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
         colSupplier.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
-
-
 
         loadPackages();
 
@@ -212,27 +212,8 @@ public class PackageController {
 
     private void loadPackages() {
 
-        ObservableList<Package> packageList = FXCollections.observableArrayList();
-        Connection conn = DBHelper.getConnection();
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM packages");
-            while (rs.next())
-            {
-                packageList.add(new Package(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getDate(3).toLocalDate(),
-                        rs.getDate(4).toLocalDate(),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getDouble(7)
-                ));
-            }
-            conn.close();
-            tvPackages.setItems(packageList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ObservableList<Package> packageList = packagesDAO.getAllPackages();
+        tvPackages.setItems(packageList);
     }
 
     // method to populate text fields with information corresponding
@@ -245,57 +226,25 @@ public class PackageController {
         // existing Agent change
         //btnSave.setDisable(true);
         //btnEdit.setDisable(false);
-        updatePackageText(pkg);
+        updatePackageDisplay(pkg);
 
         updatePackagePSTable(pkg);
 
 
-        // after the agent information has been displayed make sure the fields are not editable
-        // setAgentUnEditable();
+        // after the package information has been displayed make sure the fields are not editable
+        // setPackageUnEditable();
     }
 
     private void updatePackagePSTable(Package pkg) {
         System.out.println("Starting updatePackagePSTable");
         System.out.println(pkg);
 
-        ObservableList<PackageProductSupplierList> packagePSList = FXCollections.observableArrayList();
-
-        Connection conn = DBHelper.getConnection();
-        try {
-            //Statement stmt = conn.createStatement();
-            /*String sql = "SELECT * FROM packages_products_suppliers WHERE PackageId=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, pkg.getPackageId());
-            ResultSet rs = ps.executeQuery();*/
-
-
-               /* PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setInt(1, pkg.getPackageId());
-                ResultSet rs = ps.executeQuery();*/
-            String sql2 = "SELECT pps.ProductSupplierId, ProdName, SupName FROM packages_products_suppliers pps " +
-            "INNER JOIN products_suppliers ps ON pps.ProductSupplierId=ps.ProductSupplierId " +
-            "INNER JOIN products p ON ps.ProductId=p.ProductId " +
-            "INNER JOIN suppliers s ON ps.SupplierId=s.SupplierId " +
-            "WHERE PackageId=?";
-            PreparedStatement ps = conn.prepareStatement(sql2);
-            ps.setInt(1, pkg.getPackageId());
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                packagePSList.add(new PackageProductSupplierList(rs.getInt(1), rs.getString(2),
-                    rs.getString(3)));
-                System.out.println(rs.getInt(1));
-            }
-            conn.close();
+        ObservableList<PackageProductSupplierList> packagePSList = packagesDAO.getRelatedProductsSuppliers(pkg);
 
             tvProductSupplier.setItems(packagePSList);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
-    private void updatePackageText(Package pkg) {
+    private void updatePackageDisplay(Package pkg) {
         System.out.println("Starting updatePackageText");
 
         if (pkg != null) { // if the agent object reference is not null then use agent information

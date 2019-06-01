@@ -41,7 +41,7 @@ public class Controller {
     void goToPackageManagement(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("../view/package.fxml"));
         stageTest.setTitle("Travel Experts Package Maintenance");
-        Scene packageScene = new Scene(root, 800, 600);
+        Scene packageScene = new Scene(root, 1200, 650);
 
         stageTest.setScene(packageScene);
         stageTest.show();
