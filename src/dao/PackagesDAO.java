@@ -13,6 +13,7 @@ package dao;
 import entity.Package;
 import entity.PackageProductSupplierList;
 import entity.Product;
+import entity.ProductsSuppliers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -82,24 +83,45 @@ public class PackagesDAO {
 
     }
 
+    public ObservableList<PackageProductSupplierList> getAvailableProductsSuppliers (Package pkg) {
 
-    public ObservableList<Product> LoadAllProducts() {
-        ObservableList<Product> productsList = FXCollections.observableArrayList();
-        try (Connection conn = DBHelper.getConnection(); Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT ProductId, ProdName FROM products");
-            while (rs.next())
-            {
-                productsList.add(
-                        new Product(
-                                rs.getInt(1),
-                                rs.getString(2))
-                );
+        ObservableList<PackageProductSupplierList> availablePSList = FXCollections.observableArrayList();
+
+        Connection conn = DBHelper.getConnection();
+
+        try {
+
+            String sql2 ="SELECT ProductSupplierId, ProdName, SupName FROM products_suppliers ps1 " +
+                    "INNER JOIN products p1 ON ps1.ProductId=p1.ProductId " +
+                    "INNER JOIN suppliers s1 ON ps1.SupplierId=s1.SupplierId " +
+                    "WHERE ProductSupplierId NOT IN " +
+                    "(SELECT pps.ProductSupplierId FROM packages_products_suppliers pps " +
+                    "INNER JOIN products_suppliers ps ON pps.ProductSupplierId=ps.ProductSupplierId " +
+                    "INNER JOIN products p ON ps.ProductId=p.ProductId " +
+                    "INNER JOIN suppliers s ON ps.SupplierId=s.SupplierId " +
+                    "WHERE PackageId=?)";
+            PreparedStatement ps = conn.prepareStatement(sql2);
+            ps.setInt(1, pkg.getPackageId());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                availablePSList.add(new PackageProductSupplierList(rs.getInt(1), rs.getString(2),
+                        rs.getString(3)));
+                System.out.println(rs.getInt(1));
             }
-        }catch(SQLException e){
-            infoBox(e.getMessage(),"Can't Read Products");
+            conn.close();
+
+            //tvProductSupplier.setItems(packagePSList);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return productsList;
+
+        return availablePSList;
+
     }
+
+
 
     public void deletePackageById(int id){
 

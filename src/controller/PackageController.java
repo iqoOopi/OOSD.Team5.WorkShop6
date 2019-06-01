@@ -140,8 +140,21 @@ public class PackageController {
     @FXML
     private TableColumn<PackageProductSupplierList, String> colSupplier;
 
+    @FXML
+    private TableView<PackageProductSupplierList> tvProductSupplierAvailable;
 
-/*    @FXML
+    @FXML
+    private TableColumn<PackageProductSupplierList, Integer> colId1;
+
+    @FXML
+    private TableColumn<PackageProductSupplierList, String> colProduct1;
+
+    @FXML
+    private TableColumn<PackageProductSupplierList, String> colSupplier1;
+
+
+
+    /*    @FXML
     void goToMainScene(ActionEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
@@ -180,6 +193,12 @@ public class PackageController {
         colProduct.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
         colSupplier.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
 
+        // set up table column cell factories for tvProductSupplierAvailable
+        colId1.setCellValueFactory(cellData -> cellData.getValue().packageIdProperty().asObject());
+        colProduct1.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
+        colSupplier1.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
+
+
         loadPackages();
 
         // listen for changes in the tableview and show package details when changed
@@ -217,7 +236,7 @@ public class PackageController {
     }
 
     // method to populate text fields with information corresponding
-    // to the agent passed as an argument.
+    // to the package passed as an argument.
     private void showPackageDetails(Package pkg) {
         System.out.println("Starting showPackageDetails");
 
@@ -230,9 +249,18 @@ public class PackageController {
 
         updatePackagePSTable(pkg);
 
+        updateAvailableDisplay(pkg);
+
 
         // after the package information has been displayed make sure the fields are not editable
         // setPackageUnEditable();
+    }
+
+    private void updateAvailableDisplay(Package pkg) {
+
+        ObservableList<PackageProductSupplierList> packagePSList = packagesDAO.getAvailableProductsSuppliers(pkg);
+
+        tvProductSupplierAvailable.setItems(packagePSList);
     }
 
     private void updatePackagePSTable(Package pkg) {
