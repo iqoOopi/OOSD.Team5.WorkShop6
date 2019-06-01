@@ -1,4 +1,4 @@
-package ultity;
+package utility;
 
 import javax.swing.*;
 

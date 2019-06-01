@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-import static ultity.Tools.infoBox;
+import static utility.Tools.infoBox;
 
 //By Henry
 public class RelatedSuppliersDAO {

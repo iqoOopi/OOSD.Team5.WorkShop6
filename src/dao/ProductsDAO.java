@@ -5,13 +5,12 @@ import entity.Products;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static ultity.Tools.infoBox;
+import static utility.Tools.infoBox;
 
 //By Henry, DAO Class for Products
 public class ProductsDAO {
