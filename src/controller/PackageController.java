@@ -19,6 +19,7 @@ import dao.DBHelper;
 import dao.PackagesDAO;
 import entity.*;
 import entity.Package;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -86,10 +87,23 @@ public class PackageController {
     private TableColumn<Package, String> colDescription;
 
     @FXML
-    private TableColumn<Package, Double> colBasePrice;
+    private TableColumn<Package, String> colBasePrice;
 
     @FXML
-    private TableColumn<Package, Double> colCommission;
+    private TableColumn<Package, String> colCommission;
+
+    @FXML
+    private Button btnAddPackage;
+
+    @FXML
+    private Button btnUpdatePackage;
+
+    @FXML
+    private Button btnSavePackage;
+
+    @FXML
+    private Button btnDeleteProductSupplier;
+
 
     @FXML
     private Button btnMainScene;
@@ -108,6 +122,14 @@ public class PackageController {
 
     @FXML
     private DatePicker dpEndDate;
+
+
+    @FXML
+    private Button btnAddProductSupplier;
+
+    @FXML
+    private Button btnEditProductSupplier;
+
 
 /*
 
@@ -185,8 +207,8 @@ public class PackageController {
         colStartDate.setCellValueFactory(cellData -> cellData.getValue().pkgStartDateProperty());
         colEndDate.setCellValueFactory(cellData -> cellData.getValue().pkgEndDateProperty());
         colDescription.setCellValueFactory(cellData -> cellData.getValue().pkgDescProperty());
-        colBasePrice.setCellValueFactory(cellData -> cellData.getValue().pkgBasePriceProperty().asObject());
-        colCommission.setCellValueFactory(cellData -> cellData.getValue().pkgAgencyCommissionProperty().asObject());
+        colBasePrice.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().pkgBasePriceProperty()));
+        colCommission.setCellValueFactory(cellData -> Bindings.format("%.2f", cellData.getValue().pkgAgencyCommissionProperty()));
 
         // set up table column cell factories for tvProductSupplier
         colId.setCellValueFactory(cellData -> cellData.getValue().packageIdProperty().asObject());
