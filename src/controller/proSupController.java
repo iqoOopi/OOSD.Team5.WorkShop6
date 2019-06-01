@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+import dao.ProductsDAO;
+import dao.RelatedSuppliersDAO;
 import entity.*;
 import entity.Package;
 import javafx.collections.FXCollections;
@@ -71,6 +73,13 @@ public class proSupController {
     @FXML
     private Button btnProdEditCancel;
 
+    //0 for nothing, 1 for edit, 2 for add new
+    int mode;
+
+    //Init DAOs, why use DAO: http://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm
+    ProductsDAO productsDao = new ProductsDAO();
+    RelatedSuppliersDAO relatedSuppliersDAO = new RelatedSuppliersDAO();
+
     @FXML
     void initialize() {
         assert tvProduct != null : "fx:id=\"tvProduct\" was not injected: check your FXML file 'prodSupView.fxml'.";
@@ -91,7 +100,8 @@ public class proSupController {
         tcProName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
 
         //populate products table
-        LoadProducts();
+        tvProduct.setItems(productsDao.LoadAllProducts());
+
 
         //set initial status for all the products side controls
         SetBtnPanelStatusOnItemSelected(false);
@@ -111,15 +121,45 @@ public class proSupController {
     }
 
     private void setProdPanelBtnListener() {
+        //edit btn clicked, enter edit mode  1
         btnProdEdit.setOnAction(event -> {
+            SetBtnPanelStatusOnItemSelected(false);
+            mode=1;
             tfProdName.setText(tvProduct.getSelectionModel().getSelectedItem().getProdName());
             vBoxProEditPanel.setVisible(true);
         });
+
+        //add btn clicked, enter add mode 2
+        btnProdAdd.setOnAction(event ->{
+            SetBtnPanelStatusOnItemSelected(false);
+            mode=2;
+            vBoxProEditPanel.setVisible(true);
+        });
+
+        //delete btn clicked, mode reset to 0
+        btnProdDelete.setOnAction(event -> {
+            mode=0;
+            DeleteSelectProduct(tvProduct.getSelectionModel().getSelectedItem().getProductId());
+        });
+
+
+        //Listeners for product detail edit panel btns
+        btnProdEditClear.setOnAction(event->tfProdName.clear());
         btnProdEditCancel.setOnAction(event -> SetBtnPanelStatusOnItemSelected(false));
-        //missing save btn function
+        btnProdEditSave.setOnAction(event ->BtnProdEditSaveClickedEvent(mode));
+    }
+
+    private void DeleteSelectProduct(int productId) {
+
+    }
+
+    private void BtnProdEditSaveClickedEvent(int m) {
     }
 
     private void SetBtnPanelStatusOnItemSelected(boolean selected){
+        //set mode to none
+        mode = 0;
+
         //set Product control buttons status
         btnProdEdit.setDisable(!selected);
         btnProdDelete.setDisable(!selected);
@@ -130,53 +170,9 @@ public class proSupController {
         tfProdName.clear();
     }
 
-
-
-
-    private void LoadProducts() {
-        ObservableList<Products> productsList = FXCollections.observableArrayList();
-        try (Connection conn = DBHelper.getConnection();Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT ProductId, ProdName FROM products");
-            while (rs.next())
-            {
-                productsList.add(
-                        new Products(
-                                rs.getInt(1),
-                                rs.getString(2))
-                );
-            }
-            tvProduct.setItems(productsList);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
     private void LoadRelatedSuppliers(int id){
         SetBtnPanelStatusOnItemSelected(true);
-
-        ObservableList<ProductsSuppliersViewModule> ProductsSuppliersViewModuleList = FXCollections.observableArrayList();
-        try (Connection conn = DBHelper.getConnection();Statement stmt = conn.createStatement()) {
-            String sql = "SELECT ps.SupplierId, s.SupName " +
-                    "FROM Products_Suppliers ps JOIN Suppliers s ON " +
-                    "ps.SupplierId = s.SupplierId" +
-                    " WHERE ProductId=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next())
-            {
-                ProductsSuppliersViewModuleList.add(
-                        new ProductsSuppliersViewModule(
-                                id,//product Id
-                                rs.getInt(1),//supplier id
-                                rs.getString(2))//supplier name
-                );
-            }
-            tvSuppliers.setItems(ProductsSuppliersViewModuleList);
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
+        tvSuppliers.setItems(relatedSuppliersDAO.LoadAllRelatedSuppliers(id));
     }
 
 
