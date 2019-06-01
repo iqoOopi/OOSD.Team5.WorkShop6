@@ -6,7 +6,7 @@
  * Description: This DBHelper class contains a static method which establishes a connection
  * to the TravelExperts database.
  *******************************************************************************************/
-package entity;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,6 +1,5 @@
 package dao;
 
-import entity.DBHelper;
 import entity.ProductsSuppliersViewModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
