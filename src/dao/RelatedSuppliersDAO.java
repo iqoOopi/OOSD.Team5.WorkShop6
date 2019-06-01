@@ -12,16 +12,14 @@ import static utility.Tools.infoBox;
 //By Henry
 public class RelatedSuppliersDAO {
     public ObservableList<ProductsSuppliersViewModule> LoadAllRelatedSuppliers(int id){
+        String sql = "SELECT ps.SupplierId, s.SupName " +
+                "FROM Products_Suppliers ps JOIN Suppliers s ON " +
+                "ps.SupplierId = s.SupplierId" +
+                " WHERE ProductId=?";
         ObservableList<ProductsSuppliersViewModule> ProductsSuppliersViewModuleList = FXCollections.observableArrayList();
-        try (Connection conn = DBHelper.getConnection(); Statement stmt = conn.createStatement()) {
-            String sql = "SELECT ps.SupplierId, s.SupName " +
-                    "FROM Products_Suppliers ps JOIN Suppliers s ON " +
-                    "ps.SupplierId = s.SupplierId" +
-                    " WHERE ProductId=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection conn = DBHelper.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-
             while (rs.next())
             {
                 ProductsSuppliersViewModuleList.add(

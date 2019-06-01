@@ -1,17 +1,11 @@
 package controller;
 
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 import dao.ProductsDAO;
 import dao.RelatedSuppliersDAO;
 import entity.*;
-import entity.Package;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -25,13 +19,13 @@ public class proSupController {
     private URL location;
 
     @FXML
-    private TableView<Products> tvProduct;
+    private TableView<Product> tvProduct;
 
     @FXML
-    private TableColumn<Products, Integer> tcProId;
+    private TableColumn<Product, Integer> tcProId;
 
     @FXML
-    private TableColumn<Products, String> tcProName;
+    private TableColumn<Product, String> tcProName;
 
     @FXML
     private VBox vBoxProEditPanel;
@@ -73,8 +67,11 @@ public class proSupController {
     @FXML
     private Button btnProdEditCancel;
 
+    //By Henry
+
     //0 for nothing, 1 for edit, 2 for add new
     int mode;
+    Product selectedProd;
 
     //Init DAOs, why use DAO: http://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm
     ProductsDAO productsDao = new ProductsDAO();
@@ -100,7 +97,7 @@ public class proSupController {
         tcProName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
 
         //populate products table
-        tvProduct.setItems(productsDao.LoadAllProducts());
+        LoadTVProduct();
 
 
         //set initial status for all the products side controls
@@ -117,15 +114,24 @@ public class proSupController {
 
         //load related supplier table when one product get selected
         tvProduct.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> LoadRelatedSuppliers(newValue.getProductId()));
+                (observable, oldValue, newValue) -> {
+                    if (newValue!=null){
+                        LoadRelatedSuppliers(newValue.getProductId());
+                    }
+                });
+    }
+
+    private void LoadTVProduct() {
+        tvProduct.setItems(productsDao.LoadAllProducts());
     }
 
     private void setProdPanelBtnListener() {
         //edit btn clicked, enter edit mode  1
         btnProdEdit.setOnAction(event -> {
             SetBtnPanelStatusOnItemSelected(false);
-            mode=1;
-            tfProdName.setText(tvProduct.getSelectionModel().getSelectedItem().getProdName());
+            mode = 1;
+            selectedProd = tvProduct.getSelectionModel().getSelectedItem();
+            tfProdName.setText(selectedProd.getProdName());
             vBoxProEditPanel.setVisible(true);
         });
 
@@ -150,15 +156,34 @@ public class proSupController {
     }
 
     private void DeleteSelectProduct(int productId) {
+        productsDao.DeleteProductById(productId);
+        LoadTVProduct();
 
     }
 
-    private void BtnProdEditSaveClickedEvent(int m) {
+    private void BtnProdEditSaveClickedEvent(int mode) {
+        switch (mode) {
+            case 1:
+                //1 for edit
+                Product editedProd = new Product(selectedProd.getProductId(),tfProdName.getText());
+                productsDao.UpdateProduct(editedProd);
+                break;
+            case 2:
+                //2 for add new
+                Product newProd=new Product(tfProdName.getText());
+                productsDao.SaveNewProduct(newProd);
+                break;
+            default:
+                //do nothing
+        }
+        LoadTVProduct();
     }
 
     private void SetBtnPanelStatusOnItemSelected(boolean selected){
         //set mode to none
         mode = 0;
+        //set selectedProd to null
+        selectedProd=null;
 
         //set Product control buttons status
         btnProdEdit.setDisable(!selected);
