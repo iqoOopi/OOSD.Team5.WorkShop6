@@ -1,0 +1,24 @@
+[ JavaFX ]
+
+The Requirements of the Prototype:
+
+- Classes:	
+    - customers 
+    - bookings
+    - travel packages 
+    - products
+    - suppliers
+    - agents
+    - accounts login (foreign IDs for agents and customers)
+    - bookings, booking details
+    - booking
+    - credit cards
+
+- Features:
+    - authentication
+    - book package
+    - edit agent infos
+    - edit customers infos
+    - email confirmation sign up
+    - email receipt
+
