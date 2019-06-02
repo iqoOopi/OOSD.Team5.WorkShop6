@@ -24,12 +24,12 @@
       <TableView fx:id="tvPackages" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1100.0" style="-fx-font-size: 16;" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="colPackageId" prefWidth="30.0" text="Id" />
-          <TableColumn fx:id="colPkgName" prefWidth="196.0" text="Name" />
-            <TableColumn fx:id="colStartDate" minWidth="0.0" prefWidth="92.0" text="Start" />
-            <TableColumn fx:id="colEndDate" minWidth="0.0" prefWidth="95.0" text="End" />
-            <TableColumn fx:id="colDescription" minWidth="0.0" prefWidth="213.0" text="Description" />
-            <TableColumn fx:id="colBasePrice" minWidth="6.0" prefWidth="45.0" text="Price" />
-            <TableColumn fx:id="colCommission" prefWidth="107.0" text="Commission" />
+          <TableColumn fx:id="colPkgName" prefWidth="225.0" text="Name" />
+            <TableColumn fx:id="colStartDate" minWidth="0.0" prefWidth="100.0" text="Start" />
+            <TableColumn fx:id="colEndDate" minWidth="0.0" prefWidth="100.0" text="End" />
+            <TableColumn fx:id="colDescription" minWidth="0.0" prefWidth="400.0" text="Description" />
+            <TableColumn fx:id="colBasePrice" minWidth="6.0" prefWidth="100.0" text="Price" />
+            <TableColumn fx:id="colCommission" prefWidth="100.0" text="Commission" />
         </columns>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -158,7 +158,7 @@
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <DatePicker fx:id="dpStartDate" prefHeight="25.0" prefWidth="375.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <DatePicker fx:id="dpStartDate" minWidth="-Infinity" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <GridPane.margin>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </GridPane.margin>
@@ -170,11 +170,15 @@
                                           </DatePicker>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="7">
                                              <children>
-                                                <Button mnemonicParsing="false" text="Button">
+                                                <Button fx:id="btnDeletePackage" mnemonicParsing="false" text="Delete">
                                                    <HBox.margin>
                                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                    </HBox.margin>
                                                 </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                             <children>
                                                 <Button fx:id="btnAddPackage" mnemonicParsing="false" text="Add">
                                                    <HBox.margin>
                                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -183,10 +187,6 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Button>
-                                             </children>
-                                          </HBox>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                             <children>
                                                 <Button fx:id="btnUpdatePackage" alignment="CENTER" mnemonicParsing="false" text="Update">
                                                    <HBox.margin>
                                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -235,7 +235,7 @@
                                                 </Button>
                                              </children>
                                           </HBox>
-                                          <TableView fx:id="tvProductSupplier" layoutX="-1.0" layoutY="1.0" prefHeight="241.0" prefWidth="344.0">
+                                          <TableView fx:id="tvProductSupplier" layoutX="-1.0" layoutY="1.0" minWidth="-Infinity" prefHeight="241.0" prefWidth="400.0">
                                             <columns>
                                               <TableColumn fx:id="colId" prefWidth="23.0" text="Id" />
                                               <TableColumn fx:id="colProduct" prefWidth="140.0" text="Product" />
@@ -278,7 +278,7 @@
                                                 </Button>
                                              </children>
                                           </HBox>
-                                          <TableView fx:id="tvProductSupplierAvailable" layoutX="-1.0" layoutY="1.0" prefHeight="241.0" prefWidth="344.0">
+                                          <TableView fx:id="tvProductSupplierAvailable" layoutX="-1.0" layoutY="1.0" minWidth="-Infinity" prefHeight="241.0" prefWidth="400.0">
                                              <columns>
                                                 <TableColumn fx:id="colId1" prefWidth="23.0" text="Id" />
                                                 <TableColumn fx:id="colProduct1" prefWidth="140.0" text="Product" />

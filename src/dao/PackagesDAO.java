@@ -123,23 +123,29 @@ public class PackagesDAO {
 
 
 
-    public void deletePackageById(int id){
+    public void deletePackage(Package pkg){
 
         String sql = "DELETE FROM Packages WHERE PackageId = ?";
         try (Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, pkg.getPackageId());
             pstmt.execute();
         }catch(SQLException e){
             infoBox(e.getMessage(),"Can't Delete Package");
         }
     }
 
-    public void saveNewPackage(Package newPackage){
-        String sql = "INSERT INTO Products (ProdName) VALUES (?)";
+    public void savePackage(Package newPackage){
+        String sql = "INSERT INTO Packages (PkgName,PkgStartDate,PkgEndDate,PkgDesc," +
+                "PkgBasePrice,PkgAgencyCommission) VALUES (?,?,?,?,?,?)";
         try (Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1,newPackage.getPkgName());
+            pstmt.setDate(2,Date.valueOf(newPackage.getPkgStartDate()));
+            pstmt.setDate(3,Date.valueOf(newPackage.getPkgEndDate()));
+            pstmt.setString(4,newPackage.getPkgDesc());
+            pstmt.setDouble(5,newPackage.getPkgBasePrice());
+            pstmt.setDouble(6,newPackage.getPkgAgencyCommission());
             pstmt.execute();
-        }catch(SQLException e){
+        } catch(SQLException e){
             infoBox(e.getMessage(),"Can't Save Package");
         }
 
