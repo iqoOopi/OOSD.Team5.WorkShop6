@@ -51,6 +51,10 @@ public class PackageController {
     @FXML // fx:id="mnuMain"
     private MenuItem mnuMain; // Value injected by FXMLLoader
 
+    @FXML
+    private MenuItem mnuProductManagement;
+
+
     @FXML // fx:id="mnuExit"
     private MenuItem mnuExit; // Value injected by FXMLLoader
 
@@ -132,16 +136,6 @@ public class PackageController {
     @FXML
     private Button btnDeletePackage;
 
-
-
-/*
-
-    @FXML
-    private TextField tfPackageStartDate;
-
-    @FXML
-    private TextField tfPackageEndDate;
-*/
 
     @FXML
     private TextField tfDescription;
@@ -229,12 +223,17 @@ public class PackageController {
         // disable package fields
         disablePackageFields();
 
+
+        // initialize buttons
         // disable Save button btnSavePackage
         btnSavePackage.setDisable(true);
+        btnAddProductSupplier.setDisable(true);
 
         // listen for changes in the tableview and show package details when changed
         tvPackages.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPackageDetails(newValue));
+
+
 
         mnuExit.setOnAction(e ->
         {
@@ -258,15 +257,37 @@ public class PackageController {
 
         });
 
+        tvProductSupplierAvailable.setOnMouseClicked(e->
+        {
+            btnAddProductSupplier.setDisable(false);
+        });
+
+        mnuProductManagement.setOnAction(e ->
+        {
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
+                stageTest.setTitle("Main Scene");
+                Scene prodSupScene = new Scene(root, 1200, 700);
+
+                stageTest.setScene(prodSupScene);
+                stageTest.show();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        });
+
+
         btnAddPackage.setOnAction(e ->
         {
             clearPackageFields();
 
-
-
             // disable Add button and Update button
             btnAddPackage.setDisable(true);
             btnUpdatePackage.setDisable(true);
+
             // enable Save button
             btnSavePackage.setDisable(false);
 
@@ -284,7 +305,32 @@ public class PackageController {
             alert.showAndWait();
 
             packagesDAO.deletePackage(tvPackages.getSelectionModel().getSelectedItem());
+
+            loadPackages();
         });
+
+        btnAddProductSupplier.setOnAction (e->
+        {
+            Package pkg = tvPackages.getSelectionModel().getSelectedItem();
+            PackageProductSupplierList pPS = tvProductSupplierAvailable.getSelectionModel().getSelectedItem();
+            packagesDAO.addProductSupplier(pkg, pPS);
+
+            updateAvailableDisplay(pkg);
+            updatePackageDisplay(pkg);
+            updatePackagePSTable(pkg);
+        });
+
+        btnDeleteProductSupplier.setOnAction(e->
+        {
+            Package pkg = tvPackages.getSelectionModel().getSelectedItem();
+            PackageProductSupplierList pPS = tvProductSupplier.getSelectionModel().getSelectedItem();
+            packagesDAO.deleteProductSupplier(pkg, pPS);
+
+            updateAvailableDisplay(pkg);
+            updatePackageDisplay(pkg);
+            updatePackagePSTable(pkg);
+        });
+
 
         btnSavePackage.setOnAction(e->
         {
@@ -386,6 +432,14 @@ public class PackageController {
         ObservableList<PackageProductSupplierList> packagePSList = packagesDAO.getAvailableProductsSuppliers(pkg);
 
         tvProductSupplierAvailable.setItems(packagePSList);
+
+        // not working presently
+        if (tvProductSupplierAvailable.getSelectionModel().isEmpty()) {
+            btnAddProductSupplier.setDisable(true);
+        }
+        else
+            btnAddProductSupplier.setDisable(false);
+
     }
 
     private void updatePackagePSTable(Package pkg) {
@@ -394,7 +448,7 @@ public class PackageController {
 
         ObservableList<PackageProductSupplierList> packagePSList = packagesDAO.getRelatedProductsSuppliers(pkg);
 
-            tvProductSupplier.setItems(packagePSList);
+        tvProductSupplier.setItems(packagePSList);
     }
 
     private void updatePackageDisplay(Package pkg) {

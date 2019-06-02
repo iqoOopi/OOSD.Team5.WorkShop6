@@ -42,7 +42,6 @@ public class PackagesDAO {
                 ));
             }
             conn.close();
-            // tvPackages.setItems(packageList);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,8 +71,6 @@ public class PackagesDAO {
                 System.out.println(rs.getInt(1));
             }
             conn.close();
-
-            //tvProductSupplier.setItems(packagePSList);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,8 +108,6 @@ public class PackagesDAO {
             }
             conn.close();
 
-            //tvProductSupplier.setItems(packagePSList);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,8 +115,6 @@ public class PackagesDAO {
         return availablePSList;
 
     }
-
-
 
     public void deletePackage(Package pkg){
 
@@ -150,6 +143,32 @@ public class PackagesDAO {
         }
 
     }
+
+    public void addProductSupplier(Package pkg, PackageProductSupplierList pPS){
+
+        String sql = "INSERT INTO packages_products_suppliers (PackageId,ProductSupplierId) VALUES (?,?)";
+        try (Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,pkg.getPackageId());
+            pstmt.setInt(2,pPS.getPackageId());
+            pstmt.execute();
+        } catch(SQLException e){
+            infoBox(e.getMessage(),"Can't Save the Product/Supplier");
+        }
+
+    }
+
+    public void deleteProductSupplier(Package pkg, PackageProductSupplierList pPS){
+
+        String sql = "DELETE FROM packages_products_suppliers WHERE PackageId = ? AND ProductSupplierId = ?";
+        try (Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, pkg.getPackageId());
+            pstmt.setInt(2, pPS.getPackageId());
+            pstmt.execute();
+        }catch(SQLException e){
+            infoBox(e.getMessage(),"Can't Delete Package");
+        }
+    }
+
 
     public void updatePackage (Package editedPackage){
         String sql = "UPDATE Packages SET ProdName=? WHERE PackageId = ?";

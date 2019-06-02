@@ -21,7 +21,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackageController">
    <center>
-      <TableView fx:id="tvPackages" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1100.0" style="-fx-font-size: 16;" BorderPane.alignment="CENTER">
+      <TableView fx:id="tvPackages" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="1100.0" style="-fx-font-size: 16;" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="colPackageId" prefWidth="30.0" text="Id" />
           <TableColumn fx:id="colPkgName" prefWidth="225.0" text="Name" />
@@ -32,7 +32,7 @@
             <TableColumn fx:id="colCommission" prefWidth="100.0" text="Commission" />
         </columns>
          <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" />
          </BorderPane.margin>
       </TableView>
    </center>
@@ -44,6 +44,7 @@
                 <Menu fx:id="mnuFile" mnemonicParsing="false" text="File">
                   <items>
                         <MenuItem id="mnuMain" fx:id="mnuMain" mnemonicParsing="false" text="Main" />
+                        <MenuItem fx:id="mnuProductManagement" mnemonicParsing="false" text="Product Management" />
                     <MenuItem id="mnuExit" fx:id="mnuExit" mnemonicParsing="false" text="Exit" />
                   </items>
                 </Menu>
@@ -158,7 +159,7 @@
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <DatePicker fx:id="dpStartDate" minWidth="-Infinity" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <DatePicker fx:id="dpStartDate" minWidth="-Infinity" prefHeight="25.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <GridPane.margin>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </GridPane.margin>
@@ -296,11 +297,29 @@
                         </SplitPane>
                      </center>
                      <top>
-                        <HBox minWidth="-Infinity" prefHeight="32.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="32.0" prefWidth="1100.0" BorderPane.alignment="TOP_LEFT">
                            <children>
-                              <Label text="Edit Packages" />
-                              <Label text="Associated Products/Suppliers" />
-                              <Label text="Avaialble Products/Suppliers" />
+                              <Label text="Edit Packages">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="40.0" />
+                                 </HBox.margin></Label>
+                              <Label text="Associated Products/Suppliers">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </HBox.margin></Label>
+                              <Label text="Avaialble Products/Suppliers">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </HBox.margin></Label>
                            </children>
                         </HBox>
                      </top>
