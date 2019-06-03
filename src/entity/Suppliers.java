@@ -35,4 +35,9 @@ public class Suppliers {
     public void setSupName(String supName) {
         this.SupName.set(supName);
     }
+
+    @Override
+    public String toString() {
+        return SupName.getValue();
+    }
 }

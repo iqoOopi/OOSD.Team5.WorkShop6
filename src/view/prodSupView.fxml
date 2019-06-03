@@ -103,21 +103,21 @@
                <children>
                   <HBox layoutX="-31.0" layoutY="-12.0" prefHeight="32.0" prefWidth="277.0" style="-fx-alignment: center; -fx-border-color: black;" AnchorPane.bottomAnchor="134.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="60.0" text="Delete">
+                        <Button fx:id="btnSupDelete" mnemonicParsing="false" prefWidth="60.0" text="Delete">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefWidth="60.0" text="Add">
+                        <Button fx:id="btnSupAdd" mnemonicParsing="false" prefWidth="60.0" text="Add">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <VBox fx:id="vBoxProEditPanel1" layoutY="45.0" prefHeight="121.0" prefWidth="268.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <VBox fx:id="vBoxSupEditPanel" layoutY="45.0" prefHeight="121.0" prefWidth="268.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Label fx:id="vBoxSupInfoPanel" prefHeight="39.0" prefWidth="393.0" text="Supplier Info:">
+                        <Label prefHeight="39.0" prefWidth="393.0" text="Supplier Info:">
                            <VBox.margin>
                               <Insets left="5.0" />
                            </VBox.margin>
@@ -129,17 +129,17 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <ComboBox />
+                              <ComboBox fx:id="cbSupName" />
                            </children>
                         </HBox>
                         <HBox prefHeight="52.0" prefWidth="0.0" style="-fx-alignment: center;">
                            <children>
-                              <Button mnemonicParsing="false" prefWidth="60.0" text="Save">
+                              <Button fx:id="btnSupSave" mnemonicParsing="false" prefWidth="60.0" text="Save">
                                  <HBox.margin>
                                     <Insets left="80.0" right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefWidth="60.0" text="Cancel">
+                              <Button fx:id="btnSupCancel" mnemonicParsing="false" prefWidth="60.0" text="Cancel">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>

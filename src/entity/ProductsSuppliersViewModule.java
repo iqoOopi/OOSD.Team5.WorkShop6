@@ -7,13 +7,18 @@ public class ProductsSuppliersViewModule {
     private SimpleIntegerProperty ProductId;
     private SimpleIntegerProperty SupplierId;
     private SimpleStringProperty SupName;
+    private int productSupplierId;
 
-    public ProductsSuppliersViewModule(int productId, int supplierId, String supName) {
+    public ProductsSuppliersViewModule(int productId, int supplierId, String supName,int proSupId) {
         ProductId = new SimpleIntegerProperty(productId);
         SupplierId = new SimpleIntegerProperty(supplierId);
         SupName = new SimpleStringProperty(supName);
+        productSupplierId=proSupId;
     }
 
+    public int getProductSupplierId() {
+        return productSupplierId;
+    }
 
     public int getProductId() {
         return ProductId.get();
