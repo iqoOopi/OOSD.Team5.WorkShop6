@@ -145,7 +145,7 @@ public class proSupController {
         AddListenerToSupSelected();
 
         //set Listeners for Sup side btns
-        addListenersToSupSideBtns();
+        setClickActionForSupSideBtns();
     }
 
     //Products Side ***********************
@@ -243,6 +243,7 @@ public class proSupController {
     private void SetRelSupBtnPanelStatusOnItemSelected(boolean selected){
         btnSupDelete.setDisable(!selected);
         vBoxSupEditPanel.setVisible(false);
+        tvSuppliers.getSelectionModel().clearSelection();
 
     }
 
@@ -250,13 +251,14 @@ public class proSupController {
         tvSuppliers.getSelectionModel().selectedItemProperty().addListener(observable -> btnSupDelete.setDisable(false));
     }
 
-    private void addListenersToSupSideBtns() {
+    private void setClickActionForSupSideBtns() {
         btnSupDelete.setOnAction(event ->relatedSuppliersDAO.DeleteById(tvSuppliers.getSelectionModel().getSelectedItem().getProductSupplierId()));
         btnSupAdd.setOnAction(event -> {
             SetRelSupBtnPanelStatusOnItemSelected(false);
             vBoxSupEditPanel.setVisible(true);
             loadComboBoxSup(selectedProd.getProductId());
         });
+        btnSupCancel.setOnAction(event -> SetRelSupBtnPanelStatusOnItemSelected(false));
     }
 
     private void loadComboBoxSup(int productId) {
