@@ -1,5 +1,6 @@
 package dao;
 
+import entity.ProductsSuppliers;
 import entity.ProductsSuppliersViewModule;
 import entity.Suppliers;
 import javafx.collections.FXCollections;
@@ -77,5 +78,19 @@ public class RelatedSuppliersDAO {
         }
         return nonSelectedSuppliers;
 
+    }
+
+    public boolean SaveNewRelatedSup(ProductsSuppliers newProdSup){
+        boolean succeed=false;
+
+        String sql = "INSERT INTO products_suppliers (ProductId,SupplierId) VALUES (?,?)";
+        try (Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,newProdSup.getProductId());
+            pstmt.setInt(2,newProdSup.getSupplierId());
+            succeed=pstmt.execute();
+        }catch(SQLException e){
+            infoBox(e.getMessage(),"Can't Save Related Suppliers");
+        }
+        return succeed;
     }
 }

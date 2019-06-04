@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import static utility.Tools.infoBox;
+
 public class proSupController {
 
     @FXML
@@ -197,6 +199,7 @@ public class proSupController {
     private void DeleteSelectProduct(int productId) {
         productsDao.DeleteProductById(productId);
         LoadTVProduct();
+        SetRelSupBtnPanelStatusOnItemSelected(false);
 
     }
 
@@ -216,6 +219,7 @@ public class proSupController {
                 //do nothing
         }
         LoadTVProduct();
+        SetProdBtnPanelStatusOnItemSelected(false);
     }
 
     private void SetProdBtnPanelStatusOnItemSelected(boolean selected){
@@ -259,6 +263,18 @@ public class proSupController {
             loadComboBoxSup(selectedProd.getProductId());
         });
         btnSupCancel.setOnAction(event -> SetRelSupBtnPanelStatusOnItemSelected(false));
+        btnSupSave.setOnAction(event -> {
+            if(!cbSupName.getSelectionModel().isEmpty()) {
+                ProductsSuppliers newProdSup = new ProductsSuppliers(selectedProd.getProductId(), cbSupName.getSelectionModel().getSelectedItem().getSupplierId());
+                relatedSuppliersDAO.SaveNewRelatedSup(newProdSup);
+                LoadRelatedSuppliers(selectedProd.getProductId());
+                loadComboBoxSup(selectedProd.getProductId());
+            }else{
+                infoBox("Please select a value in ComboBox","Can't Save");
+            }
+            SetRelSupBtnPanelStatusOnItemSelected(false);
+
+        });
     }
 
     private void loadComboBoxSup(int productId) {
