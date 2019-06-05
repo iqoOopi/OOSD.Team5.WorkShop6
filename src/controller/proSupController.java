@@ -256,7 +256,10 @@ public class proSupController {
     }
 
     private void setClickActionForSupSideBtns() {
-        btnSupDelete.setOnAction(event ->relatedSuppliersDAO.DeleteById(tvSuppliers.getSelectionModel().getSelectedItem().getProductSupplierId()));
+        btnSupDelete.setOnAction(event -> {
+            relatedSuppliersDAO.DeleteById(tvSuppliers.getSelectionModel().getSelectedItem().getProductSupplierId());
+            LoadRelatedSuppliers(selectedProd.getProductId());
+        });
         btnSupAdd.setOnAction(event -> {
             SetRelSupBtnPanelStatusOnItemSelected(false);
             vBoxSupEditPanel.setVisible(true);
