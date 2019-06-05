@@ -27,7 +27,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
         primaryStage.setTitle("Travel Experts Database Management");
-        primaryStage.setScene(new Scene(root, 1200, 700));
+        primaryStage.setScene(new Scene(root, 1200, 650));
         primaryStage.show();
     }
 

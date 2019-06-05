@@ -13,7 +13,7 @@ public class ProductsDAO {
     public ObservableList<Product> LoadAllProducts() {
         ObservableList<Product> productsList = FXCollections.observableArrayList();
         try (Connection conn = DBHelper.getConnection(); Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT ProductId, ProdName FROM products");
+            ResultSet rs = stmt.executeQuery("SELECT ProductId, ProdName FROM products ORDER BY ProdName");
             while (rs.next())
             {
                 productsList.add(

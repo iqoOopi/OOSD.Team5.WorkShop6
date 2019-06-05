@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import static utility.Tools.infoBox;
+
 public class proSupController {
 
     @FXML
@@ -40,12 +42,6 @@ public class proSupController {
     private TableColumn<ProductsSuppliersViewModule, String> tcRelSupName;
 
     @FXML
-    private VBox vBoxProEditPanel1;
-
-    @FXML
-    private Label vBoxSupInfoPanel;
-
-    @FXML
     private TextField tfProdName;
 
     @FXML
@@ -67,11 +63,30 @@ public class proSupController {
     @FXML
     private Button btnProdEditCancel;
 
+    @FXML
+    private Button btnSupDelete;
+
+    @FXML
+    private Button btnSupAdd;
+
+    @FXML
+    private VBox vBoxSupEditPanel;
+
+    @FXML
+    private ComboBox<Suppliers> cbSupName;
+
+    @FXML
+    private Button btnSupSave;
+
+    @FXML
+    private Button btnSupCancel;
+
     //By Henry
 
     //0 for nothing, 1 for edit, 2 for add new
     int mode;
     Product selectedProd;
+    ProductsSuppliersViewModule selectedRelatedSupplier;
 
     //Init DAOs, why use DAO: http://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm
     ProductsDAO productsDao = new ProductsDAO();
@@ -82,14 +97,23 @@ public class proSupController {
         assert tvProduct != null : "fx:id=\"tvProduct\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert tcProId != null : "fx:id=\"tcProId\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert tcProName != null : "fx:id=\"tcProName\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnProdEdit != null : "fx:id=\"btnProdEdit\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnProdDelete != null : "fx:id=\"btnProdDelete\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnProdAdd != null : "fx:id=\"btnProdAdd\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert vBoxProEditPanel != null : "fx:id=\"vBoxProEditPanel\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert tfProdName != null : "fx:id=\"tfProdName\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnProdEditSave != null : "fx:id=\"btnProdEditSave\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnProdEditClear != null : "fx:id=\"btnProdEditClear\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnProdEditCancel != null : "fx:id=\"btnProdEditCancel\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert tvSuppliers != null : "fx:id=\"tvSuppliers\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert tcRelSupId != null : "fx:id=\"tcRelSupId\" was not injected: check your FXML file 'prodSupView.fxml'.";
         assert tcRelSupName != null : "fx:id=\"tcRelSupName\" was not injected: check your FXML file 'prodSupView.fxml'.";
-        assert vBoxProEditPanel1 != null : "fx:id=\"vBoxProEditPanel1\" was not injected: check your FXML file 'prodSupView.fxml'.";
-        assert vBoxSupInfoPanel != null : "fx:id=\"vBoxSupInfoPanel\" was not injected: check your FXML file 'prodSupView.fxml'.";
-        assert tfProdName != null : "fx:id=\"tfProdName\" was not injected: check your FXML file 'prodSupView.fxml'.";
-        assert btnProdEdit != null : "fx:id=\"btnProdEdit\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnSupDelete != null : "fx:id=\"btnSupDelete\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnSupAdd != null : "fx:id=\"btnSupAdd\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert vBoxSupEditPanel != null : "fx:id=\"vBoxSupEditPanel\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert cbSupName != null : "fx:id=\"cbSupName\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnSupSave != null : "fx:id=\"btnSupSave\" was not injected: check your FXML file 'prodSupView.fxml'.";
+        assert btnSupCancel != null : "fx:id=\"btnSupCancel\" was not injected: check your FXML file 'prodSupView.fxml'.";
 
         //**********************************************************************
         //product panel side
@@ -99,45 +123,50 @@ public class proSupController {
         //populate products table
         LoadTVProduct();
 
-
         //set initial status for all the products side controls
-        SetBtnPanelStatusOnItemSelected(false);
+        SetProdBtnPanelStatusOnItemSelected(false);
+
+        //set listener to Product Table and load related supplier table when one product get selected
+        AddListenerToProdSelected();
 
         //set listener for ProdPanelBtns
-        setProdPanelBtnListener();
+        setClickActionForProdSideBtns();
 
         //**********************************************************************
         //related supplier side
 
+        //set inital stauts of Sup related btns and panel
+        SetRelSupBtnPanelStatusOnItemSelected(false);
+
         tcRelSupId.setCellValueFactory(cellData -> cellData.getValue().supplierIdProperty().asObject());
         tcRelSupName.setCellValueFactory(cellData -> cellData.getValue().supNameProperty());
 
-        //load related supplier table when one product get selected
-        tvProduct.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue!=null){
-                        LoadRelatedSuppliers(newValue.getProductId());
-                    }
-                });
+
+
+        //set listener to RelatedSupplier Table and enable delete btn
+        AddListenerToSupSelected();
+
+        //set Listeners for Sup side btns
+        setClickActionForSupSideBtns();
     }
 
+    //Products Side ***********************
     private void LoadTVProduct() {
         tvProduct.setItems(productsDao.LoadAllProducts());
     }
 
-    private void setProdPanelBtnListener() {
+    private void setClickActionForProdSideBtns() {
         //edit btn clicked, enter edit mode  1
         btnProdEdit.setOnAction(event -> {
-            SetBtnPanelStatusOnItemSelected(false);
+            SetProdBtnPanelStatusOnItemSelected(false);
             mode = 1;
-            selectedProd = tvProduct.getSelectionModel().getSelectedItem();
             tfProdName.setText(selectedProd.getProdName());
             vBoxProEditPanel.setVisible(true);
         });
 
         //add btn clicked, enter add mode 2
         btnProdAdd.setOnAction(event ->{
-            SetBtnPanelStatusOnItemSelected(false);
+            SetProdBtnPanelStatusOnItemSelected(false);
             mode=2;
             vBoxProEditPanel.setVisible(true);
         });
@@ -151,17 +180,30 @@ public class proSupController {
 
         //Listeners for product detail edit panel btns
         btnProdEditClear.setOnAction(event->tfProdName.clear());
-        btnProdEditCancel.setOnAction(event -> SetBtnPanelStatusOnItemSelected(false));
-        btnProdEditSave.setOnAction(event ->BtnProdEditSaveClickedEvent(mode));
+        btnProdEditCancel.setOnAction(event -> SetProdBtnPanelStatusOnItemSelected(false));
+        btnProdEditSave.setOnAction(event -> InsertOrUpdateProd(mode));
+    }
+
+    private void AddListenerToProdSelected() {
+        tvProduct.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue!=null){
+                        selectedProd = newValue;
+                        SetProdBtnPanelStatusOnItemSelected(true);
+                        LoadRelatedSuppliers(newValue.getProductId());
+                    }
+                    SetRelSupBtnPanelStatusOnItemSelected(false);
+                });
     }
 
     private void DeleteSelectProduct(int productId) {
         productsDao.DeleteProductById(productId);
         LoadTVProduct();
+        SetRelSupBtnPanelStatusOnItemSelected(false);
 
     }
 
-    private void BtnProdEditSaveClickedEvent(int mode) {
+    private void InsertOrUpdateProd(int mode) {
         switch (mode) {
             case 1:
                 //1 for edit
@@ -177,13 +219,14 @@ public class proSupController {
                 //do nothing
         }
         LoadTVProduct();
+        SetProdBtnPanelStatusOnItemSelected(false);
     }
 
-    private void SetBtnPanelStatusOnItemSelected(boolean selected){
+    private void SetProdBtnPanelStatusOnItemSelected(boolean selected){
         //set mode to none
         mode = 0;
-        //set selectedProd to null
-        selectedProd=null;
+//        //set selectedProd to null
+//        selectedProd=null;
 
         //set Product control buttons status
         btnProdEdit.setDisable(!selected);
@@ -195,9 +238,49 @@ public class proSupController {
         tfProdName.clear();
     }
 
+    //Related Supplier Side ***********************
+
     private void LoadRelatedSuppliers(int id){
-        SetBtnPanelStatusOnItemSelected(true);
         tvSuppliers.setItems(relatedSuppliersDAO.LoadAllRelatedSuppliers(id));
+    }
+
+    private void SetRelSupBtnPanelStatusOnItemSelected(boolean selected){
+        btnSupDelete.setDisable(!selected);
+        vBoxSupEditPanel.setVisible(false);
+        tvSuppliers.getSelectionModel().clearSelection();
+
+    }
+
+    private void AddListenerToSupSelected() {
+        tvSuppliers.getSelectionModel().selectedItemProperty().addListener(observable -> btnSupDelete.setDisable(false));
+    }
+
+    private void setClickActionForSupSideBtns() {
+        btnSupDelete.setOnAction(event ->relatedSuppliersDAO.DeleteById(tvSuppliers.getSelectionModel().getSelectedItem().getProductSupplierId()));
+        btnSupAdd.setOnAction(event -> {
+            SetRelSupBtnPanelStatusOnItemSelected(false);
+            vBoxSupEditPanel.setVisible(true);
+            loadComboBoxSup(selectedProd.getProductId());
+        });
+        btnSupCancel.setOnAction(event -> SetRelSupBtnPanelStatusOnItemSelected(false));
+        btnSupSave.setOnAction(event -> {
+            if(!cbSupName.getSelectionModel().isEmpty()) {
+                ProductsSuppliers newProdSup = new ProductsSuppliers(selectedProd.getProductId(), cbSupName.getSelectionModel().getSelectedItem().getSupplierId());
+                relatedSuppliersDAO.SaveNewRelatedSup(newProdSup);
+                LoadRelatedSuppliers(selectedProd.getProductId());
+                loadComboBoxSup(selectedProd.getProductId());
+            }else{
+                infoBox("Please select a value in ComboBox","Can't Save");
+            }
+            SetRelSupBtnPanelStatusOnItemSelected(false);
+
+        });
+    }
+
+    private void loadComboBoxSup(int productId) {
+        cbSupName.setItems(relatedSuppliersDAO.LoadNonSelectedSuppliers(productId));
+
+
     }
 
 

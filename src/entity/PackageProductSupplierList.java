@@ -18,26 +18,26 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class PackageProductSupplierList {
 
-    private SimpleIntegerProperty PackageId;
+    private SimpleIntegerProperty Id;
     private SimpleStringProperty ProdName;
     private SimpleStringProperty SupName;
 
-    public PackageProductSupplierList(int packageId, String prodName, String supName) {
-        PackageId = new SimpleIntegerProperty(packageId);
+    public PackageProductSupplierList(int Id, String prodName, String supName) {
+        this.Id = new SimpleIntegerProperty(Id);
         ProdName = new SimpleStringProperty(prodName);
         SupName = new SimpleStringProperty(supName);
     }
 
     public int getPackageId() {
-        return PackageId.get();
+        return Id.get();
     }
 
     public SimpleIntegerProperty packageIdProperty() {
-        return PackageId;
+        return Id;
     }
 
     public void setPackageId(int packageId) {
-        this.PackageId.set(packageId);
+        this.Id.set(packageId);
     }
 
     public String getProdName() {
@@ -67,7 +67,7 @@ public class PackageProductSupplierList {
     @Override
     public String toString() {
         return "PackageProductSupplierList{" +
-                "PackageId=" + PackageId +
+                "PackageId=" + Id +
                 ", ProdName=" + ProdName +
                 ", SupName=" + SupName +
                 '}';

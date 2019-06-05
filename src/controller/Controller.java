@@ -37,16 +37,6 @@ public class Controller {
     @FXML
     private Button btnProdManag;
 
-    @FXML
-    void goToPackageManagement(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/package.fxml"));
-        stageTest.setTitle("Travel Experts Package Maintenance");
-        Scene packageScene = new Scene(root, 800, 600);
-
-        stageTest.setScene(packageScene);
-        stageTest.show();
-
-    }
 
     public static void passStage(Stage stage) {
         stageTest = stage;
@@ -56,6 +46,16 @@ public class Controller {
     void initialize() {
         assert btnPackageManagement != null : "fx:id=\"btnPackageManagement\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnProdManag != null : "fx:id=\"btnProdManag\" was not injected: check your FXML file 'sample.fxml'.";
+    }
+
+    @FXML
+    void goToPackageManagement(ActionEvent event) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/package.fxml"));
+        stageTest.setTitle("Travel Experts Package Maintenance");
+        Scene packageScene = new Scene(root, 1200, 650);
+
+        stageTest.setScene(packageScene);
+        stageTest.show();
     }
 
     @FXML

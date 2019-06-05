@@ -8,8 +8,8 @@ public class ProductsSuppliers {
     private SimpleIntegerProperty ProductId;
     private SimpleIntegerProperty SupplierId;
 
-    public ProductsSuppliers(int proSupId, int proId, int supId){
-        ProductSupplierId=new SimpleIntegerProperty(proSupId);
+    public ProductsSuppliers(int proId, int supId){
+        //int proSupId is not needed for insert
         ProductId=new SimpleIntegerProperty(proId);
         SupplierId=new SimpleIntegerProperty(supId);
     }
