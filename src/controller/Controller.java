@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Controller {
@@ -37,6 +38,9 @@ public class Controller {
     @FXML
     private Button btnProdManag;
 
+    @FXML
+    private BorderPane bpMenuBar;
+
 
     public static void passStage(Stage stage) {
         stageTest = stage;
@@ -44,28 +48,33 @@ public class Controller {
 
     @FXML
     void initialize() {
-        assert btnPackageManagement != null : "fx:id=\"btnPackageManagement\" was not injected: check your FXML file 'sample.fxml'.";
+        assert bpMenuBar != null : "fx:id=\"bpMenuBar\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnProdManag != null : "fx:id=\"btnProdManag\" was not injected: check your FXML file 'sample.fxml'.";
+        assert btnPackageManagement != null : "fx:id=\"btnPackageManagement\" was not injected: check your FXML file 'sample.fxml'.";
+
     }
 
     @FXML
     void goToPackageManagement(ActionEvent event) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("../view/package.fxml"));
-        stageTest.setTitle("Travel Experts Package Maintenance");
-        Scene packageScene = new Scene(root, 1200, 650);
+//        stageTest.setTitle("Travel Experts Package Maintenance");
+//        Scene packageScene = new Scene(root, 1200, 650);
+//
+//        stageTest.setScene(packageScene);
+//        stageTest.show();
 
-        stageTest.setScene(packageScene);
-        stageTest.show();
+        bpMenuBar.setCenter(root);
     }
 
     @FXML
     void gotoProdMng(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
-        stageTest.setTitle("Travel Experts Products Maintenance");
-        Scene prodSupScene = new Scene(root, 800, 600);
+//        stageTest.setTitle("Travel Experts Products Maintenance");
+//        Scene prodSupScene = new Scene(root, 800, 600);
+        bpMenuBar.setCenter(root);
 
-        stageTest.setScene(prodSupScene);
-        stageTest.show();
+//        stageTest.setScene(prodSupScene);
+//        stageTest.show();
     }
 
 
