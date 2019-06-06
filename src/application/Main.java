@@ -25,9 +25,9 @@ public class Main extends Application {
         PackageController.passStage(primaryStage);
         Controller.passStage(primaryStage);
 
-        Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/authentication.fxml"));
         primaryStage.setTitle("Travel Experts Database Management");
-        primaryStage.setScene(new Scene(root, 1200, 650));
+        primaryStage.setScene(new Scene(root, 806, 489));
         primaryStage.show();
     }
 
