@@ -1,3 +1,4 @@
+// Hoang Truong
 package entity;
 
 import javafx.beans.property.SimpleIntegerProperty;
