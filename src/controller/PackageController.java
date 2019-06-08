@@ -171,19 +171,6 @@ public class PackageController {
     @FXML
     private TableColumn<PackageProductSupplierList, String> colSupplier1;
 
-
-
-    /*    @FXML
-    void goToMainScene(ActionEvent event) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
-        stageTest.setTitle("Main Scene");
-        Scene packageScene = new Scene(root, 800, 600);
-
-        stageTest.setScene(packageScene);
-        stageTest.show();
-
-    }*/
     // initialize PackagesDAO object in order to be able to call data access methods in the class
     PackagesDAO packagesDAO = new PackagesDAO();
 
@@ -365,6 +352,8 @@ public class PackageController {
             btnSavePackage.setDisable(true);
             btnUpdatePackage.setDisable(false);
             btnAddPackage.setDisable(false);
+
+            disablePackageFields();
         });
 
     }
