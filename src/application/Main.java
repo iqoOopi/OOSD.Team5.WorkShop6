@@ -10,7 +10,6 @@
 package application;
 
 import controller.Controller;
-import controller.LoginController;
 import controller.PackageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
