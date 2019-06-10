@@ -1,5 +1,5 @@
-//package controller;
-package sample;
+package controller;
+
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
