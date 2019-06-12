@@ -41,6 +41,9 @@ public class Controller {
     @FXML
     private BorderPane bpMenuBar;
 
+    @FXML
+    private Button btnBookingManagement;
+
 
     public static void passStage(Stage stage) {
         stageTest = stage;
@@ -51,6 +54,17 @@ public class Controller {
         assert bpMenuBar != null : "fx:id=\"bpMenuBar\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnProdManag != null : "fx:id=\"btnProdManag\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnPackageManagement != null : "fx:id=\"btnPackageManagement\" was not injected: check your FXML file 'sample.fxml'.";
+        assert btnBookingManagement != null : "fx:id=\"btnBookingManagement\" was not injected: check your FXML file 'sample.fxml'.";
+
+        btnBookingManagement.setOnAction(event -> {
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("../view/bookings_view.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bpMenuBar.setCenter(root);
+        });
 
     }
 
@@ -76,6 +90,8 @@ public class Controller {
 //        stageTest.setScene(prodSupScene);
 //        stageTest.show();
     }
+
+
 
 
 }

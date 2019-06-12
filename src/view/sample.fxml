@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="800.0" minViewportWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <content>
       <BorderPane fx:id="bpMenuBar" minHeight="800.0" minWidth="800.0">
@@ -19,6 +18,11 @@
                      </font>
                   </Button>
                   <Button fx:id="btnPackageManagement" mnemonicParsing="false" onAction="#goToPackageManagement" prefWidth="160.0" text="Package Management">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnBookingManagement" mnemonicParsing="false" prefWidth="160.0" text="Booking Management">
                      <font>
                         <Font size="14.0" />
                      </font>
