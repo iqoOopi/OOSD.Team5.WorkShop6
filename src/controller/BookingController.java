@@ -1,6 +1,10 @@
 package controller;
 
 
+import dao.BookingDetailsDAO;
+import dao.BookingsDAO;
+import entity.BookingDetails;
+import entity.Bookings;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
