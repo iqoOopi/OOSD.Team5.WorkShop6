@@ -138,9 +138,7 @@ public class PackageController {
     PackagesDAO packagesDAO = new PackagesDAO();
 
     // set up decimal format
-    DecimalFormat df = new DecimalFormat("###, ###.00");
-
-
+    DecimalFormat df = new DecimalFormat("#######.00");
 
     @FXML
     void initialize() {
@@ -178,7 +176,7 @@ public class PackageController {
         tfPackageId.setDisable(true);
 
         // initialize buttons
-        disableAllButtons();
+        //disableAllButtons();
 
         // listen for changes in the tableview and show package details when changed
         tvPackages.getSelectionModel().selectedItemProperty().addListener(
@@ -189,6 +187,11 @@ public class PackageController {
             btnAddProductSupplier.setDisable(false);
         });
 
+
+        tvProductSupplier.setOnMouseClicked(e->
+        {
+            btnDeleteProductSupplier.setDisable(false);
+        });
 
         btnAddPackage.setOnAction(e ->
         {
@@ -249,23 +252,14 @@ public class PackageController {
 
         btnUpdatePackage.setOnAction(e->
         {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Are you sure you want to update this package?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (!(result.get() == ButtonType.OK)) return;
+
             Package pkg = tvPackages.getSelectionModel().getSelectedItem();
             int pkgId = tvPackages.getSelectionModel().getSelectedIndex();
 
-            // disable Add button and Update button
-            btnAddPackage.setDisable(true);
-            btnUpdatePackage.setDisable(true);
-
-            // enable Save button
-            btnSavePackage.setDisable(false);
-
-            // enable package fields
-            enablePackageFields();
-            // disable PackageId field
-            tfPackageId.setDisable(true);
-
-            // validate Package text fields
-            // validation code
             Validation v = new Validation();
             String errorMsg = "";
 
@@ -273,15 +267,16 @@ public class PackageController {
             errorMsg += v.isProvided(tfPackageName.getText(), "Package Name");
             errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
             errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
+            errorMsg += v.isDateGreater(dpStartDate.getValue(), dpEndDate.getValue(), "Package End Date");
             errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
             errorMsg += v.isProvided(tfBasePrice.getText(), "Package Base Price");
             errorMsg += v.isProvided(tfAgencyCommission.getText(), "Package Agency Commission");
 
             if (!errorMsg.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("Invalid information");
-                alert.setContentText(errorMsg);
-                alert.showAndWait();
+                Alert alert1 = new Alert(Alert.AlertType.WARNING);
+                alert1.setHeaderText("Invalid information");
+                alert1.setContentText(errorMsg);
+                alert1.showAndWait();
                 return;
             }
 
@@ -298,6 +293,7 @@ public class PackageController {
             btnSavePackage.setDisable(true);
             btnUpdatePackage.setDisable(false);
             btnAddPackage.setDisable(false);
+            btnDeletePackage.setDisable(false);
 
             //disablePackageFields();
         });
@@ -315,6 +311,7 @@ public class PackageController {
             errorMsg += v.isProvided(tfPackageName.getText(), "Package Name");
             errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
             errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
+            errorMsg += v.isDateGreater(dpStartDate.getValue(), dpEndDate.getValue(), "Package End Date");
             errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
             errorMsg += v.isProvided(tfBasePrice.getText(), "Package Base Price");
             errorMsg += v.isProvided(tfAgencyCommission.getText(), "Package Agency Commission");
@@ -327,9 +324,11 @@ public class PackageController {
                 return;
             }
 
-            packagesDAO.savePackage(new Package(1, tfPackageName.getText(), dpStartDate.getValue(),
+            Package newPackage = new Package(1, tfPackageName.getText(), dpStartDate.getValue(),
                     dpEndDate.getValue(), tfDescription.getText(), Double.parseDouble(tfBasePrice.getText()),
-                    Double.parseDouble(tfAgencyCommission.getText())));
+                    Double.parseDouble(tfAgencyCommission.getText()));
+
+            packagesDAO.savePackage(newPackage);
             // reload table
             loadPackages();
             // reset button
@@ -337,7 +336,9 @@ public class PackageController {
             btnUpdatePackage.setDisable(false);
             btnAddPackage.setDisable(false);
 
-            disablePackageFields();
+            tvPackages.getSelectionModel().selectLast();
+
+            //disablePackageFields();
         });
     }
 
@@ -477,7 +478,6 @@ public class PackageController {
 
     public static void passStage(Stage stage) {
         stageTest = stage;
-
     }
 
 }

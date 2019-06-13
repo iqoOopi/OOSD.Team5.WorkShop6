@@ -9,6 +9,8 @@
  **********************************************************************************************/
 package entity;
 
+import java.time.LocalDate;
+
 public class Validation {
 
     private String lineEnd;
@@ -39,6 +41,14 @@ public class Validation {
         String msg = "";
         if (value.isEmpty()) {
             msg = name + " is required." + lineEnd;
+        }
+        return msg;
+    }
+
+    public String isDateGreater(LocalDate date1, LocalDate date2, String name) {
+        String msg = "";
+        if (date2.compareTo(date1) < 0) {
+            msg = name + " must be later than Start Date." + lineEnd;
         }
         return msg;
     }

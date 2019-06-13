@@ -48,6 +48,7 @@ public class Controller {
     private Button btnBookingManagement;
 
 
+
     public static void passStage(Stage stage) {
         stageTest = stage;
     }
@@ -79,7 +80,6 @@ public class Controller {
 //
 //        stageTest.setScene(packageScene);
 //        stageTest.show();
-
         bpMenuBar.setCenter(root);
     }
 
