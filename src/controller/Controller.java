@@ -33,6 +33,9 @@ public class Controller {
     private URL location;
 
     @FXML
+    private Button btnExit;
+
+    @FXML
     private Button btnPackageManagement;
 
     @FXML
@@ -56,7 +59,7 @@ public class Controller {
 
     @FXML
     void goToPackageManagement(ActionEvent event) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/package.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/package_manager.fxml"));
 //        stageTest.setTitle("Travel Experts Package Maintenance");
 //        Scene packageScene = new Scene(root, 1200, 650);
 //
@@ -77,5 +80,9 @@ public class Controller {
 //        stageTest.show();
     }
 
+    @FXML
+    void goToExit(ActionEvent event) {
+        System.exit(0);
+    }
 
 }

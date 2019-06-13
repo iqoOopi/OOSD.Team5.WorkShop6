@@ -12,7 +12,9 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import dao.DBHelper;
@@ -41,39 +43,8 @@ public class PackageController {
     @FXML
     private URL location;
 
-
-    @FXML // fx:id="mnuBar"
-    private MenuBar mnuBar; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mnuFile"
-    private Menu mnuFile; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mnuMain"
-    private MenuItem mnuMain; // Value injected by FXMLLoader
-
-    @FXML
-    private MenuItem mnuProductManagement;
-
-
-    @FXML // fx:id="mnuExit"
-    private MenuItem mnuExit; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mnuEdit"
-    private Menu mnuEdit; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mnuSave"
-    private MenuItem mnuSave; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mnuDelete"
-    private MenuItem mnuDelete; // Value injected by FXMLLoader
-
-    @FXML // fx:id="mnuUpdate"
-    private MenuItem mnuUpdate; // Value injected by FXMLLoader
-
-
     @FXML
     private TableView<Package> tvPackages;
-
 
     @FXML
     private TableColumn<Package, Integer> colPackageId;
@@ -110,12 +81,6 @@ public class PackageController {
 
 
     @FXML
-    private Button btnMainScene;
-
-    @FXML
-    private GridPane gpPackages;
-
-    @FXML
     private TextField tfPackageId;
 
     @FXML
@@ -136,7 +101,6 @@ public class PackageController {
     @FXML
     private Button btnDeletePackage;
 
-
     @FXML
     private TextField tfDescription;
 
@@ -148,7 +112,6 @@ public class PackageController {
 
     @FXML
     private TableView<PackageProductSupplierList> tvProductSupplier;
-
 
     @FXML
     private TableColumn<PackageProductSupplierList, Integer> colId;
@@ -173,6 +136,11 @@ public class PackageController {
 
     // initialize PackagesDAO object in order to be able to call data access methods in the class
     PackagesDAO packagesDAO = new PackagesDAO();
+
+    // set up decimal format
+    DecimalFormat df = new DecimalFormat("###, ###.00");
+
+
 
     @FXML
     void initialize() {
@@ -207,63 +175,18 @@ public class PackageController {
 
         loadPackages();
 
-        // disable package fields
-        disablePackageFields();
-
+        tfPackageId.setDisable(true);
 
         // initialize buttons
-        // disable Save button btnSavePackage
-        btnSavePackage.setDisable(true);
-        btnAddProductSupplier.setDisable(true);
+        disableAllButtons();
 
         // listen for changes in the tableview and show package details when changed
         tvPackages.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPackageDetails(newValue));
 
-
-
-        mnuExit.setOnAction(e ->
-        {
-            System.exit(0);
-        });
-
-        mnuMain.setOnAction(e ->
-        {
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
-                stageTest.setTitle("Main Scene");
-                Scene packageScene = new Scene(root, 1200, 700);
-
-                stageTest.setScene(packageScene);
-                stageTest.show();
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-        });
-
         tvProductSupplierAvailable.setOnMouseClicked(e->
         {
             btnAddProductSupplier.setDisable(false);
-        });
-
-        mnuProductManagement.setOnAction(e ->
-        {
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
-                stageTest.setTitle("Main Scene");
-                Scene prodSupScene = new Scene(root, 1200, 700);
-
-                stageTest.setScene(prodSupScene);
-                stageTest.show();
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
         });
 
 
@@ -274,6 +197,7 @@ public class PackageController {
             // disable Add button and Update button
             btnAddPackage.setDisable(true);
             btnUpdatePackage.setDisable(true);
+            btnDeletePackage.setDisable(true);
 
             // enable Save button
             btnSavePackage.setDisable(false);
@@ -282,18 +206,22 @@ public class PackageController {
             enablePackageFields();
             // disable PackageId field
             tfPackageId.setDisable(true);
-
         });
 
         btnDeletePackage.setOnAction(e->
         {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("Are you sure you want to delete this package?");
-            alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (!(result.get() == ButtonType.OK)) return;
+
+            // delete packages_products_suppliers entries related to the Package before deleting the Package
+            packagesDAO.deleteProductSupplier(tvPackages.getSelectionModel().getSelectedItem());
 
             packagesDAO.deletePackage(tvPackages.getSelectionModel().getSelectedItem());
 
             loadPackages();
+            showPackageDetails(null);
         });
 
         btnAddProductSupplier.setOnAction (e->
@@ -319,6 +247,63 @@ public class PackageController {
         });
 
 
+        btnUpdatePackage.setOnAction(e->
+        {
+            Package pkg = tvPackages.getSelectionModel().getSelectedItem();
+            int pkgId = tvPackages.getSelectionModel().getSelectedIndex();
+
+            // disable Add button and Update button
+            btnAddPackage.setDisable(true);
+            btnUpdatePackage.setDisable(true);
+
+            // enable Save button
+            btnSavePackage.setDisable(false);
+
+            // enable package fields
+            enablePackageFields();
+            // disable PackageId field
+            tfPackageId.setDisable(true);
+
+            // validate Package text fields
+            // validation code
+            Validation v = new Validation();
+            String errorMsg = "";
+
+            //errorMsg += v.isProvided(tfPackageId.getText(), "Package Id");
+            errorMsg += v.isProvided(tfPackageName.getText(), "Package Name");
+            errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
+            errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
+            errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
+            errorMsg += v.isProvided(tfBasePrice.getText(), "Package Base Price");
+            errorMsg += v.isProvided(tfAgencyCommission.getText(), "Package Agency Commission");
+
+            if (!errorMsg.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText("Invalid information");
+                alert.setContentText(errorMsg);
+                alert.showAndWait();
+                return;
+            }
+
+
+            packagesDAO.updatePackage(new Package(Integer.parseInt(tfPackageId.getText()), tfPackageName.getText(),
+                    dpStartDate.getValue(), dpEndDate.getValue(), tfDescription.getText(),
+                    Double.parseDouble(tfBasePrice.getText()),
+                    Double.parseDouble(tfAgencyCommission.getText())));
+            // reload table
+            loadPackages();
+
+            tvPackages.getSelectionModel().select(pkgId);
+            // reset button
+            btnSavePackage.setDisable(true);
+            btnUpdatePackage.setDisable(false);
+            btnAddPackage.setDisable(false);
+
+            //disablePackageFields();
+        });
+
+
+
         btnSavePackage.setOnAction(e->
         {
             // validate Package text fields
@@ -342,7 +327,6 @@ public class PackageController {
                 return;
             }
 
-
             packagesDAO.savePackage(new Package(1, tfPackageName.getText(), dpStartDate.getValue(),
                     dpEndDate.getValue(), tfDescription.getText(), Double.parseDouble(tfBasePrice.getText()),
                     Double.parseDouble(tfAgencyCommission.getText())));
@@ -355,7 +339,6 @@ public class PackageController {
 
             disablePackageFields();
         });
-
     }
 
     private void disablePackageFields() {
@@ -377,7 +360,6 @@ public class PackageController {
         tfBasePrice.setDisable(false);
         tfAgencyCommission.setDisable(false);
     }
-
 
     private void clearPackageFields() {
         tfPackageId.setText("");
@@ -403,7 +385,10 @@ public class PackageController {
         // reset buttons to Edit enabled and Save disabled
         // this is necessary in case the user changes the Agent selection before saving an
         // existing Agent change
-        //btnSave.setDisable(true);
+        btnSavePackage.setDisable(true);
+        btnDeletePackage.setDisable(false);
+        btnUpdatePackage.setDisable(false);
+        btnAddPackage.setDisable(false);
         //btnEdit.setDisable(false);
         updatePackageDisplay(pkg);
 
@@ -418,26 +403,42 @@ public class PackageController {
 
     private void updateAvailableDisplay(Package pkg) {
 
-        ObservableList<PackageProductSupplierList> packagePSList = packagesDAO.getAvailableProductsSuppliers(pkg);
-
-        tvProductSupplierAvailable.setItems(packagePSList);
+        if (pkg != null)
+        {
+            tvProductSupplierAvailable.setItems(packagesDAO.getAvailableProductsSuppliers(pkg));
+        }
+        else
+            tvProductSupplierAvailable.setItems(null);
 
         // not working presently
         if (tvProductSupplierAvailable.getSelectionModel().isEmpty()) {
             btnAddProductSupplier.setDisable(true);
+            btnEditProductSupplier.setDisable(true);
         }
-        else
+        else {
             btnAddProductSupplier.setDisable(false);
-
+            btnEditProductSupplier.setDisable(false);
+        }
     }
 
     private void updatePackagePSTable(Package pkg) {
         System.out.println("Starting updatePackagePSTable");
         System.out.println(pkg);
 
-        ObservableList<PackageProductSupplierList> packagePSList = packagesDAO.getRelatedProductsSuppliers(pkg);
+        if (pkg != null)
+        {
+            tvProductSupplier.setItems(packagesDAO.getRelatedProductsSuppliers(pkg));
+        }
+        else
+            tvProductSupplier.setItems(null);
 
-        tvProductSupplier.setItems(packagePSList);
+        if (tvProductSupplier.getSelectionModel().isEmpty()) {
+            btnDeleteProductSupplier.setDisable(true);
+        }
+        else {
+            btnDeleteProductSupplier.setDisable(false);
+        }
+
     }
 
     private void updatePackageDisplay(Package pkg) {
@@ -449,8 +450,8 @@ public class PackageController {
             dpStartDate.setValue(pkg.getPkgStartDate());
             dpEndDate.setValue(pkg.getPkgEndDate());
             tfDescription.setText(pkg.getPkgDesc());
-            tfBasePrice.setText(Double.toString(pkg.getPkgBasePrice()));
-            tfAgencyCommission.setText(Double.toString(pkg.getPkgAgencyCommission()));
+            tfBasePrice.setText(df.format(pkg.getPkgBasePrice()));
+            tfAgencyCommission.setText(df.format(pkg.getPkgAgencyCommission()));
         }
         else { // if the agent reference is null then populate text fields with empty strings
             tfPackageId.setText("");
@@ -463,70 +464,15 @@ public class PackageController {
         }
     }
 
-    void savePackages(ActionEvent event) {
-
-        int cmbIndex = tvPackages.getSelectionModel().getSelectedIndex();
-
-        // validation code
-        Validation v = new Validation();
-        String errorMsg = "";
-
-        errorMsg += v.isProvided(tfPackageId.getText(), "Package Id");
-        errorMsg += v.isProvided(tfPackageName.getText(), "Package Name");
-        errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
-        errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
-        errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
-        errorMsg += v.isProvided(tfBasePrice.getText(), "Package Base Price");
-        errorMsg += v.isInteger(tfAgencyCommission.getText(), "Package Agency Commission");
-
-        if (!errorMsg.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("Invalid information");
-            alert.setContentText(errorMsg);
-            alert.showAndWait();
-            return;
-        }
-
-
-/*
-        Connection conn = DBHelper.getConnection();
-        try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE `packages` SET `PackageId`=?," +
-                    "`PkgName`=?,`AgtLastName`=?,`AgtBusPhone`=?,`AgtEmail`=?,`AgtPosition`=?," +
-                    "`AgencyId`=?  WHERE AgentId=?");
-            stmt.setInt(1, Integer.parseInt(tfPackageId.getText()));
-            stmt.setString(2, tfPackageName.getText());
-            stmt.setDate(3, Date.valueOf(dpStartDate.getValue()));
-            stmt.setDate(4, Date.valueOf(dpEndDate.getValue()));
-            stmt.setString(5, tfDescription.getText());
-            stmt.setDouble(6, Double.parseDouble(tfBasePrice.getText()));
-            stmt.setDouble(7, Double.parseDouble(tfAgencyCommission.getText()));
-            int rowsUpdated = stmt.executeUpdate();
-            if (rowsUpdated == 0)
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Error updating the database", ButtonType.OK);
-                alert.showAndWait();
-            }
-            conn.close();
-*/
-            loadPackages();
-            tvPackages.getSelectionModel().select(cmbIndex);
-            showPackageDetails(tvPackages.getSelectionModel().getSelectedItem());
-
-            // set buttons
-            //btnSave.setDisable(true);
-            //btnEdit.setDisable(false);
-
-            // disable text fields
-            //setAgentUnEditable();
-
-/*
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-*/
+    public void disableAllButtons() {
+        btnDeletePackage.setDisable(true);
+        btnUpdatePackage.setDisable(true);
+        btnAddPackage.setDisable(true);
+        btnSavePackage.setDisable(true);
+        btnDeleteProductSupplier.setDisable(true);
+        btnAddProductSupplier.setDisable(true);
+        btnEditProductSupplier.setDisable(true);
     }
-
 
 
     public static void passStage(Stage stage) {

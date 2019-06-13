@@ -127,6 +127,18 @@ public class PackagesDAO {
         }
     }
 
+    public void deleteProductSupplier(Package pkg){
+
+        String sql = "DELETE FROM packages_products_suppliers WHERE PackageId = ?";
+        try (Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, pkg.getPackageId());
+            pstmt.execute();
+        }catch(SQLException e){
+            infoBox(e.getMessage(),"Can't Delete Package_Product_Supplier");
+        }
+    }
+
+
     public void savePackage(Package newPackage){
         String sql = "INSERT INTO Packages (PkgName,PkgStartDate,PkgEndDate,PkgDesc," +
                 "PkgBasePrice,PkgAgencyCommission) VALUES (?,?,?,?,?,?)";
@@ -171,15 +183,21 @@ public class PackagesDAO {
 
 
     public void updatePackage (Package editedPackage){
-        String sql = "UPDATE Packages SET ProdName=? WHERE PackageId = ?";
+        String sql = "UPDATE Packages SET PkgName=?, PkgStartDate=?, PkgEndDate=?, " +
+                        "PkgDesc=?, PkgBasePrice=?, PkgAgencyCommission=? " +
+                        "WHERE PackageId = ?";
         try (Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1,editedPackage.getPkgName());
-            pstmt.setInt(2,editedPackage.getPackageId());
+            pstmt.setDate(2,Date.valueOf(editedPackage.getPkgStartDate()));
+            pstmt.setDate(3,Date.valueOf(editedPackage.getPkgEndDate()));
+            pstmt.setString(4,editedPackage.getPkgDesc());
+            pstmt.setDouble(5,editedPackage.getPkgBasePrice());
+            pstmt.setDouble(6,editedPackage.getPkgAgencyCommission());
+            pstmt.setInt(7,editedPackage.getPackageId());
             pstmt.execute();
         }catch(SQLException e){
             infoBox(e.getMessage(),"Can't Update Package");
         }
     }
-
 
 }

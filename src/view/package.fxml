@@ -4,9 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -19,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackageController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackageController">
    <center>
       <TableView fx:id="tvPackages" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="1100.0" style="-fx-font-size: 16;" BorderPane.alignment="CENTER">
         <columns>
@@ -37,37 +34,7 @@
       </TableView>
    </center>
    <top>
-      <HBox prefHeight="18.0" prefWidth="600.0" BorderPane.alignment="CENTER_LEFT">
-         <children>
-            <MenuBar fx:id="mnuBar">
-              <menus>
-                <Menu fx:id="mnuFile" mnemonicParsing="false" text="File">
-                  <items>
-                        <MenuItem id="mnuMain" fx:id="mnuMain" mnemonicParsing="false" text="Main" />
-                        <MenuItem fx:id="mnuProductManagement" mnemonicParsing="false" text="Product Management" />
-                    <MenuItem id="mnuExit" fx:id="mnuExit" mnemonicParsing="false" text="Exit" />
-                  </items>
-                </Menu>
-                <Menu fx:id="mnuEdit" mnemonicParsing="false" text="Edit">
-                  <items>
-                        <MenuItem id="mnuSave" fx:id="mnuSave" mnemonicParsing="false" text="Save" />
-                    <MenuItem id="mnuDelete" fx:id="mnuDelete" mnemonicParsing="false" text="Delete" />
-                        <MenuItem fx:id="mnuUpdate" mnemonicParsing="false" text="Update" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <Label text="Scene Under Construction" textFill="#d70808">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children></HBox>
+      <HBox prefHeight="7.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT" />
    </top>
    <bottom>
       <HBox maxWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" BorderPane.alignment="CENTER">
