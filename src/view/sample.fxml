@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="600.0" minViewportWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="800.0" minViewportWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <content>
       <BorderPane fx:id="bpMenuBar" minHeight="800.0" minWidth="800.0">
          <left>
-            <ToolBar minWidth="170.0" orientation="VERTICAL" BorderPane.alignment="CENTER">
+            <ToolBar minWidth="170.0" orientation="VERTICAL" prefHeight="400.0" BorderPane.alignment="CENTER">
                <items>
                   <Button fx:id="btnProdManag" mnemonicParsing="false" onAction="#gotoProdMng" prefWidth="160.0" text="Product Management">
                      <font>
@@ -22,7 +22,7 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnExit" mnemonicParsing="false" onAction="#goToExit" prefWidth="160.0" text="Exit">
+                  <Button fx:id="btnBookingManagement" mnemonicParsing="false" prefWidth="160.0" text="Booking Management">
                      <font>
                         <Font size="14.0" />
                      </font>
