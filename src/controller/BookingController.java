@@ -1,6 +1,7 @@
-//package controller;
-package sample;
+package controller;
 
+import dao.BookingDetailsDAO;
+import dao.BookingsDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +22,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import entity.Bookings;
+import entity.BookingDetails;
+
 
 
 
