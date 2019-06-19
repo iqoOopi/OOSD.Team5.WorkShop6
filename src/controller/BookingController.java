@@ -1,7 +1,8 @@
+//package controller;
 package controller;
 
-import dao.BookingDetailsDAO;
 import dao.BookingsDAO;
+import entity.Bookings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import sample.BookingDetails;
+import sample.BookingDetailsDAO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,9 +25,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import entity.Bookings;
-import entity.BookingDetails;
-
 
 
 

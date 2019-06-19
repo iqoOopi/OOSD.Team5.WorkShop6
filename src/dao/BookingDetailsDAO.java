@@ -1,6 +1,6 @@
-package dao;
+package sample;
 
-import entity.BookingDetails;
+import dao.DBHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -52,9 +52,9 @@ public class BookingDetailsDAO {
 
     }
 
-    public ObservableList<BookingDetails> getSelectedBookingDetails(Integer id ){
+    public ObservableList<sample.BookingDetails> getSelectedBookingDetails(Integer id ){
 
-        ObservableList<BookingDetails> lstBookingDetails = FXCollections.observableArrayList();
+        ObservableList<sample.BookingDetails> lstBookingDetails = FXCollections.observableArrayList();
         String sql = "SELECT * FROM bookingdetails WHERE BookingId=?";
         try(Connection conn = DBHelper.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1,id);
@@ -63,7 +63,7 @@ public class BookingDetailsDAO {
 
             while (rs.next())
             {
-                lstBookingDetails.add(new BookingDetails(rs.getInt("BookingDetailId"),
+                lstBookingDetails.add(new sample.BookingDetails(rs.getInt("BookingDetailId"),
                         rs.getDouble("ItineraryNo"),
                         rs.getDate("TripStart").toLocalDate(),
                         rs.getDate("TripEnd").toLocalDate(),
