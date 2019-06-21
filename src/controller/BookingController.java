@@ -1,20 +1,28 @@
+//package controller;
 package controller;
 
-
-import dao.BookingDetailsDAO;
 import dao.BookingsDAO;
-import entity.BookingDetails;
 import entity.Bookings;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import entity.BookingDetails;
+import sample.BookingDetailsDAO;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -72,8 +80,8 @@ public class BookingController {
 //    private TableColumn<BookingDetails, String> colDestination;
 //    @FXML
 //    private TableColumn<BookingDetails, Double> colBasePrice;
-//    @FXML
-//    private TableColumn<BookingDetails, Double> colAgencyCommission;
+    @FXML
+    private TextField agencyCommission;
 //    @FXML
 //    private TableColumn<BookingDetails,Integer> colBookinggId;
     @FXML
@@ -92,13 +100,18 @@ public class BookingController {
     private Button btnShowDetails;
 
     @FXML
+    private SplitPane sp;
+
+    @FXML
     void initialize ()
     {
         fillingBookingTable();
-        fillingBookingDetailsTable();
+
         loadBookings();
         loadBookingDetails();
-
+        tvBookingDetails.setVisible(false);
+        sp.setDividerPositions(1);
+        sideMenu.setVisible(false);
     }
 
     @FXML
@@ -129,6 +142,7 @@ public class BookingController {
         colFeeId.setCellValueFactory(cellData->cellData.getValue().feeIdProperty());
         colProdSupId.setCellValueFactory(cellData->cellData.getValue().productSupplierIdProperty().asObject());
         colClassId.setCellValueFactory(cellData->cellData.getValue().classIdProperty());
+
     }
 
     private void loadBookings() {
@@ -167,19 +181,62 @@ public class BookingController {
 
 
     }
-
+    //date conversion
     public Date convertToDate(LocalDate lDate)
     {
 
         return (java.sql.Date.valueOf(lDate));
     }
 
-
+    //adding funcitons to buttons
 
     @FXML
-    public void showDetails ()
-    {
+    private TextArea description;
+    @FXML
+    private TextField destination;
+    @FXML
+    private TextField basePrice;
+    @FXML
+    private Pane sideMenu;
+    @FXML
+    private SplitPane sideMenuContainer;
 
+    @FXML
+    public void showDetails () //on submit button click function
+    {
+        //show details using booking id
+        sp.setDividerPositions(0.325);
+        sideMenuContainer.setDividerPositions(0.25);
+
+        sideMenu.setVisible(true);
+        tvBookingDetails.setVisible(true);
+        BookingDetailsDAO bkDao = new BookingDetailsDAO();
+        ObservableList<BookingDetails> bDetailsLst = bkDao.getSelectedBookingDetails(Integer.parseInt(txtBookingId.getText()));
+
+        tvBookingDetails.setItems(bDetailsLst);
+        ///setting up extra agency detail
+        ArrayList<String>agencyDetail =(bkDao.getAgencyDescription(Integer.parseInt(txtBookingId.getText())));
+        agencyCommission.setText(agencyDetail.get(0)); //agency commission
+        basePrice.setText(agencyDetail.get(1)); // agency base price
+        description.setText(agencyDetail.get(2)); // description
+        destination.setText(agencyDetail.get(3)); // destination
+        fillingBookingDetailsTable();
+    }
+
+    @FXML
+    private Button goMenu;
+    @FXML
+    private Button goProdSup;
+    //go to main menu
+    @FXML
+    public void goToMenu(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
+
+    }
+    //go to prodsupview
+    @FXML
+    public void  goToProdSup(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
     }
 
 }

@@ -5,19 +5,20 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="1195.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookingController">
+<BorderPane prefHeight="609.0" prefWidth="1195.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.BookingController">
    <center>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="sp" dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="tvBookings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#getSelectedId" prefHeight="298.0" prefWidth="992.0">
+                  <TableView fx:id="tvBookings" onMouseClicked="#getSelectedId" prefHeight="298.0" prefWidth="992.0" AnchorPane.bottomAnchor="6.0" AnchorPane.topAnchor="2.0">
                     <columns>
                       <TableColumn fx:id="colBookingId" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="colBookingDate" prefWidth="124.0" text="Booking Date" />
@@ -29,9 +30,9 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="737.0">
+          <AnchorPane fx:id="aPaneDetails" minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="737.0">
                <children>
-                  <TableView fx:id="tvBookingDetails" layoutY="12.0" prefHeight="198.0" prefWidth="954.0">
+                  <TableView fx:id="tvBookingDetails" layoutY="54.0" prefHeight="156.0" prefWidth="993.0" AnchorPane.topAnchor="54.0">
                     <columns>
                       <TableColumn fx:id="colBookingDetailsId" prefWidth="135.0" text="Booking Detail ID" />
                       <TableColumn fx:id="colItineraryNo" minWidth="0.0" prefWidth="87.0" text="ItenaryNo." />
@@ -43,14 +44,15 @@
                         <TableColumn fx:id="colProdSupId" prefWidth="195.0" text="Product Supplier ID" />
                     </columns>
                   </TableView>
-                  <Pane layoutY="216.0" prefHeight="75.0" prefWidth="734.0" />
+                  <Pane layoutY="216.0" prefHeight="75.0" prefWidth="989.0" />
+                  <Label layoutX="34.0" layoutY="14.0" prefHeight="40.0" prefWidth="152.0" text="Booking Description:" AnchorPane.topAnchor="2.0" />
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
    </center>
    <left>
-      <SplitPane dividerPositions="0.3261943986820428" orientation="VERTICAL" prefHeight="472.0" prefWidth="203.0" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="sideMenuContainer" dividerPositions="0.3261943986820428" orientation="VERTICAL" prefHeight="472.0" prefWidth="203.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="147.0" prefWidth="201.0">
                <children>
@@ -62,19 +64,25 @@
                         <Label layoutX="4.0" layoutY="19.0" text="Booking ID:" />
                         <Label layoutX="4.0" layoutY="58.0" text="Customer ID:" />
                         <Label layoutX="4.0" layoutY="97.0" text="Booking Date:" />
-                        <Button fx:id="btnShowDetails" layoutX="5.0" layoutY="155.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="184.0" text="SHOW DETAILS" />
+                        <Button fx:id="btnShowDetails" layoutX="5.0" layoutY="155.0" mnemonicParsing="false" onAction="#showDetails" prefHeight="31.0" prefWidth="184.0" text="SHOW DETAILS" />
                      </children>
                   </Pane>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="201.0">
                <children>
-                  <Pane fx:id="" layoutY="277.0" prefHeight="200.0" prefWidth="200.0" />
-                  <Pane layoutX="1.0" layoutY="96.0" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="sideMenu" prefHeight="381.0" prefWidth="200.0">
                      <children>
-                        <TextField layoutX="100.0" layoutY="21.0" prefHeight="31.0" prefWidth="92.0" />
-                        <TextField layoutX="100.0" layoutY="59.0" prefHeight="31.0" prefWidth="92.0" />
-                        <TextField layoutX="100.0" layoutY="100.0" prefHeight="31.0" prefWidth="92.0" />
+                        <TextField fx:id="basePrice" layoutX="99.0" layoutY="14.0" prefHeight="31.0" prefWidth="92.0" />
+                        <TextField fx:id="agencyCommission" layoutX="99.0" layoutY="52.0" prefHeight="31.0" prefWidth="92.0" />
+                        <TextField fx:id="destination" layoutX="97.0" layoutY="89.0" prefHeight="31.0" prefWidth="91.0" />
+                        <TextArea fx:id="description" layoutX="16.0" layoutY="163.0" prefHeight="96.0" prefWidth="166.0" />
+                        <Label layoutX="10.0" layoutY="94.0" text="Destination:" />
+                        <Label layoutX="10.0" layoutY="57.0" text="Commission:" />
+                        <Label layoutX="10.0" layoutY="19.0" text="Base Price:" />
+                        <Label layoutX="16.0" layoutY="142.0" text="Description:" />
+                        <Button fx:id="goProdSup" layoutX="20.0" layoutY="297.0" mnemonicParsing="false" onAction="#goToProdSup" text="See Prod. Suppliers" />
+                        <Button fx:id="goMenu" layoutX="20.0" layoutY="336.0" mnemonicParsing="false" onAction="#goToMenu" text="Menu" />
                      </children>
                   </Pane>
                </children></AnchorPane>
