@@ -335,20 +335,20 @@ public class Main implements Initializable {
             }
         }
 
-        for (Node node : ((VBox) controls.getContent()).getChildren()) {
-            controlsItems.add((Button) node);
-            items.add((Button) node);
-        }
-
-        for (Node node : ((VBox) design.getContent()).getChildren()) {
-            designItems.add((Button) node);
-            items.add((Button) node);
-        }
-
-        for (Node node : ((VBox) charts.getContent()).getChildren()) {
-            chartsItems.add((Button) node);
-            items.add((Button) node);
-        }
+//        for (Node node : ((VBox) controls.getContent()).getChildren()) {
+//            controlsItems.add((Button) node);
+//            items.add((Button) node);
+//        }
+//
+//        for (Node node : ((VBox) design.getContent()).getChildren()) {
+//            designItems.add((Button) node);
+//            items.add((Button) node);
+//        }
+//
+//        for (Node node : ((VBox) charts.getContent()).getChildren()) {
+//            chartsItems.add((Button) node);
+//            items.add((Button) node);
+//        }
     }
 
 
@@ -639,6 +639,14 @@ public class Main implements Initializable {
 //        title.setText("Animated Button");
 //        body.setContent(ViewManager.getInstance().get("animated-button"));
 
+
+    }
+
+    @FXML
+    private void btnProdMng(){
+//        title.setText("JFXTextField");
+//        body.setContent(ViewManager.getInstance().get("jfx-text-field"));
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
             body.setContent(root);
@@ -646,12 +654,7 @@ public class Main implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    @FXML
-    private void jfxTextField(){
-        title.setText("JFXTextField");
-        body.setContent(ViewManager.getInstance().get("jfx-text-field"));
     }
 
     @FXML
