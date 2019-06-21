@@ -5,7 +5,7 @@
  * Date: May 16, 2019.
  * Author: Tim Leslie
  * Description: This DBHelper class contains a static method which establishes a connection
- * to the TravelExperts database.
+ * to the TravelExperts database. Branch off main.
  *******************************************************************************************/
 package controller;
 
