@@ -29,6 +29,8 @@ import java.time.LocalDate;
     private SimpleDoubleProperty PkgBasePrice;
     private SimpleDoubleProperty PkgAgencyCommission;
 
+    // default constructor
+    public Package() {};
 
     // constructor
     public Package(int packageId, String pkgName,

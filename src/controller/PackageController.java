@@ -22,6 +22,9 @@ import dao.PackagesDAO;
 import entity.*;
 import entity.Package;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -176,7 +179,7 @@ public class PackageController {
         tfPackageId.setDisable(true);
 
         // initialize buttons
-        //disableAllButtons();
+        btnSavePackage.setDisable(true);
 
         // listen for changes in the tableview and show package details when changed
         tvPackages.getSelectionModel().selectedItemProperty().addListener(
@@ -265,12 +268,12 @@ public class PackageController {
 
             //errorMsg += v.isProvided(tfPackageId.getText(), "Package Id");
             errorMsg += v.isProvided(tfPackageName.getText(), "Package Name");
-            errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
-            errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
-            errorMsg += v.isDateGreater(dpStartDate.getValue(), dpEndDate.getValue(), "Package End Date");
-            errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
+            //errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
+            //errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
+            //errorMsg += v.isDateGreater(dpStartDate.getValue(), dpEndDate.getValue(), "Package End Date");
+            //errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
             errorMsg += v.isProvided(tfBasePrice.getText(), "Package Base Price");
-            errorMsg += v.isProvided(tfAgencyCommission.getText(), "Package Agency Commission");
+            //errorMsg += v.isProvided(tfAgencyCommission.getText(), "Package Agency Commission");
 
             if (!errorMsg.isEmpty()) {
                 Alert alert1 = new Alert(Alert.AlertType.WARNING);
@@ -309,12 +312,12 @@ public class PackageController {
 
             //errorMsg += v.isProvided(tfPackageId.getText(), "Package Id");
             errorMsg += v.isProvided(tfPackageName.getText(), "Package Name");
-            errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
-            errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
-            errorMsg += v.isDateGreater(dpStartDate.getValue(), dpEndDate.getValue(), "Package End Date");
-            errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
+            //errorMsg += v.isProvided(dpStartDate.getValue().toString(), "Package Start Date");
+            //errorMsg += v.isProvided(dpEndDate.getValue().toString(), "Package End Date");
+            //errorMsg += v.isDateGreater(dpStartDate.getValue(), dpEndDate.getValue(), "Package End Date");
+            //errorMsg += v.isProvided(tfDescription.getText(), "Package Description");
             errorMsg += v.isProvided(tfBasePrice.getText(), "Package Base Price");
-            errorMsg += v.isProvided(tfAgencyCommission.getText(), "Package Agency Commission");
+            //errorMsg += v.isProvided(tfAgencyCommission.getText(), "Package Agency Commission");
 
             if (!errorMsg.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -324,9 +327,55 @@ public class PackageController {
                 return;
             }
 
-            Package newPackage = new Package(1, tfPackageName.getText(), dpStartDate.getValue(),
-                    dpEndDate.getValue(), tfDescription.getText(), Double.parseDouble(tfBasePrice.getText()),
-                    Double.parseDouble(tfAgencyCommission.getText()));
+//            Package newPackage = new Package(1, tfPackageName.getText(), dpStartDate.getValue(),
+//                    dpEndDate.getValue(), tfDescription.getText(), Double.parseDouble(tfBasePrice.getText()),
+//                    Double.parseDouble(tfAgencyCommission.getText()));
+//
+            // instantiate new Package object
+            Package newPackage = new Package();
+            // initialize Package properties depending on field values - include some null handling
+            newPackage.setPackageId(1);
+            newPackage.setPkgName(tfPackageName.getText());
+            if (dpStartDate.getValue() == null)
+            {
+                newPackage.setPkgStartDate(null);
+            }
+            else
+            {
+                newPackage.setPkgStartDate(new SimpleObjectProperty<>(dpStartDate.getValue()));
+            }
+
+            if (dpEndDate.getValue() == null)
+            {
+                newPackage.setPkgEndDate(null);
+            }
+            else
+            {
+                newPackage.setPkgEndDate(new SimpleObjectProperty<>(dpEndDate.getValue()));
+            }
+
+            if (tfDescription.getText() == null)
+            {
+                newPackage.setPkgDesc(null);
+            }
+            else
+            {
+                newPackage.setPkgDesc(tfDescription.getText());
+            }
+
+            newPackage.setPkgBasePrice(Double.parseDouble(tfBasePrice.getText()));
+
+            if (tfAgencyCommission.getText() == null)
+            {
+                newPackage.setPkgAgencyCommission(0.0);
+            }
+            else
+            {
+                newPackage.setPkgAgencyCommission(Double.parseDouble(tfAgencyCommission.getText()));
+            }
+
+
+            System.out.println(newPackage);
 
             packagesDAO.savePackage(newPackage);
             // reload table
