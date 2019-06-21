@@ -389,7 +389,8 @@ public class Main implements Initializable {
     @FXML
     private void buttons() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../view/product_manager.fxml"));
             body.setContent(root);
             title.setText("Button");
         } catch (IOException e) {
@@ -648,9 +649,11 @@ public class Main implements Initializable {
 //        body.setContent(ViewManager.getInstance().get("jfx-text-field"));
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/package_manager.fxml"));
             body.setContent(root);
-            title.setText("Product Mng");
+//            title.setText("Product Mng");
+            title.setText("Package Manager");
         } catch (IOException e) {
             e.printStackTrace();
         }
