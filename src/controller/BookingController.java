@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import sample.BookingDetails;
+import entity.BookingDetails;
 import sample.BookingDetailsDAO;
 
 import java.io.IOException;
