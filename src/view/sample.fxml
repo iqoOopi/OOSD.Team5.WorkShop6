@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="600.0" minViewportWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="600.0" minViewportWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.Controller">
    <content>
       <BorderPane fx:id="bpMenuBar" minHeight="600.0" minWidth="800.0">
          <left>

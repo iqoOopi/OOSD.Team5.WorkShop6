@@ -157,10 +157,12 @@ public class App extends Application {
 
     private void initialScene(){
 
-        decorator.setTitle("DashboardFx");
+        decorator.setTitle("Travel Experts");
 //        decorator.setIcon(null);
         decorator.addButton(ButtonType.FULL_EFFECT);
         decorator.initTheme(GNDecorator.Theme.DEFAULT);
+        decorator.atualizeMinWidth();
+        
 //        decorator.fullBody();
 
         String log = logged();

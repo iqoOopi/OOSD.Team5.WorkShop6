@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import entity.BookingDetails;
-import sample.BookingDetailsDAO;
+import dao.BookingDetailsDAO;
 
 import java.io.IOException;
 import java.net.URL;

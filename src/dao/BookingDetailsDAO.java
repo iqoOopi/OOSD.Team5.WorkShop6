@@ -1,4 +1,4 @@
-package sample;
+package dao;
 
 import dao.DBHelper;
 import entity.BookingDetails;
