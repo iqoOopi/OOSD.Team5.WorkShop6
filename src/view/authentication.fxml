@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="485.0" minWidth="600.0" prefHeight="746.0" prefWidth="1115.0" snapToPixel="false" style="-fx-background-image: url(&quot;..\..\img\authentication\background.png&quot;);;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="485.0" minWidth="600.0" prefHeight="746.0" prefWidth="1115.0" snapToPixel="false" style="-fx-background-image: url(&quot;..\..\img\authentication\background.png&quot;);;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
    <children>
       <TabPane layoutX="-4.0" layoutY="-3.0" prefHeight="741.0" prefWidth="1122.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="-3.0">
         <tabs>

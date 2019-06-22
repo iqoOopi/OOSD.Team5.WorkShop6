@@ -649,15 +649,57 @@ public class Main implements Initializable {
 //        body.setContent(ViewManager.getInstance().get("jfx-text-field"));
 
         try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/view/package_manager.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
             body.setContent(root);
-//            title.setText("Product Mng");
-            title.setText("Package Manager");
+            title.setText("Product & Supplier Manager");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+    
+    @FXML
+    private void btnPackageMng(){ 
+    	try {            
+            Parent pkgMng = FXMLLoader.load(getClass().getResource("/view/package_manager.fxml"));
+            body.setContent(pkgMng);
+            title.setText("Package Manager");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void btnBookDetailMng(){ 
+    	try {            
+            Parent bookDetMng = FXMLLoader.load(getClass().getResource("/view/bookings_view.fxml"));
+            body.setContent(bookDetMng);
+            title.setText("Booking Details");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void btnCustomerMng(){ 
+    	try {            
+            Parent CustMng = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+            body.setContent(CustMng);
+            title.setText("Customer Management");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void btnAgentsMng(){ 
+    	try {            
+            Parent AgentMng = FXMLLoader.load(getClass().getResource("/view/Agents.fxml"));
+            body.setContent(AgentMng);
+            title.setText("Agents Management");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

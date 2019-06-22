@@ -112,6 +112,7 @@ public class Account implements Initializable {
             } else {
                 lbl_error.setVisible(true);
             }
+            
         } else if (!validUsername()){
             lbl_username.setVisible(true);
         } else if (!validFullName()) {

@@ -27,6 +27,7 @@ import com.gn.global.plugin.SectionManager;
 import com.gn.global.plugin.UserManager;
 import com.gn.module.main.Main;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,16 +62,25 @@ public class login implements Initializable {
     @FXML private Label lbl_username;
     @FXML private Label lbl_error;
 
-    private RotateTransition rotateTransition = new RotateTransition();
-
+    // private RotateTransition rotateTransition = new RotateTransition();
+    private ScaleTransition scaleTransition = new ScaleTransition();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        rotateTransition.setNode(avatar);
-        rotateTransition.setByAngle(360);
-        rotateTransition.setDuration(Duration.seconds(1));
-        rotateTransition.setAutoReverse(true);
+//        rotateTransition.setNode(avatar);
+//        rotateTransition.setByAngle(360);
+//        rotateTransition.setDuration(Duration.seconds(3));
+//        rotateTransition.setAutoReverse(true);
 
+    	scaleTransition.setNode(avatar);
+    	scaleTransition.setFromX(1);
+    	scaleTransition.setFromY(1);
+    	scaleTransition.setToX(0.8);
+    	scaleTransition.setToY(0.8);
+    	scaleTransition.setDuration(Duration.seconds(1));
+    	scaleTransition.setAutoReverse(true);
+        
         addEffect(password);
         addEffect(username);
 
@@ -80,10 +90,10 @@ public class login implements Initializable {
 
     private void addEffect(Node node){
         node.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-            rotateTransition.play();
+            scaleTransition.play();
             Pulse pulse = new Pulse(node.getParent());
             pulse.setDelay(Duration.millis(100));
-            pulse.setSpeed(5);
+            pulse.setSpeed(2);
             pulse.play();
             node.getParent().setStyle("-icon-color : -success; -fx-border-color : -success");
         });
@@ -121,7 +131,7 @@ public class login implements Initializable {
                     new SlideInLeft(lbl_username).play();
                     swing.setDelay(Duration.millis(100));
                     swing.play();
-                    box_username.setStyle("-icon-color : -danger; -fx-border-color : -danger");
+                    box_username.setStyle("-icon-color : -danger; -fx-border-color : -danger; ");
                 } else {
                     lbl_username.setVisible(false);
                 }
