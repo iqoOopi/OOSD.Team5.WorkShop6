@@ -84,7 +84,7 @@ public class AgentsController {
         	try {
         		image = new Image(getClass().getResourceAsStream("/ProfilePictures_Agents/" + AgtIdPic));        		
             } catch (Exception e) {
-                e.printStackTrace();                
+                             
             }
                     	
             uxImageAgt.setImage(image);

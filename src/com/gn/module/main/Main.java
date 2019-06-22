@@ -651,7 +651,7 @@ public class Main implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
             body.setContent(root);
-            title.setText("Product & Supplier Manager");
+            title.setText("Product & Supplier Management");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -663,7 +663,7 @@ public class Main implements Initializable {
     	try {            
             Parent pkgMng = FXMLLoader.load(getClass().getResource("/view/package_manager.fxml"));
             body.setContent(pkgMng);
-            title.setText("Package Manager");
+            title.setText("Package Management");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -674,7 +674,7 @@ public class Main implements Initializable {
     	try {            
             Parent bookDetMng = FXMLLoader.load(getClass().getResource("/view/bookings_view.fxml"));
             body.setContent(bookDetMng);
-            title.setText("Booking Details");
+            title.setText("Booking Details Management");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -685,7 +685,7 @@ public class Main implements Initializable {
     	try {            
             Parent CustMng = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
             body.setContent(CustMng);
-            title.setText("Customer Management");
+            title.setText("Customers Management");
         } catch (IOException e) {
             e.printStackTrace();
         }

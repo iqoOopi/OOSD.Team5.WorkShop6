@@ -30,7 +30,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="739.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="739.0" style="-fx-background-color: white;">
                <children>
                   <ButtonBar layoutX="99.0" layoutY="381.0" prefHeight="40.0" prefWidth="291.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="381.00000000000006" AnchorPane.topAnchor="381.0">
                      <buttons>
@@ -38,21 +38,21 @@
                         <Button fx:id="uxBtnAddAgent" mnemonicParsing="false" onAction="#addAgentClicked" text="Add Agent" />
                      </buttons>
                   </ButtonBar>
-                  <Label layoutX="39.0" layoutY="110.0" text="First Name:" AnchorPane.bottomAnchor="334.6666666666667" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="672.3333333333334" AnchorPane.topAnchor="110.0" />
-                  <Label layoutX="269.0" layoutY="110.0" text="Last Name:" AnchorPane.bottomAnchor="334.6666666666667" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="443.6666666666667" AnchorPane.topAnchor="109.99999999999999" />
-                  <Label layoutX="39.0" layoutY="167.0" text="Phone Number:" AnchorPane.bottomAnchor="277.6666666666667" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="649.0" AnchorPane.topAnchor="167.0" />
-                  <Label layoutX="266.0" layoutY="167.0" text="Email:" AnchorPane.bottomAnchor="277.6666666666667" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="474.00000000000006" AnchorPane.topAnchor="167.0" />
-                  <Label layoutX="37.0" layoutY="231.0" text="Agency:" AnchorPane.bottomAnchor="213.66666666666666" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="692.3333333333334" AnchorPane.topAnchor="231.0" />
+                  <Label layoutX="39.0" layoutY="110.0" prefHeight="17.0" prefWidth="83.0" text="First Name:" AnchorPane.bottomAnchor="335.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="649.0" AnchorPane.topAnchor="110.0" />
+                  <Label layoutX="269.0" layoutY="110.0" prefHeight="17.0" prefWidth="83.0" text="Last Name:" AnchorPane.bottomAnchor="335.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="419.0" AnchorPane.topAnchor="110.0" />
+                  <Label layoutX="39.0" layoutY="167.0" prefHeight="17.0" prefWidth="104.0" text="Phone Number:" AnchorPane.bottomAnchor="278.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="628.0" AnchorPane.topAnchor="167.0" />
+                  <Label layoutX="266.0" layoutY="167.0" prefHeight="17.0" prefWidth="49.0" text="Email:" AnchorPane.bottomAnchor="278.0" AnchorPane.leftAnchor="266.0" AnchorPane.rightAnchor="456.0" AnchorPane.topAnchor="167.0" />
+                  <Label layoutX="37.0" layoutY="231.0" prefHeight="17.0" prefWidth="58.0" text="Agency:" AnchorPane.bottomAnchor="214.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="676.0" AnchorPane.topAnchor="231.0" />
                   <Label layoutX="264.0" layoutY="231.0" prefHeight="17.0" prefWidth="73.0" text="Position:" AnchorPane.bottomAnchor="214.0" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="434.0" AnchorPane.topAnchor="231.0" />
-                  <TextField fx:id="uxTextAgtFirstName" layoutX="39.0" layoutY="131.0" prefHeight="25.0" prefWidth="188.0" AnchorPane.bottomAnchor="305.6666666666667" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="544.3333333333334" AnchorPane.topAnchor="131.0" />
-                  <TextField fx:id="uxTextAgtPhone" layoutX="39.0" layoutY="185.0" prefHeight="25.0" prefWidth="188.0" AnchorPane.bottomAnchor="251.66666666666666" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="544.3333333333334" AnchorPane.topAnchor="185.0" />
-                  <TextField fx:id="uxTextAgtLastName" layoutX="269.0" layoutY="131.0" prefHeight="25.0" prefWidth="188.0" AnchorPane.bottomAnchor="305.6666666666667" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="314.33333333333337" AnchorPane.topAnchor="131.0" />
-                  <TextField fx:id="uxTextAgtEmail" layoutX="269.0" layoutY="185.0" prefHeight="25.0" prefWidth="188.0" AnchorPane.bottomAnchor="251.66666666666666" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="314.33333333333337" AnchorPane.topAnchor="185.0" />
-                  <ComboBox fx:id="uxComboBoxAgtPosition" layoutX="264.0" layoutY="250.0" prefHeight="31.0" prefWidth="188.0" AnchorPane.bottomAnchor="180.66666666666663" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="319.33333333333337" AnchorPane.topAnchor="250.0" />
-                  <ComboBox fx:id="uxComboBoxAgtAgency" layoutX="37.0" layoutY="250.0" prefHeight="31.0" prefWidth="188.0" AnchorPane.bottomAnchor="180.66666666666669" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="546.3333333333334" AnchorPane.topAnchor="250.0" />
+                  <TextField fx:id="uxTextAgtFirstName" layoutX="39.0" layoutY="131.0" prefHeight="25.0" prefWidth="188.0" style="-fx-border-color: #787CFF;" AnchorPane.bottomAnchor="305.6666666666667" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="544.3333333333334" AnchorPane.topAnchor="131.0" />
+                  <TextField fx:id="uxTextAgtPhone" layoutX="39.0" layoutY="185.0" prefHeight="25.0" prefWidth="188.0" style="-fx-border-color: #787CFF;" AnchorPane.bottomAnchor="251.66666666666666" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="544.3333333333334" AnchorPane.topAnchor="185.0" />
+                  <TextField fx:id="uxTextAgtLastName" layoutX="269.0" layoutY="131.0" prefHeight="25.0" prefWidth="188.0" style="-fx-border-color: #787CFF;" AnchorPane.bottomAnchor="305.6666666666667" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="314.33333333333337" AnchorPane.topAnchor="131.0" />
+                  <TextField fx:id="uxTextAgtEmail" layoutX="269.0" layoutY="185.0" prefHeight="25.0" prefWidth="188.0" style="-fx-border-color: #787CFF;" AnchorPane.bottomAnchor="251.66666666666666" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="314.33333333333337" AnchorPane.topAnchor="185.0" />
+                  <ComboBox fx:id="uxComboBoxAgtPosition" layoutX="264.0" layoutY="250.0" prefHeight="31.0" prefWidth="188.0" style="-fx-border-color: #787CFF;" AnchorPane.bottomAnchor="180.66666666666663" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="319.33333333333337" AnchorPane.topAnchor="250.0" />
+                  <ComboBox fx:id="uxComboBoxAgtAgency" layoutX="37.0" layoutY="250.0" prefHeight="31.0" prefWidth="188.0" style="-fx-border-color: #787CFF;" AnchorPane.bottomAnchor="180.66666666666669" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="546.3333333333334" AnchorPane.topAnchor="250.0" />
                   <ImageView fx:id="uxImageAgt" fitHeight="328.0" fitWidth="200.0" layoutX="511.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="511.0" AnchorPane.rightAnchor="60.33333333333337" AnchorPane.topAnchor="34.0" />
                   <Button fx:id="uxBtnCancel" layoutX="569.0" layoutY="388.0" mnemonicParsing="false" onAction="#resetView" prefHeight="25.0" prefWidth="83.0" text="Cancel" AnchorPane.bottomAnchor="48.66666666666667" AnchorPane.leftAnchor="569.0" AnchorPane.rightAnchor="119.00000000000004" AnchorPane.topAnchor="388.0" />
-                  <Label fx:id="uxLabelAgency" alignment="TOP_LEFT" layoutX="88.0" layoutY="227.0" prefWidth="104.0" text="[Agency Label]">
+                  <Label fx:id="uxLabelAgency" alignment="TOP_LEFT" layoutX="99.0" layoutY="227.0" prefHeight="25.0" prefWidth="115.0" text="[Agency Label]" textFill="#179351">
                      <font>
                         <Font size="16.0" />
                      </font>
