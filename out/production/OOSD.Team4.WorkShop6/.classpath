@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/animatefx-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/colors-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/controlsfx-8.40.14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/fontawesomefx-8.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/GNAvatarView-1.0-rc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/GNButton-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/GNCalendar-1.0-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/GNCarousel-2.1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/GNDecorator-2.1.2-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/jfoenix-8.0.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/scenicView.jar"/>
+	<classpathentry kind="lib" path="C:/Users/black/Downloads/DashboardFx-master/DashboardFx-master/lib/tilesfx-1.5.2.jar"/>
+	<classpathentry kind="lib" path="external_lib/mysql-connector-java-8.0.16.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

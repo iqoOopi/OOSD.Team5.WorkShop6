@@ -209,7 +209,6 @@ public class CustomersController {
 		String inputCustCountry = uxTextCountry.getText();
 		String inputCustHomePhone = uxTextHomePhone.getText();
 		String inputCustBusPhone = uxTextBusiPhone.getText();
-		String inputCustPassword = "password";
 		String inputCustEmail = uxTextEmail.getText();
 		String inputAgentId = uxComboAgentId.getValue().toString();
 		
@@ -227,7 +226,6 @@ public class CustomersController {
 					inputCustHomePhone,
 					inputCustBusPhone,
 					inputCustEmail,
-					inputCustPassword,
 					inputAgentId);
 		} catch(Exception e) {
 			e.printStackTrace();  

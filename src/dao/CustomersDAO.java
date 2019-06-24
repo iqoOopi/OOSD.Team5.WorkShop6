@@ -47,7 +47,7 @@ public class CustomersDAO {
 		    					rs.getString(9), 
 		    					rs.getString(10),
 		    					rs.getString(11), 
-		    					rs.getString(13)));		    			
+		    					rs.getString(12)));
 		    		}
 		    		
 		    	}
@@ -87,7 +87,6 @@ public class CustomersDAO {
 			+"', CustHomePhone='"+ inputCustHomePhone
 			+"', CustBusPhone='"+ inputCustBusPhone
 			+"', CustEmail='"+ inputCustEmail
-			+"', CustPassword='passsword'"
 			+", AgentId="+ inputAgentId
 			+" WHERE CustomerId="+ inputCustId;
 			
@@ -113,12 +112,11 @@ public class CustomersDAO {
 			String inputCustHomePhone,
 			String inputCustBusPhone,
 			String inputCustEmail,
-			String inputCustPassword,
 			String inputAgentId
 			) {
 		boolean success = false;
 		
-		String sqlStatement = "INSERT INTO customers (CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail, CustPassword, AgentId) VALUES ('"
+		String sqlStatement = "INSERT INTO customers (CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId) VALUES ('"
 			    + inputCustFirstName +"', '"
 			    + inputCustLastName +"', '"
 			    + inputCustAddress +"', '"
@@ -129,7 +127,6 @@ public class CustomersDAO {
 			    + inputCustHomePhone +"', '"
 			    + inputCustBusPhone +"', '"
 			    + inputCustEmail +"', '"
-			    + inputCustPassword +"', "
 			    + inputAgentId +")";
 		
 		try {
