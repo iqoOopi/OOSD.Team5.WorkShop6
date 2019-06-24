@@ -44,11 +44,13 @@ public class CustomersController {
 	@FXML
     private void initialize() {
 		
+		uxLabelEgtFullName.setText("");    
 		custIdColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
         custFirstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         custLastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         custAgentIdColumn.setCellValueFactory(cellData -> cellData.getValue().agentIdProperty());
-        		
+        
+        
 		//add agents to listview
         uxListViewCust.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> displayCustomer((Customer) newValue));
@@ -56,10 +58,8 @@ public class CustomersController {
         uxComboAgentId.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
         	displayAgentFullname((String)newValue);
 	    });
-		
-        uxLabelEgtFullName.setText("");
         
-		setCustomerDisplay();
+        setCustomerDisplay();
 	}
 	
 	public void setCustomerDisplay(){
@@ -94,12 +94,12 @@ public class CustomersController {
         	try {
         		image = new Image(getClass().getResourceAsStream("/ProfilePictures_Customers/" + AgtIdPic));        		
             } catch (Exception e) {
-                e.printStackTrace();                
+                             
             }
                     	
         	uxImageCust.setImage(image);        	
         	
-        	if (selectedCust.getAgentId() != null) {
+        	if (selectedCust.getAgentId().toString() != null) {
         		String agtId = selectedCust.getAgentId();
         		uxComboAgentId.setValue(agtId);
             	displayAgentFullname(agtId);  
@@ -111,20 +111,22 @@ public class CustomersController {
 	
 	public void displayAgentFullname(String inputAgtId) {
 		
-		allAgents.forEach( (agt) -> {
-    		
-    		String agtId = agt.getId();
-    		
-    		if ( inputAgtId.equals(agtId) ) {
-    			
-    			String firstName = agt.getFirstName();
-    			String lastName = agt.getLastName();
-    			String agtFullname = firstName + " " + lastName;
-    			
-    			uxLabelEgtFullName.setText(agtFullname);
-    		}
-    		
-    	} );
+		if ( !inputAgtId.isEmpty() ) {
+			allAgents.forEach( (agt) -> {
+	    		
+	    		String agtId = agt.getId();
+	    		
+	    		if ( inputAgtId.equals(agtId) ) {
+	    			
+	    			String firstName = agt.getFirstName();
+	    			String lastName = agt.getLastName();
+	    			String agtFullname = firstName + " " + lastName;
+	    			
+	    			uxLabelEgtFullName.setText(agtFullname);
+	    		}
+	    		
+	    	} );
+		}
 	}
 	
 	@FXML
