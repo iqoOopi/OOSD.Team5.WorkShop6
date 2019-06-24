@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="1500.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gn.module.dashboard.Dashboard">
+<StackPane prefHeight="1500.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gn.module.dashboard.Dashboard">
    <children>
       <VBox spacing="20.0">
          <children>
@@ -248,22 +248,23 @@
                            <children>
                               <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <PieChart fx:id="pieChart" title="Pie Chart">
+                                    <PieChart fx:id="pieChart" title="Trending Countries">
                                        <styleClass>
                                           <String fx:value="border" />
                                           <String fx:value="border-1" />
                                        </styleClass></PieChart>
+                                    <Label prefHeight="17.0" prefWidth="115.0" text="Current Agent:" />
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <GNAvatarView strokeWidth="0.0">
                                              <image>
-                                                <Image url="@../media/avatar.jpg" />
+                                                <Image url="@../media/avatar.png" />
                                              </image>
                                           </GNAvatarView>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="20.0" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <Label styleClass="h4" text="Perfil" />
-                                                <JFXProgressBar progress="0.46" />
+                                                <Label styleClass="h4" text="Activiy Level:" />
+                                                <JFXProgressBar prefHeight="10.0" prefWidth="129.0" progress="0.61" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="10.0" />
@@ -282,15 +283,19 @@
                               <VBox prefHeight="1058.0" prefWidth="457.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <GNCalendarTile prefHeight="279.0" prefWidth="295.0" style="-fx-border-color: -light-gray;" />
-                                    <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="219.0" prefWidth="303.0" spacing="10.0">
+                                    <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="317.0" prefWidth="303.0" spacing="10.0">
                                        <children>
+                                          <Label text="Recommended Agent:" />
                                           <GNAvatarView prefHeight="149.0" prefWidth="301.0" type="CIRCLE">
                                              <image>
                                                 <Image url="@../../media/img/follow.jpg" />
                                              </image>
                                              <effect>
                                                 <DropShadow color="#0000005b" />
-                                             </effect></GNAvatarView>
+                                             </effect>
+                                             <padding>
+                                                <Insets top="20.0" />
+                                             </padding></GNAvatarView>
                                           <JFXButton styleClass="follow" text="Follow me">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
