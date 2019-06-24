@@ -20,8 +20,8 @@ public class DBHelper {
         Connection conn = null;
         try {
             // load the database driver
-            //Class.forName("com.mysql.jdbc.Driver"); // This one is depreciated. It might cause compilation errors
-        	Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver"); // This one is depreciated. It might cause compilation errors
+        	//Class.forName("com.mysql.cj.jdbc.Driver");
 
             //instantiate a connection object to the TravelExperts database
             conn = DriverManager.getConnection(
