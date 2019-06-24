@@ -17,13 +17,12 @@ public class Agent {
     private StringProperty email;
     private StringProperty position;
     private StringProperty agency;
-    private IntegerProperty active;
 
     /**
      * Default constructor.
      */
     public Agent() {
-        this(null, null, null, null, null, null, null, 0);
+        this(null, null, null, null, null, null, null);
     }
 
     /**
@@ -32,7 +31,7 @@ public class Agent {
      * @param firstName
      * @param lastName
      */
-    public Agent(String id, String firstName, String lastName, String phone, String email, String position, String agency, int active) {
+    public Agent(String id, String firstName, String lastName, String phone, String email, String position, String agency) {
         this.id = new SimpleStringProperty(id);
     	this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
@@ -40,7 +39,6 @@ public class Agent {
         this.email = new SimpleStringProperty(email);
         this.position = new SimpleStringProperty(position);
         this.agency = new SimpleStringProperty(agency);
-        this.active = new SimpleIntegerProperty(active);
     }
 
     public String getFirstName() {
@@ -125,17 +123,5 @@ public class Agent {
     
     public StringProperty idProperty(){
     	return id;
-    }
-    
-    public int getActive(){
-    	return active.get();
-    }
-    
-    public void setActive(int active){
-    	this.active.set(active);
-    }
-    
-    public IntegerProperty activeProperty(){
-    	return active;
     }
 }

@@ -35,8 +35,16 @@ public class AgentsDAO {
 	    		Statement stmt = conn.createStatement();
 	    		ResultSet rs = stmt.executeQuery("SELECT * FROM agents");
 	    		while(rs.next()){
-	    			allAgents.add(new Agent(rs.getString(1), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9)));
-	    			System.out.println(rs.getString(1));
+	    			allAgents.add(new Agent(rs.getString(1), rs.getString(2), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+//	    			System.out.println(rs.getString(1));
+//					System.out.println(rs.getString(2));
+//					System.out.println(rs.getString(4));
+//					System.out.println(rs.getString(5));
+//					System.out.println(rs.getString(6));
+//					System.out.println(rs.getString(7));
+//					System.out.println(rs.getString(8));
+//					System.out.println(rs.getString(9));
+//					System.out.println(rs.getString(10));
 	    		}
 	    		
 	    	}

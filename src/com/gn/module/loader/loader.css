@@ -15,5 +15,5 @@
 
 .block
 {
-    -fx-background-color: linear-gradient(to top,   derive(#9079DC, 50%) , derive(#BF5E90, 50%)) ;
+    -fx-background-color: linear-gradient(to top,   derive(#9079DC, 50%) , derive(black, 50%)) ;
 }

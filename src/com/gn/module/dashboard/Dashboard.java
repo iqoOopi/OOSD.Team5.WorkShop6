@@ -52,11 +52,11 @@ public class Dashboard implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Sun", 20),
-                new PieChart.Data("IBM", 12),
-                new PieChart.Data("HP", 25),
-                new PieChart.Data("Dell", 22),
-                new PieChart.Data("Apple", 30)
+                new PieChart.Data("Canada", 20),
+                new PieChart.Data("USA", 12),
+                new PieChart.Data("Thailand", 25),
+                new PieChart.Data("China", 22),
+                new PieChart.Data("Japan", 30)
         );
         pieChart.setData(pieChartData);
         pieChart.setClockwise(false);
