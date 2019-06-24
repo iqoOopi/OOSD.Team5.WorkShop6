@@ -17,11 +17,13 @@
 package com.gn.global.plugin;
 
 import com.gn.global.User;
+import dao.AgentsDAO;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -31,23 +33,32 @@ import java.util.Properties;
 public class UserManager {
 
     public static User get(String name){
-        try {
-            File file = new File("user/" + name + ".properties");
-            Properties properties = new Properties();
+//        try {
+//            File file = new File("user/" + name + ".properties");
+//            Properties properties = new Properties();
+//
+//            FileInputStream inputStream = new FileInputStream(file);
+//            properties.load(inputStream);
+//            User user = new User();
+//            user.setUserName(name);
+//            user.setFullName(properties.getProperty("fullName"));
+//            user.setEmail(properties.getProperty("email"));
+//            user.setPassword(properties.getProperty("password"));
+//            return user;
+//        } catch (IOException e){
+//            e.printStackTrace();
+//            return null;
+//        }
 
-            FileInputStream inputStream = new FileInputStream(file);
-            properties.load(inputStream);
-            User user = new User();
+       List<String> userInfo = AgentsDAO.getAgentByUserName(name);
+
+
+        User user = new User();
             user.setUserName(name);
-            user.setFullName(properties.getProperty("fullName"));
-            user.setEmail(properties.getProperty("email"));
-            user.setPassword(properties.getProperty("password"));
-            return user;
-        } catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
-
+            user.setFullName(userInfo.get(0));
+            user.setPassword(userInfo.get(1));
+            user.setEmail(name);
+        return user;
 
 
 

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import entity.Agent;
 import javafx.collections.FXCollections;
@@ -24,7 +26,9 @@ public class AgentsDAO {
 	    	return true;
 	    }
 	
-	 
+
+
+
 	// Get a list of all agents
 	 public static ObservableList<Agent> getAgents(){
 		 
@@ -64,6 +68,36 @@ public class AgentsDAO {
 		}
 		return agencies;
 	}
+
+	// Get a list of agencies
+	public static List<String> getAgentByUserName(String userName){
+	 	List<String> userInfo = new ArrayList<>();
+		Connection conn = DBHelper.getConnection();
+		try{
+			Statement stmt = conn.createStatement();
+			String sql = "SELECT AgtLastName, AgtPassword FROM agents WHERE AgtEmail = '"+userName+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+			if (!rs.isBeforeFirst() ) {
+				userInfo.add("wrong");
+				userInfo.add("wrong");
+
+				// handle empty set: throw error or return
+			} else {
+				while (rs.next()) {
+					userInfo.add(rs.getString(1));
+					userInfo.add(rs.getString(2));
+				}
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		}
+		return userInfo;
+	}
+
+
+
 	
 	// Get a list of agencies
 		public static ObservableList<String> getAllAgentIds(){
