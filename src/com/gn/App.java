@@ -66,6 +66,8 @@ public class App extends Application {
         } else {
             userDetail = new UserDetail();
         }
+//        userDetail = new UserDetail();
+//        section.setLogged(false);
 
         float total = 43; // the difference represents the views not loaded
         increment = 100f / total;
