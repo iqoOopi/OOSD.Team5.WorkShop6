@@ -1,5 +1,6 @@
 package dao;
 
+import dao.DBHelper;
 import entity.BookingDetails;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="600.0" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackageController">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PackageController">
    <children>
       <SplitPane dividerPositions="0.44129554655870445" maxHeight="600.0" orientation="VERTICAL" prefHeight="600.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
         <items>
@@ -40,7 +40,7 @@
             </AnchorPane>
           <AnchorPane maxHeight="400.0" prefHeight="200.0" prefWidth="160.0">
                <children>
-                  <SplitPane dividerPositions="0.3629441624365482, 0.7098138747884941" layoutX="5.0" prefHeight="215.0" prefWidth="1184.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.3629441624365482, 0.7098138747884941" layoutX="5.0" prefHeight="215.0" prefWidth="1184.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane prefHeight="209.0" prefWidth="550.0">
                            <children>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="397.0" prefWidth="657.0" styleClass="foreground" stylesheets="@loader.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="block">
+         <children>
+            <Label layoutX="97.0" layoutY="326.0" prefHeight="17.0" prefWidth="130.0" text="© Travel Experts" textFill="WHITE" AnchorPane.bottomAnchor="14.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="103.0" layoutY="266.0" text="Loading views.." textFill="WHITE" AnchorPane.bottomAnchor="74.0" />
+            <JFXProgressBar fx:id="progressBar" layoutX="108.0" layoutY="292.0" prefHeight="4.0" prefWidth="401.0" progress="0.0" AnchorPane.bottomAnchor="61.0" />
+            <ImageView fitHeight="172.0" fitWidth="349.0" layoutX="143.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../media/travelExpertLogoWHITE.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.62" contrast="1.0" hue="-0.19" saturation="0.05" />
+               </effect>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</StackPane>
