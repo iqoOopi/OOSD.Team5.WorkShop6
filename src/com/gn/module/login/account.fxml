@@ -32,14 +32,14 @@
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <children>
-      <ImageView fitHeight="592.0" fitWidth="897.0" opacity="0.65" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+      <ImageView fitHeight="592.0" fitWidth="897.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
          <image>
-            <Image url="@../../../../../img/authentication/reigster/registerLanding.jpg" />
+            <Image url="@../media/registerLanding.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="304.0" fitWidth="476.0" pickOnBounds="true" preserveRatio="true" translateX="15.0" StackPane.alignment="CENTER_LEFT">
          <image>
-            <Image url="@../../../../../img/logo/travelExpertLogoBLACK.png" />
+            <Image url="@../media/travelExpertLogoBLACK.png" />
          </image>
       </ImageView>
       <VBox alignment="BOTTOM_RIGHT" fillWidth="false" prefHeight="200.0" prefWidth="696.0">

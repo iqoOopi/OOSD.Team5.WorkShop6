@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="601.0" maxWidth="1214.0" minHeight="601.0" minWidth="1118.0" prefHeight="601.0" prefWidth="1118.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gn.module.login.login">
+<StackPane maxHeight="601.0" maxWidth="1214.0" minHeight="601.0" minWidth="1118.0" prefHeight="601.0" prefWidth="1118.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gn.module.login.login">
     <stylesheets>
         <URL value="@../../theme/css/material-color.css" />
         <URL value="@../../theme/css/skeleton.css" />
@@ -37,7 +37,7 @@
    <children>
       <ImageView fitHeight="593.0" fitWidth="618.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
          <image>
-            <Image url="@../../../../../img/authentication/login/loginCollage.png" />
+            <Image url="@../media/loginCollage.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" prefHeight="561.0" prefWidth="1001.0">
@@ -50,7 +50,7 @@
                            <children>
                               <GNAvatarView fx:id="avatar" prefHeight="435.0" prefWidth="281.0" strokeWidth="0.0" HBox.hgrow="ALWAYS">
                                  <image>
-                                    <Image url="@../media/logo-mini.png" />
+                                    <Image url="@../media/travelExpertLogoWHITE.png" />
                                  </image>
                                  <effect>
                                     <DropShadow color="#00000035" />
