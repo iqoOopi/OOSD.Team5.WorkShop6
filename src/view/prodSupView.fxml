@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.5" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.proSupController">
+<SplitPane dividerPositions="0.5" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.proSupController">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
@@ -26,23 +26,23 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <AnchorPane layoutX="14.0" layoutY="443.0" prefHeight="166.0" prefWidth="346.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="443.0">
+            <AnchorPane layoutX="14.0" layoutY="420.0" prefHeight="166.0" prefWidth="268.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                <children>
-                  <HBox layoutX="3.0" prefHeight="32.0" prefWidth="278.0" style="-fx-alignment: center; -fx-border-color: black;" AnchorPane.bottomAnchor="134.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <HBox layoutX="3.0" prefHeight="32.0" style="-fx-alignment: center; -fx-border-color: black;" AnchorPane.bottomAnchor="134.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button fx:id="btnProdEdit" mnemonicParsing="false" prefWidth="60.0" text="Edit">
+                        <Button fx:id="btnProdEdit" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Edit">
                            <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
+                              <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnProdDelete" mnemonicParsing="false" prefWidth="60.0" text="Delete">
+                        <Button fx:id="btnProdDelete" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Delete">
                            <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
+                              <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnProdAdd" mnemonicParsing="false" prefWidth="60.0" text="Add">
+                        <Button fx:id="btnProdAdd" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Add">
                            <HBox.margin>
-                              <Insets left="10.0" right="10.0" />
+                              <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -66,17 +66,17 @@
                         </HBox>
                         <HBox prefHeight="62.0" prefWidth="268.0" style="-fx-alignment: center;">
                            <children>
-                              <Button fx:id="btnProdEditSave" mnemonicParsing="false" prefWidth="60.0" text="Save">
+                              <Button fx:id="btnProdEditSave" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Save">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="btnProdEditClear" mnemonicParsing="false" prefWidth="60.0" text="Clear">
+                              <Button fx:id="btnProdEditClear" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Clear">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="btnProdEditCancel" mnemonicParsing="false" prefWidth="60.0" text="Cancel">
+                              <Button fx:id="btnProdEditCancel" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Cancel">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
@@ -99,18 +99,18 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <AnchorPane layoutX="14.0" layoutY="443.0" prefHeight="166.0" prefWidth="346.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="443.0">
+            <AnchorPane layoutX="14.0" layoutY="443.0" prefHeight="166.0" prefWidth="346.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                <children>
                   <HBox layoutX="-31.0" layoutY="-12.0" prefHeight="32.0" prefWidth="277.0" style="-fx-alignment: center; -fx-border-color: black;" AnchorPane.bottomAnchor="134.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button fx:id="btnSupDelete" mnemonicParsing="false" prefWidth="60.0" text="Delete">
+                        <Button fx:id="btnSupDelete" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Delete">
                            <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
+                              <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnSupAdd" mnemonicParsing="false" prefWidth="60.0" text="Add">
+                        <Button fx:id="btnSupAdd" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Add">
                            <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
+                              <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
                            </HBox.margin>
                         </Button>
                      </children>
@@ -134,12 +134,12 @@
                         </HBox>
                         <HBox prefHeight="52.0" prefWidth="0.0" style="-fx-alignment: center;">
                            <children>
-                              <Button fx:id="btnSupSave" mnemonicParsing="false" prefWidth="60.0" text="Save">
+                              <Button fx:id="btnSupSave" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Save">
                                  <HBox.margin>
                                     <Insets left="80.0" right="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="btnSupCancel" mnemonicParsing="false" prefWidth="60.0" text="Cancel">
+                              <Button fx:id="btnSupCancel" minWidth="60.0" mnemonicParsing="false" prefWidth="90.0" text="Cancel">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
