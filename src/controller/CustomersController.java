@@ -55,9 +55,9 @@ public class CustomersController {
         uxListViewCust.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> displayCustomer((Customer) newValue));
 		
-        uxComboAgentId.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
-        	displayAgentFullname((String)newValue);
-	    });
+//        uxComboAgentId.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+//        	displayAgentFullname((String)newValue);
+//	    });
         
         setCustomerDisplay();
 	}
@@ -102,7 +102,7 @@ public class CustomersController {
         	if (selectedCust.getAgentId().toString() != null) {
         		String agtId = selectedCust.getAgentId();
         		uxComboAgentId.setValue(agtId);
-            	displayAgentFullname(agtId);  
+//            	displayAgentFullname(agtId);
         	}
         	      	            
     	}

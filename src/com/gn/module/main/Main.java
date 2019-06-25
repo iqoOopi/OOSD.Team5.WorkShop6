@@ -288,9 +288,9 @@ public class Main implements Initializable {
     private void barInitial(){
         filteredList.setPredicate(s -> true);
         scroll.setContent(views);
-        ( (VBox) design.getContent()).getChildren().setAll(designItems);
+//        ( (VBox) design.getContent()).getChildren().setAll(designItems);
         ( (VBox) controls.getContent()).getChildren().setAll(controlsItems);
-        ( (VBox) charts.getContent()).getChildren().setAll(chartsItems);
+//        ( (VBox) charts.getContent()).getChildren().setAll(chartsItems);
 
         views.getChildren().removeAll(home, about);
         views.getChildren().add(home);
@@ -335,10 +335,12 @@ public class Main implements Initializable {
             }
         }
 
-//        for (Node node : ((VBox) controls.getContent()).getChildren()) {
-//            controlsItems.add((Button) node);
-//            items.add((Button) node);
-//        }
+
+
+        for (Node node : ((VBox) controls.getContent()).getChildren()) {
+            controlsItems.add((Button) node);
+            items.add((Button) node);
+        }
 //
 //        for (Node node : ((VBox) design.getContent()).getChildren()) {
 //            designItems.add((Button) node);
