@@ -128,7 +128,7 @@
                                  <SVGPath content="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" mouseTransparent="true" styleClass="icon" />
                               </graphic>
                            </Button>
-                           <TitledPane alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" styleClass="drawer-menu" text="Management">
+                           <TitledPane fx:id="controls" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" styleClass="drawer-menu" text="Management">
                              <content>
                                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                     <children>
