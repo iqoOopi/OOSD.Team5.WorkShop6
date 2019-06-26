@@ -87,7 +87,7 @@ public class CustomersDAO {
 			+"', CustHomePhone='"+ inputCustHomePhone
 			+"', CustBusPhone='"+ inputCustBusPhone
 			+"', CustEmail='"+ inputCustEmail
-			+", AgentId="+ inputAgentId
+			+"', AgentId="+ inputAgentId
 			+" WHERE CustomerId="+ inputCustId;
 			
 			try {
@@ -126,7 +126,7 @@ public class CustomersDAO {
 			    + inputCustCountry +"', '"
 			    + inputCustHomePhone +"', '"
 			    + inputCustBusPhone +"', '"
-			    + inputCustEmail +"', '"
+			    + inputCustEmail +"', "
 			    + inputAgentId +")";
 		
 		try {
