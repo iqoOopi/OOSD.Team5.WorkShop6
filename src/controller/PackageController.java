@@ -97,9 +97,6 @@ public class PackageController {
     private Button btnAddProductSupplier;
 
     @FXML
-    private Button btnEditProductSupplier;
-
-    @FXML
     private Button btnDeletePackage;
 
     @FXML
@@ -415,11 +412,11 @@ public class PackageController {
         // not working presently
         if (tvProductSupplierAvailable.getSelectionModel().isEmpty()) {
             btnAddProductSupplier.setDisable(true);
-            btnEditProductSupplier.setDisable(true);
+//            btnEditProductSupplier.setDisable(true);
         }
         else {
             btnAddProductSupplier.setDisable(false);
-            btnEditProductSupplier.setDisable(false);
+//            btnEditProductSupplier.setDisable(false);
         }
     }
 
@@ -473,7 +470,7 @@ public class PackageController {
         btnSavePackage.setDisable(true);
         btnDeleteProductSupplier.setDisable(true);
         btnAddProductSupplier.setDisable(true);
-        btnEditProductSupplier.setDisable(true);
+//        btnEditProductSupplier.setDisable(true);
     }
 
 

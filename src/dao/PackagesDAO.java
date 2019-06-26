@@ -29,7 +29,8 @@ public class PackagesDAO {
         Connection conn = DBHelper.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM packages");
+            ResultSet rs = stmt.executeQuery("SELECT PackageId, PkgName, PkgStartDate," +
+                    "PkgEndDate, PkgDesc, PkgBasePrice, PkgAgencyCommission FROM Packages");
             while (rs.next())
             {
                 packageList.add(new Package(rs.getInt(1),
