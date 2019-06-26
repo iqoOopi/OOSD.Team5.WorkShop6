@@ -205,8 +205,6 @@ public class Main implements Initializable {
     private void addEvents(){
         VBox drawerContent;
 
-
-
         for (Node node : drawer.getChildren()) { // root
             if (node instanceof ScrollPane){
 
@@ -265,9 +263,57 @@ public class Main implements Initializable {
             EventHandler event = ((Button) btn).getOnMouseClicked();
             String text = ((Button) btn).getText();
             Button button = new Button(text);
+//            Button button = new Button("test");
             button.setPrefWidth(v.getPrefWidth());
             button.setOnMouseClicked(e -> {
-                body.setContent(ViewManager.getInstance().get(button.getText().toLowerCase()));
+                //
+//                body.setContent(ViewManager.getInstance().get(button.getText().toLowerCase()));
+                //
+                if(button.getText().toLowerCase().equals("products and suppliers")){
+                    try {
+                        Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
+                        body.setContent(root);
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
+                }
+
+                if(button.getText().toLowerCase().equals("customers")){
+                    try {
+                        Parent CustMng = FXMLLoader.load(getClass().getResource("/view/Customers.fxml"));
+                        body.setContent(CustMng);
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
+                }
+
+                if(button.getText().toLowerCase().equals("packages")){
+                    try {
+                        Parent pkgMng = FXMLLoader.load(getClass().getResource("/view/package_manager.fxml"));
+                        body.setContent(pkgMng);
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
+                }
+
+                if(button.getText().toLowerCase().equals("booking details")){
+                    try {
+                        Parent bookDetMng = FXMLLoader.load(getClass().getResource("/view/bookings_view.fxml"));
+                        body.setContent(bookDetMng);
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
+                }
+
+                if(button.getText().toLowerCase().equals("agents")){
+                    try {
+                        Parent AgentMng = FXMLLoader.load(getClass().getResource("/view/Agents.fxml"));
+                        body.setContent(AgentMng);
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
+                }
+
                 title.setText(button.getText());
                 popup.hide();
             });
@@ -389,261 +435,11 @@ public class Main implements Initializable {
 
 
     @FXML
-    private void buttons() {
-        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("../view/product_manager.fxml"));
-            body.setContent(root);
-            title.setText("Button");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @FXML
-    private void carousel() {
-        title.setText("Carousel");
-        body.setContent(ViewManager.getInstance().get("carousel"));
-    }
-
-    @FXML
-    private void toggle() {
-        title.setText("Toggle Button");
-        body.setContent(ViewManager.getInstance().get("toggle"));
-    }
-
-    @FXML
-    private void cards(){
-        title.setText("Cards");
-        body.setContent(ViewManager.getInstance().get("cards"));
-    }
-
-    @FXML
-    private void banners(){
-        title.setText("Banners");
-        body.setContent(ViewManager.getInstance().get("banners"));
-    }
-
-    @FXML
-    private void textField(){
-        title.setText("TextField");
-        body.setContent(ViewManager.getInstance().get("textfield"));
-    }
-
-    @FXML
-    private void datePicker(){
-        title.setText("DatePicker");
-        body.setContent(ViewManager.getInstance().get("datepicker"));
-    }
-
-    @FXML
-    private void checkBox(){
-        title.setText("CheckBox");
-        body.setContent(ViewManager.getInstance().get("checkbox"));
-    }
-
-    @FXML
-    private void comboBox(){
-        title.setText("ComboBox");
-        body.setContent(ViewManager.getInstance().get("combobox"));
-    }
-
-    @FXML
-    private void colorPicker(){
-        title.setText("ComboBox");
-        body.setContent(ViewManager.getInstance().get("colorpicker"));
-    }
-
-
-    @FXML
-    private void choiceBox(){
-        title.setText("ChoiceBox");
-        body.setContent(ViewManager.getInstance().get("choicebox"));
-    }
-
-    @FXML
-    private void splitMenuButton(){
-        title.setText("SplitMenuButton");
-        body.setContent(ViewManager.getInstance().get("splitmenubutton"));
-    }
-
-    @FXML
-    private void menuButton(){
-        title.setText("MenuButton");
-        body.setContent(ViewManager.getInstance().get("menubutton"));
-    }
-
-    @FXML
-    private void menuBar(){
-        title.setText("MenuBar");
-        body.setContent(ViewManager.getInstance().get("menubar"));
-    }
-
-    @FXML
-    private void slider(){
-        title.setText("Slider");
-        body.setContent(ViewManager.getInstance().get("slider"));
-    }
-
-    @FXML
-    private void mediaView(){
-        title.setText("MediaView");
-        body.setContent(ViewManager.getInstance().get("mediaview"));
-    }
-
-    @FXML
-    private void label(){
-        title.setText("Label");
-        body.setContent(ViewManager.getInstance().get("label"));
-    }
-
-    @FXML
-    private void imageView(){
-        title.setText("ImageView");
-        body.setContent(ViewManager.getInstance().get("imageview"));
-    }
-
-    @FXML
-    private void hyperlink(){
-        title.setText("HyperLink");
-        body.setContent(ViewManager.getInstance().get("hyperlink"));
-    }
-
-    @FXML
-    private void spinner(){
-        title.setText("Spinner");
-        body.setContent(ViewManager.getInstance().get("spinner"));
-    }
-
-    @FXML
-    private void listView(){
-        title.setText("ListView");
-        body.setContent(ViewManager.getInstance().get("listview"));
-    }
-
-    @FXML
-    private void radio(){
-        title.setText("RadioButton");
-        body.setContent(ViewManager.getInstance().get("radiobutton"));
-    }
-
-    @FXML
-    private void progressBar(){
-        title.setText("ProgressBar");
-        body.setContent(ViewManager.getInstance().get("progressbar"));
-    }
-
-    @FXML
-    private void passwordField(){
-        title.setText("PasswordField");
-        body.setContent(ViewManager.getInstance().get("passwordfield"));
-    }
-
-    @FXML
-    private void progressIndicator(){
-        title.setText("ProgressIndicator");
-        body.setContent(ViewManager.getInstance().get("progressindicator"));
-    }
-
-    @FXML
-    private void pagination(){
-        title.setText("Pagination");
-        body.setContent(ViewManager.getInstance().get("pagination"));
-    }
-
-    @FXML
-    private void pieChart(){
-        title.setText("PieChart");
-        body.setContent(ViewManager.getInstance().get("piechart"));
-    }
-
-    @FXML
-    private void stackedBarChart(){
-        title.setText("StackedBarChart");
-        body.setContent(ViewManager.getInstance().get("stackedbarchart"));
-    }
-
-    @FXML
-    private void stackedAreaChart(){
-        title.setText("StackedAreaChart");
-        body.setContent(ViewManager.getInstance().get("stackedareachart"));
-    }
-
-    @FXML
-    private void scatterChart(){
-        title.setText("ScatterChart");
-        body.setContent(ViewManager.getInstance().get("scatterchart"));
-    }
-
-
-    @FXML
     private void dashboard(){
         title.setText("Dashboard");
         body.setContent(ViewManager.getInstance().get("dashboard"));
     }
 
-    @FXML
-    private void areaChart(){
-        title.setText("AreaChart");
-        body.setContent(ViewManager.getInstance().get("areachart"));
-    }
-
-    @FXML
-    private void barChart(){
-        title.setText("BarChart");
-        body.setContent(ViewManager.getInstance().get("barchart"));
-    }
-
-    @FXML
-    private void bubbleChart(){
-        title.setText("BubbleChart");
-        body.setContent(ViewManager.getInstance().get("bubblechart"));
-    }
-
-    @FXML
-    private void lineChart(){
-        title.setText("LineChart");
-        body.setContent(ViewManager.getInstance().get("linechart"));
-    }
-
-    @FXML
-    private void tableView(){
-        title.setText("TableView");
-        body.setContent(ViewManager.getInstance().get("tableview"));
-    }
-
-    @FXML
-    private void scrollBar(){
-        title.setText("ScrollBar");
-        body.setContent(ViewManager.getInstance().get("scrollbar"));
-    }
-
-    @FXML
-    private void treeTableView(){
-        title.setText("TreeTableView");
-        body.setContent(ViewManager.getInstance().get("treetableview"));
-    }
-
-    @FXML
-    private void textArea(){
-        title.setText("TextArea");
-        body.setContent(ViewManager.getInstance().get("text-area"));
-    }
-
-    @FXML
-    private void treeView(){
-        title.setText("TreeView");
-        body.setContent(ViewManager.getInstance().get("treeview"));
-    }
-
-    @FXML
-    private void animateButtons(){
-//        title.setText("Animated Button");
-//        body.setContent(ViewManager.getInstance().get("animated-button"));
-
-
-    }
 
     @FXML
     private void btnProdMng(){
@@ -654,6 +450,7 @@ public class Main implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/view/prodSupView.fxml"));
             body.setContent(root);
             title.setText("Product & Supplier Management");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -702,12 +499,6 @@ public class Main implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    private void alerts(){
-        title.setText("Alerts");
-        body.setContent(ViewManager.getInstance().get("alerts"));
     }
 
     private PopOver pop = new PopOver();

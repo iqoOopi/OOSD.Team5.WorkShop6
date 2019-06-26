@@ -72,6 +72,16 @@ public class App extends Application {
         float total = 43; // the difference represents the views not loaded
         increment = 100f / total;
 
+        loadCusViews("Agents");
+        loadCusViews("prodSupView");
+        loadCusViews("bookings_view");
+        loadCusViews("Customers");
+        loadCusViews("package");
+
+
+
+
+
 //        load("jfoenix", "jfx-text-field");
 //
 //        load("designer", "cards");
@@ -236,6 +246,18 @@ public class App extends Application {
             ViewManager.getInstance().put(
                     name,
                     FXMLLoader.load(getClass().getResource("/com/gn/module/" + module + "/" + name + ".fxml"))
+            );
+            preloaderNotify();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCusViews(String name){
+        try {
+            ViewManager.getInstance().put(
+                    name,
+                    FXMLLoader.load(getClass().getResource("/view/" + name + ".fxml"))
             );
             preloaderNotify();
         } catch (IOException e) {

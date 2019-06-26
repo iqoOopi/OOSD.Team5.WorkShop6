@@ -132,7 +132,7 @@
                              <content>
                                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0">
                                     <children>
-                                       <Button mnemonicParsing="false" onAction="#btnProdMng" prefHeight="50.0" prefWidth="547.0" styleClass="drawer-item" text="Products and Suppliers" />
+                                       <Button mnemonicParsing="false" onMouseClicked="#btnProdMng" prefHeight="50.0" prefWidth="547.0" styleClass="drawer-item" text="Products and Suppliers" />
                                        <Button mnemonicParsing="false" onAction="#btnCustomerMng" prefHeight="50.0" prefWidth="547.0" styleClass="drawer-item" text="Customers" />
                                        <Button mnemonicParsing="false" onAction="#btnAgentsMng" prefHeight="50.0" prefWidth="547.0" styleClass="drawer-item" text="Agents" />
                                        <Button mnemonicParsing="false" onAction="#btnPackageMng" prefHeight="50.0" prefWidth="547.0" styleClass="drawer-item" text="Packages" />
