@@ -1,7 +1,6 @@
+//package controller;
 package controller;
 
-import dao.BookingDetailsDAO;
-import dao.BookingsDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,22 +9,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import entity.Bookings;
-import entity.BookingDetails;
-
-
 
 
 public class BookingController {
@@ -61,6 +54,8 @@ public class BookingController {
     private TableColumn<Bookings, Integer>colCusId;
     @FXML
     private TableColumn<Bookings, String>colTripTypeId;
+    @FXML
+    private TableColumn<Bookings,Integer>colPackageId;
 
 
     //for BookingDetails table
@@ -74,16 +69,10 @@ public class BookingController {
     private TableColumn<BookingDetails, LocalDate> colTripStart;
     @FXML
     private TableColumn<BookingDetails, LocalDate> colTripEnd;
-    //    @FXML
-//    private TableColumn<BookingDetails, String> colDescription;
-//    @FXML
-//    private TableColumn<BookingDetails, String> colDestination;
-//    @FXML
-//    private TableColumn<BookingDetails, Double> colBasePrice;
+
     @FXML
     private TextField agencyCommission;
-//    @FXML
-//    private TableColumn<BookingDetails,Integer> colBookinggId;
+
     @FXML
     private TableColumn<BookingDetails, String> colRegionId;
     @FXML
@@ -92,7 +81,8 @@ public class BookingController {
     private TableColumn<BookingDetails,String> colFeeId;
     @FXML
     private TableColumn<BookingDetails, Integer> colProdSupId;
-
+    @FXML
+    private SplitPane pkgPane;
 
     //interactables: eg buttons,
 
@@ -102,6 +92,43 @@ public class BookingController {
     @FXML
     private SplitPane sp;
 
+
+    ///for package interactions
+    @FXML
+    private TableView<Package> packageTableView;
+    @FXML
+    private TableColumn<Package, String> colPkgDes;
+    @FXML
+    private TableColumn<Package,String> colPkgName;
+    @FXML
+    private TableColumn<Package,LocalDate> colSDate;
+    @FXML
+    private TableColumn<Package,LocalDate> colEDate;
+    @FXML
+    private TableColumn<Package,Integer> colPkgId;
+    @FXML
+    private TableColumn<Package,Double> colPkgPrice;
+    @FXML
+    private TextArea description;
+    @FXML
+    private TextField destination;
+    @FXML
+    private TextField basePrice;
+    @FXML
+    private Pane sideMenu;
+    @FXML
+    private SplitPane sideMenuContainer;
+    //on change package button
+    @FXML
+    private Button btnChangePkg;
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private Button btnSavePkgChange;
+    @FXML
+    private TextField tfPkgId;
+
+
     @FXML
     void initialize ()
     {
@@ -109,9 +136,17 @@ public class BookingController {
 
         loadBookings();
         loadBookingDetails();
+        loadPackagefrBK();
+
         tvBookingDetails.setVisible(false);
         sp.setDividerPositions(1);
         sideMenu.setVisible(false);
+
+
+        //set cancel  and save button invisible
+
+        btnCancel.setVisible(false);
+        btnSavePkgChange.setVisible(false);
     }
 
     @FXML
@@ -123,7 +158,7 @@ public class BookingController {
         colCusId.setCellValueFactory(cellData->cellData.getValue().customerIdProperty().asObject());
         colTravelerCount.setCellValueFactory(cellData->cellData.getValue().travelerCountProperty().asObject());
         colTripTypeId.setCellValueFactory(cellData->cellData.getValue().tripTypeIdProperty());
-
+        colPackageId.setCellValueFactory(cellData->cellData.getValue().packageIdProperty().asObject());
     }
 
     @FXML
@@ -133,11 +168,7 @@ public class BookingController {
         colItineraryNo.setCellValueFactory(cellData->cellData.getValue().itineraryNoProperty().asObject());
         colTripStart.setCellValueFactory(cellData->cellData.getValue().tripStartProperty());
         colTripEnd.setCellValueFactory(cellData->cellData.getValue().tripEndProperty());
-//        colDescription.setCellValueFactory(cellData->cellData.getValue().descriptionProperty());
-//        colDestination.setCellValueFactory(cellData->cellData.getValue().descriptionProperty());
-//        colBasePrice.setCellValueFactory(cellData->cellData.getValue().basePriceProperty().asObject());
-//        colAgencyCommission.setCellValueFactory(cellData->cellData.getValue().agencyCommissionProperty().asObject());
-//        colBookinggId.setCellValueFactory(cellData->cellData.getValue().bookinggIdProperty().asObject());
+
         colRegionId.setCellValueFactory(cellData->cellData.getValue().regionIdProperty());
         colFeeId.setCellValueFactory(cellData->cellData.getValue().feeIdProperty());
         colProdSupId.setCellValueFactory(cellData->cellData.getValue().productSupplierIdProperty().asObject());
@@ -189,18 +220,6 @@ public class BookingController {
     }
 
     //adding funcitons to buttons
-
-    @FXML
-    private TextArea description;
-    @FXML
-    private TextField destination;
-    @FXML
-    private TextField basePrice;
-    @FXML
-    private Pane sideMenu;
-    @FXML
-    private SplitPane sideMenuContainer;
-
     @FXML
     public void showDetails () //on submit button click function
     {
@@ -223,6 +242,77 @@ public class BookingController {
         fillingBookingDetailsTable();
     }
 
+    //load package
+
+    public void loadPackagefrBK()
+    {
+        PackagesDAO pkgDao = new PackagesDAO();
+        ObservableList<Package> pkgList = pkgDao.getAllPackages();
+        packageTableView.setItems(pkgList);
+        pkgPane.setDividerPositions(1);
+        packageTableView.setVisible(false);
+    }
+
+    //pupulate table
+    //for change package id button
+    @FXML
+    public void fillPkgTable()
+    {
+        btnSavePkgChange.setVisible(true);
+        btnCancel.setVisible(true);
+        pkgPane.setDividerPositions(0.57);
+        PackagesDAO pkgDao = new PackagesDAO();
+        ObservableList<Package> pkgLst = pkgDao.getAllPackages();
+        packageTableView.setItems(pkgLst);
+        packageTableView.setVisible(true);
+
+        colPkgDes.setCellValueFactory(cellData-> cellData.getValue().pkgDescProperty());
+        colPkgName.setCellValueFactory(cellData-> cellData.getValue().pkgNameProperty());
+        colSDate.setCellValueFactory(cellData->cellData.getValue().pkgStartDateProperty());
+        colEDate.setCellValueFactory(cellData->cellData.getValue().pkgEndDateProperty());
+        colPkgId.setCellValueFactory(cellData->cellData.getValue().packageIdProperty().asObject());
+        colPkgPrice.setCellValueFactory(cellData->cellData.getValue().pkgBasePriceProperty().asObject());
+    }
+
+    @FXML
+    public void getSelectedPkgId() {
+
+        //grab id from selected row from package table
+        packageTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+
+                tfPkgId.setText(Integer.toString((packageTableView.getSelectionModel().getSelectedItem().getPackageId())));
+            }
+        });
+
+
+    }
+
+    //update bookings table: package id changed
+    //for save button
+    BookingsDAO bkDao = new BookingsDAO();
+    @FXML
+    public void updatePkgChange()
+    {
+        int bkId = Integer.parseInt(txtBookingId.getText());
+        bkDao.updateBookings(tfPkgId.getText(),bkId);
+        loadBookings();
+        tvBookings.refresh();
+
+    }
+
+    //for cancel button
+    @FXML
+    public void cancelChange()
+    {
+        sideMenu.setVisible(false);
+    }
+
+    ////---------------------------------------------------------------------------------------------------
+        //beta phase
+
     @FXML
     private Button goMenu;
     @FXML
@@ -230,7 +320,7 @@ public class BookingController {
     //go to main menu
     @FXML
     public void goToMenu(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("../view/sample.fxml"));
 
     }
     //go to prodsupview
@@ -238,5 +328,7 @@ public class BookingController {
     public void  goToProdSup(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/prodSupView.fxml"));
     }
+
+
 
 }

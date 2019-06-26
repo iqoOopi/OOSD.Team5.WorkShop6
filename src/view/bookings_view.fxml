@@ -26,26 +26,48 @@
                         <TableColumn fx:id="colTravelerCount" prefWidth="118.0" text="Traveler Count" />
                         <TableColumn fx:id="colCusId" prefWidth="94.0" text="CustomerID" />
                         <TableColumn fx:id="colTripTypeId" prefWidth="117.0" text="Trip Type ID" />
+                        <TableColumn fx:id="colPackageId" prefWidth="117.0" text="Package ID" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
           <AnchorPane fx:id="aPaneDetails" minHeight="0.0" minWidth="0.0" prefHeight="177.0" prefWidth="737.0">
                <children>
-                  <TableView fx:id="tvBookingDetails" layoutY="54.0" prefHeight="156.0" prefWidth="993.0" AnchorPane.topAnchor="54.0">
-                    <columns>
-                      <TableColumn fx:id="colBookingDetailsId" prefWidth="135.0" text="Booking Detail ID" />
-                      <TableColumn fx:id="colItineraryNo" minWidth="0.0" prefWidth="87.0" text="ItenaryNo." />
-                        <TableColumn fx:id="colTripStart" minWidth="0.0" prefWidth="90.0" text="TripStart" />
-                        <TableColumn fx:id="colTripEnd" prefWidth="94.0" text="TripEnd" />
-                        <TableColumn fx:id="colRegionId" minWidth="0.0" prefWidth="98.0" text="RegionID " />
-                        <TableColumn fx:id="colClassId" prefWidth="84.0" text="Class ID" />
-                        <TableColumn fx:id="colFeeId" prefWidth="78.0" text="FeeID" />
-                        <TableColumn fx:id="colProdSupId" prefWidth="195.0" text="Product Supplier ID" />
-                    </columns>
-                  </TableView>
-                  <Pane layoutY="216.0" prefHeight="75.0" prefWidth="989.0" />
-                  <Label layoutX="34.0" layoutY="14.0" prefHeight="40.0" prefWidth="152.0" text="Booking Description:" AnchorPane.topAnchor="2.0" />
+                  <SplitPane fx:id="pkgPane" dividerPositions="0.5791245791245792" orientation="VERTICAL" prefHeight="299.0" prefWidth="994.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="tvBookingDetails" layoutY="42.0" onMouseClicked="#getSelectedPkgId" prefHeight="131.0" prefWidth="993.0" AnchorPane.topAnchor="42.0">
+                                <columns>
+                                  <TableColumn fx:id="colBookingDetailsId" prefWidth="135.0" text="Booking Detail ID" />
+                                  <TableColumn fx:id="colItineraryNo" minWidth="0.0" prefWidth="87.0" text="ItenaryNo." />
+                                    <TableColumn fx:id="colTripStart" minWidth="0.0" prefWidth="90.0" text="TripStart" />
+                                    <TableColumn fx:id="colTripEnd" prefWidth="94.0" text="TripEnd" />
+                                    <TableColumn fx:id="colRegionId" minWidth="0.0" prefWidth="98.0" text="RegionID " />
+                                    <TableColumn fx:id="colClassId" prefWidth="84.0" text="Class ID" />
+                                    <TableColumn fx:id="colFeeId" prefWidth="78.0" text="FeeID" />
+                                    <TableColumn fx:id="colProdSupId" prefWidth="195.0" text="Product Supplier ID" />
+                                </columns>
+                              </TableView>
+                              <Label prefHeight="40.0" prefWidth="152.0" text="Booking Description:" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="packageTableView" onMouseClicked="#getSelectedPkgId" prefHeight="200.0" prefWidth="989.0">
+                                <columns>
+                                  <TableColumn fx:id="colPkgId" prefWidth="88.0" text="Package Id" />
+                                  <TableColumn fx:id="colPkgName" minWidth="5.0" prefWidth="188.0" text="Package Name" />
+                                    <TableColumn fx:id="colSDate" minWidth="5.0" prefWidth="102.0" text="Start Date" />
+                                    <TableColumn fx:id="colEDate" minWidth="5.0" prefWidth="102.0" text="End Date" />
+                                    <TableColumn fx:id="colPkgDes" minWidth="5.0" prefWidth="363.0" text="Description" />
+                                    <TableColumn fx:id="colPkgPrice" minWidth="5.0" prefWidth="145.0" text="Price" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
             </AnchorPane>
         </items>
@@ -71,18 +93,22 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="201.0">
                <children>
-                  <Pane fx:id="sideMenu" prefHeight="381.0" prefWidth="200.0">
+                  <Pane fx:id="sideMenu" prefHeight="410.0" prefWidth="200.0">
                      <children>
                         <TextField fx:id="basePrice" layoutX="99.0" layoutY="14.0" prefHeight="31.0" prefWidth="92.0" />
                         <TextField fx:id="agencyCommission" layoutX="99.0" layoutY="52.0" prefHeight="31.0" prefWidth="92.0" />
                         <TextField fx:id="destination" layoutX="97.0" layoutY="89.0" prefHeight="31.0" prefWidth="91.0" />
-                        <TextArea fx:id="description" layoutX="16.0" layoutY="163.0" prefHeight="96.0" prefWidth="166.0" />
+                        <TextArea fx:id="description" layoutX="17.0" layoutY="192.0" prefHeight="74.0" prefWidth="166.0" />
                         <Label layoutX="10.0" layoutY="94.0" text="Destination:" />
                         <Label layoutX="10.0" layoutY="57.0" text="Commission:" />
                         <Label layoutX="10.0" layoutY="19.0" text="Base Price:" />
-                        <Label layoutX="16.0" layoutY="142.0" text="Description:" />
-                        <Button fx:id="goProdSup" layoutX="20.0" layoutY="297.0" mnemonicParsing="false" onAction="#goToProdSup" text="See Prod. Suppliers" />
-                        <Button fx:id="goMenu" layoutX="20.0" layoutY="336.0" mnemonicParsing="false" onAction="#goToMenu" text="Menu" />
+                        <Label layoutX="16.0" layoutY="171.0" text="Description:" />
+                        <Button fx:id="goMenu" layoutX="100.0" layoutY="367.0" mnemonicParsing="false" onAction="#goToMenu" text="Menu" />
+                        <TextField fx:id="tfPkgId" layoutX="97.0" layoutY="127.0" prefHeight="31.0" prefWidth="91.0" />
+                        <Label layoutX="13.0" layoutY="132.0" text="Package Id:" />
+                        <Button fx:id="btnChangePkg" layoutX="21.0" layoutY="289.0" mnemonicParsing="false" onAction="#fillPkgTable" text="Change Package" />
+                        <Button fx:id="btnCancel" layoutX="20.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelChange" prefHeight="31.0" prefWidth="75.0" text="Cancel" />
+                        <Button fx:id="btnSavePkgChange" layoutX="100.0" layoutY="328.0" mnemonicParsing="false" onAction="#updatePkgChange" prefHeight="31.0" prefWidth="57.0" text="Save" />
                      </children>
                   </Pane>
                </children></AnchorPane>
