@@ -1,13 +1,11 @@
+//package dao;
 package dao;
 
 import entity.Bookings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class BookingsDAO {
 
@@ -46,6 +44,21 @@ public class BookingsDAO {
 
         return lstBookings;
 
+    }
+
+    //save updated package
+    public void updateBookings (String pkgId, Integer bkId)
+    {
+        String sql = "UPDATE bookings SET packageId=? WHERE bookingId=?";
+        try(Connection conn = DBHelper.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql))
+        {
+            pstmt.setInt(1,Integer.parseInt(pkgId));
+            pstmt.setInt(2,bkId);
+            pstmt.execute();
+            System.out.println(Integer.toString(bkId) + " " + pkgId);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"Can't Update Package");
+        }
     }
 
 
